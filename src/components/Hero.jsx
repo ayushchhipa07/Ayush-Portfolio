@@ -1,15 +1,7 @@
 import { motion } from 'framer-motion';
 import { FaArrowRight, FaDownload, FaGithub, FaLinkedin } from 'react-icons/fa';
-import { HiCode, HiDatabase, HiGlobe, HiServer } from 'react-icons/hi';
 
 const Hero = () => {
-  const floatingIcons = [
-    { icon: HiCode, delay: 0, position: 'top-20 left-20' },
-    { icon: HiServer, delay: 1, position: 'top-40 right-20' },
-    { icon: HiDatabase, delay: 2, position: 'bottom-40 left-10' },
-    { icon: HiGlobe, delay: 3, position: 'bottom-20 right-10' },
-  ];
-
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
@@ -56,11 +48,10 @@ const Hero = () => {
             <span className="text-primary-text">Hi, I'm </span>
             <span className="bg-gradient-to-r from-brand-accent via-neon-purple to-neon-cyan bg-clip-text text-transparent">Ayush Chhipa</span>
           </motion.h1>
-
-          <motion.p variants={itemVariants} className="text-xl sm:text-2xl text-secondary-text mb-6 max-w-2xl mx-auto">
+          <motion.p variants={itemVariants} className="text-xl sm:text-2xl text-secondary-text mb-6">
             Building scalable web apps and thoughtful product experiences.
           </motion.p>
-          <motion.p variants={itemVariants} className="text-secondary-text leading-relaxed mb-8 max-w-2xl mx-auto">
+          <motion.p variants={itemVariants} className="text-secondary-text leading-relaxed mb-8 max-w-xl">
             Full‑stack developer specializing in React, Node.js and modern PHP frameworks. I craft performant, accessible interfaces and reliable backends.
           </motion.p>
 

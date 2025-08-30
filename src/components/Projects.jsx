@@ -1,6 +1,5 @@
 import { motion } from 'framer-motion';
 import { FaCode, FaExternalLinkAlt, FaGithub, FaGlobe } from 'react-icons/fa';
-import { HiCode, HiGlobe, HiServer } from 'react-icons/hi';
 
 const Projects = () => {
   const projects = [
@@ -9,7 +8,6 @@ const Projects = () => {
       subtitle: 'Task Management & Professional Services Platform',
       description: 'A comprehensive web-based application designed to streamline day-to-day activity tracking for businesses and provide support for professionals like CS and CA.',
       longDescription: 'Developed a full-stack web application using PHP and CodeIgniter framework. The platform features user authentication, task management, document handling, and professional service coordination. Implemented responsive design and optimized database queries for better performance.',
-      github: '#',
       live: 'https://complyrelax.com',
       tags: ['PHP', 'CodeIgniter', 'MySQL', 'JavaScript', 'HTML/CSS', 'Bootstrap'],
       features: [
@@ -20,7 +18,7 @@ const Projects = () => {
         'Responsive Web Design',
         'Database Optimization'
       ],
-      icon: HiGlobe,
+      icon: '/complyrelax.png',
       color: 'text-brand-accent',
       image: '/complyrelax-preview.jpg'
     },
@@ -29,7 +27,7 @@ const Projects = () => {
       subtitle: 'Modern React Portfolio',
       description: 'A modern, responsive portfolio website built with React and Tailwind CSS, featuring smooth animations and interactive elements.',
       longDescription: 'Developed a personal portfolio website showcasing professional experience, skills, and projects. Features include smooth scroll animations, interactive components, and mobile-responsive design.',
-      github: 'https://github.com/yourusername/portfolio',
+      github: 'https://github.com/ayushchhipa07/Ayush-Portfolio',
       live: '#',
       tags: ['React', 'Tailwind CSS', 'Framer Motion', 'JavaScript', 'Vite'],
       features: [
@@ -40,29 +38,9 @@ const Projects = () => {
         'Performance Optimized',
         'SEO Friendly'
       ],
-      icon: HiCode,
+      icon: '/Icon.svg',
       color: 'text-brand-secondary',
       image: '/portfolio-preview.jpg'
-    },
-    {
-      title: 'E-Commerce Platform',
-      subtitle: 'Online Shopping Solution',
-      description: 'A full-featured e-commerce platform with product management, shopping cart, and payment integration.',
-      longDescription: 'Built a complete e-commerce solution with admin panel, product catalog, user management, and payment gateway integration. Features include inventory management, order tracking, and analytics dashboard.',
-      github: '#',
-      live: '#',
-      tags: ['PHP', 'MySQL', 'JavaScript', 'jQuery', 'Bootstrap', 'PayPal API'],
-      features: [
-        'Product Management',
-        'Shopping Cart System',
-        'Payment Integration',
-        'Admin Dashboard',
-        'Inventory Management',
-        'Order Tracking'
-      ],
-      icon: HiServer,
-      color: 'text-light-text',
-      image: '/ecommerce-preview.jpg'
     }
   ];
 
@@ -80,14 +58,15 @@ const Projects = () => {
   };
 
   return (
-    <div className="min-h-screen bg-dark-secondary pb-10 pt-10 px-4 relative overflow-hidden">
+    <div className="min-h-screen bg-dark-bg pt-5 px-4 relative overflow-hidden">
       {/* Background Elements */}
       <div className="absolute inset-0">
-        <div className="absolute top-20 left-20 w-32 h-32 bg-brand-accent/10 rounded-full blur-3xl"></div>
-        <div className="absolute bottom-20 right-20 w-40 h-40 bg-brand-secondary/10 rounded-full blur-3xl"></div>
+        <div className="absolute inset-0 bg-gradient-radial from-brand-accent/10 via-transparent to-transparent"></div>
+        <div className="absolute top-20 left-20 w-32 h-32 bg-brand-accent/15 rounded-full blur-3xl"></div>
+        <div className="absolute bottom-20 right-20 w-40 h-40 bg-brand-secondary/15 rounded-full blur-3xl"></div>
       </div>
 
-      <div className="max-w-7xl mx-auto relative z-10">
+      <div className="max-w-6xl mx-auto relative z-10">
         {/* Section Header */}
         <motion.div
           initial={{ opacity: 0, y: 50 }}
@@ -96,15 +75,6 @@ const Projects = () => {
           transition={{ duration: 0.8 }}
           className="text-center mb-16"
         >
-          <motion.span
-            className="inline-block px-4 py-2 bg-gradient-to-r from-brand-accent/20 to-brand-secondary/20 rounded-full text-brand-accent font-medium text-sm border border-brand-accent/30 mb-4"
-            initial={{ scale: 0 }}
-            whileInView={{ scale: 1 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.2 }}
-          >
-            Featured Work
-          </motion.span>
           <h2 className="text-4xl md:text-5xl font-bold text-primary-text mb-6">
             My <span className="bg-gradient-to-r from-brand-accent to-brand-secondary bg-clip-text text-transparent">Projects</span>
           </h2>
@@ -113,7 +83,7 @@ const Projects = () => {
           </p>
         </motion.div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
           {projects.map((project, index) => (
             <motion.div
               key={index}
@@ -123,12 +93,16 @@ const Projects = () => {
               viewport={{ once: true, amount: 0.3 }}
               className="group"
             >
-              <div className="bg-dark-card/50 backdrop-blur-sm border border-white/10 rounded-2xl overflow-hidden hover:border-brand-accent/30 transition-all duration-300 h-full">
+              <div className="rounded-2xl border border-white/10 bg-gradient-to-br from-white/[0.08] to-white/[0.02] backdrop-blur-xl shadow-2xl overflow-hidden hover:border-brand-accent/30 transition-all duration-300 h-full">
                 {/* Project Header */}
                 <div className="p-6 border-b border-white/10">
                   <div className="flex items-center mb-4">
                     <div className={`p-3 rounded-xl bg-gradient-to-r from-brand-accent/20 to-brand-secondary/20 border border-brand-accent/30 mr-4`}>
-                      <project.icon className={`text-2xl ${project.color}`} />
+                      <img 
+                        src={project.icon} 
+                        alt={`${project.title} icon`}
+                        className="w-8 h-8 object-contain"
+                      />
                     </div>
                     <div>
                       <h3 className="text-xl font-bold text-primary-text mb-1">{project.title}</h3>
@@ -145,7 +119,7 @@ const Projects = () => {
                     {project.tags.map((tag) => (
                       <span
                         key={tag}
-                        className="px-3 py-1 bg-brand-accent/10 border border-brand-accent/20 rounded-full text-xs text-brand-accent font-medium"
+                        className="px-3 py-1 bg-white/5 border border-white/10 rounded-full text-xs text-primary-text/90 font-medium hover:border-brand-accent/40 transition-colors"
                       >
                         {tag}
                       </span>
@@ -171,21 +145,23 @@ const Projects = () => {
                   {/* Action Buttons */}
                   <div className="flex justify-between items-center pt-4 border-t border-white/10">
                     <div className="flex space-x-3">
-                      <motion.a
-                        href={project.github}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="p-2 bg-dark-bg/50 rounded-lg text-secondary-text hover:text-brand-accent hover:bg-brand-accent/10 transition-all duration-300"
-                        whileHover={{ scale: 1.1 }}
-                        whileTap={{ scale: 0.9 }}
-                      >
-                        <FaGithub size={18} />
-                      </motion.a>
+                      {project.github && (
+                        <motion.a
+                          href={project.github}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="p-2 bg-white/5 rounded-lg text-secondary-text hover:text-brand-accent hover:bg-brand-accent/10 transition-all duration-300"
+                          whileHover={{ scale: 1.1 }}
+                          whileTap={{ scale: 0.9 }}
+                        >
+                          <FaGithub size={18} />
+                        </motion.a>
+                      )}
                       <motion.a
                         href={project.live}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="p-2 bg-dark-bg/50 rounded-lg text-secondary-text hover:text-brand-accent hover:bg-brand-accent/10 transition-all duration-300"
+                        className="p-2 bg-white/5 rounded-lg text-secondary-text hover:text-brand-accent hover:bg-brand-accent/10 transition-all duration-300"
                         whileHover={{ scale: 1.1 }}
                         whileTap={{ scale: 0.9 }}
                       >
@@ -214,7 +190,7 @@ const Projects = () => {
           transition={{ duration: 0.8, delay: 0.4 }}
           className="text-center mt-16"
         >
-          <div className="bg-gradient-to-r from-brand-accent/10 to-brand-secondary/10 border border-brand-accent/20 rounded-2xl p-8">
+          <div className="rounded-2xl border border-white/10 bg-gradient-to-br from-white/[0.08] to-white/[0.02] backdrop-blur-xl shadow-2xl p-8">
             <h3 className="text-2xl font-bold text-primary-text mb-4">
               Ready to Start Your Next Project?
             </h3>

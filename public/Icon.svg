@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 64 64">
+  <rect width="64" height="64" rx="12" fill="#545353"/>
+  <g transform="translate(12,12)">
+    <!-- cube faces -->
+    <polygon points="20,0 44,10 44,34 20,24" fill="#545353"/>
+    <polygon points="20,24 44,34 20,44 0,34" fill="#545353"/>
+    <polygon points="0,12 20,0 20,24 0,34" fill="#545353"/>
+    <!-- engraved AC (negative) -->
+    <g fill="#fff" font-family="Poppins, Inter, sans-serif" font-weight="900" text-anchor="middle">
+      <text x="20" y="30" font-size="30">AC</text>
+      <!-- subtle top highlight to sell depth -->
+      <path d="M4 8 L36 0" stroke="#2e3742" stroke-width="0.6" opacity="0.45"/>
+    </g>
+  </g>
+</svg>

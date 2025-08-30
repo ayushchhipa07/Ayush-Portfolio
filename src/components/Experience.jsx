@@ -21,7 +21,7 @@ const Experience = () => {
   ];
 
   return (
-    <div className="relative pb-10 pt-10 px-4 bg-dark-bg overflow-hidden">
+    <div className="relative pb-5 pt-4 px-4 bg-dark-bg overflow-hidden">
       {/* Enhanced background with animated elements */}
       <div className="absolute inset-0 pointer-events-none">
         <div className="absolute -top-24 right-10 h-72 w-72 rounded-full bg-gradient-to-br from-brand-accent/25 to-brand-secondary/15 blur-3xl animate-pulse"></div>
@@ -129,38 +129,6 @@ const Experience = () => {
             </div>
           </div>
         </motion.div>
-
-        {/* Technologies section with enhanced badges */}
-        {/* <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6, delay: 0.2 }}
-          className="mt-16"
-        >
-          <h3 className="text-2xl font-bold text-center text-primary-text mb-8">
-            Technologies I Worked With
-          </h3>
-          <div className="flex flex-wrap justify-center gap-3 md:gap-4">
-            {techBadges.map((tech, index) => (
-              <motion.span
-                key={tech.name}
-                initial={{ opacity: 0, y: 20, scale: 0.8 }}
-                whileInView={{ opacity: 1, y: 0, scale: 1 }}
-                viewport={{ once: true }}
-                transition={{ delay: 0.1 + index * 0.05 }}
-                whileHover={{ 
-                  scale: 1.05, 
-                  y: -2,
-                  boxShadow: '0 10px 25px -5px rgba(0, 0, 0, 0.3)'
-                }}
-                className={`px-4 py-2 rounded-full text-sm font-medium text-white bg-gradient-to-r ${tech.color} border border-white/20 hover:border-white/40 transition-all duration-300 shadow-lg`}
-              >
-                {tech.name}
-              </motion.span>
-            ))}
-          </div>
-        </motion.div> */}
       </div>
     </div>
   );

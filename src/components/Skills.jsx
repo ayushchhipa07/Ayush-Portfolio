@@ -109,7 +109,7 @@ const Skills = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-dark-bg py-20 px-4 relative overflow-hidden">
+    <div className="min-h-screen bg-dark-bg pt-10 px-4 relative overflow-hidden">
       {/* Background Elements */}
       <div className="absolute inset-0">
         <div className="absolute top-40 right-20 w-32 h-32 bg-brand-accent/10 rounded-full blur-3xl"></div>
@@ -124,16 +124,7 @@ const Skills = () => {
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
           className="text-center mb-16"
-        >
-          <motion.span
-            className="inline-block px-4 py-2 bg-gradient-to-r from-brand-accent/20 to-brand-secondary/20 rounded-full text-brand-accent font-medium text-sm border border-brand-accent/30 mb-4"
-            initial={{ scale: 0 }}
-            whileInView={{ scale: 1 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.2 }}
-          >
-            Technical Expertise
-          </motion.span>
+        > 
           <h2 className="text-4xl md:text-5xl font-bold text-primary-text mb-6">
             Skills & <span className="bg-gradient-to-r from-brand-accent to-brand-secondary bg-clip-text text-transparent">Technologies</span>
           </h2>

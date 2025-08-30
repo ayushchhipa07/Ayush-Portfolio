@@ -32,16 +32,7 @@ const About = () => {
           viewport={{ once: true }}
           transition={{ duration: 0.8 }}
           className="text-center mb-16"
-        >
-          <motion.span
-            className="inline-block px-4 py-2 bg-gradient-to-r from-brand-accent/20 to-brand-secondary/20 rounded-full text-brand-accent font-medium text-sm border border-brand-accent/30 mb-4"
-            initial={{ scale: 0 }}
-            whileInView={{ scale: 1 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.2 }}
-        >
-          About Me
-          </motion.span>
+        > 
           <h2 className="text-4xl md:text-5xl font-bold text-primary-text mb-6">
             Passionate <span className="bg-gradient-to-r from-brand-accent to-brand-secondary bg-clip-text text-transparent">Full Stack Developer</span>
           </h2>
@@ -155,7 +146,7 @@ const About = () => {
                   <p className="text-secondary-text text-sm">2021 - 2024</p>
                 </div>
                 <div className="border-l-4 border-brand-secondary pl-4">
-                  <h4 className="text-primary-text font-semibold">12th Grade (Arts)</h4>
+                  <h4 className="text-primary-text font-semibold">12th Grade</h4>
                   <p className="text-brand-secondary text-sm">RBSE Board Govt. Senior Secondary School</p>
                   <p className="text-secondary-text text-sm">2020 - 2021 • 79.20%</p>
                 </div>
