@@ -51,13 +51,13 @@ const Hero = () => {
           <motion.p variants={itemVariants} className="text-xl sm:text-2xl text-secondary-text mb-6">
             Building scalable web apps and thoughtful product experiences.
           </motion.p>
-          <motion.p variants={itemVariants} className="text-secondary-text leading-relaxed mb-8 max-w-xl">
-            Full‑stack developer specializing in React, Node.js and modern PHP frameworks. I craft performant, accessible interfaces and reliable backends.
+          <motion.p variants={itemVariants} className="text-secondary-text leading-relaxed mb-8 ">
+                      Full‑stack developer specializing in React, Node.js and modern PHP frameworks. I craft performant, accessible interfaces and reliable backends.
           </motion.p>
 
           {/* Skills as pill badges */}
           <motion.div variants={itemVariants} className="mb-8 md:mb-10 flex flex-wrap justify-center gap-2 md:gap-3">
-            {['React', 'Node.js', 'PHP', 'MySQL', 'Tailwind', 'Framer Motion'].map((tech, index) => (
+            {['React', 'Node.js', 'Express.js', 'PHP', 'MySQL', 'Tailwind'].map((tech, index) => (
               <motion.span
                 key={tech}
                 className="px-3 py-1.5 rounded-full text-xs md:text-sm text-primary-text/90 bg-white/[0.06] border border-white/10 hover:border-brand-accent/40 transition-colors"

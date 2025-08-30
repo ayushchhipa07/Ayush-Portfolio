@@ -5,7 +5,7 @@ import { HiAcademicCap, HiLightBulb, HiUserGroup } from 'react-icons/hi';
 const About = () => {
   const stats = [
     { icon: FaBriefcase, label: 'Years Experience', value: '2+', color: 'text-brand-accent' },
-    { icon: FaCode, label: 'Projects Completed', value: '10+', color: 'text-brand-secondary' },
+    { icon: FaCode, label: 'Projects Completed', value: '2+', color: 'text-brand-secondary' },
     { icon: FaGraduationCap, label: 'Education', value: 'BCA', color: 'text-light-text' },
     { icon: FaAward, label: 'Certifications', value: '3+', color: 'text-neon-cyan' },
   ];

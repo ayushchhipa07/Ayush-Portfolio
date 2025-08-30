@@ -6,7 +6,7 @@ const Projects = () => {
     {
       title: 'ComplyRelax',
       subtitle: 'Task Management & Professional Services Platform',
-      description: 'A comprehensive web-based application designed to streamline day-to-day activity tracking for businesses and provide support for professionals like CS and CA.',
+      description: "ComplyRelax is an AI-powered compliance and office management platform that helps professionals like CS and CA simplify corporate compliances, automate routine tasks, and boost productivity with a smart, centralized dashboard.",
       longDescription: 'Developed a full-stack web application using PHP and CodeIgniter framework. The platform features user authentication, task management, document handling, and professional service coordination. Implemented responsive design and optimized database queries for better performance.',
       live: 'https://complyrelax.com',
       tags: ['PHP', 'CodeIgniter', 'MySQL', 'JavaScript', 'HTML/CSS', 'Bootstrap'],
@@ -29,7 +29,7 @@ const Projects = () => {
       longDescription: 'Developed a personal portfolio website showcasing professional experience, skills, and projects. Features include smooth scroll animations, interactive components, and mobile-responsive design.',
       github: 'https://github.com/ayushchhipa07/Ayush-Portfolio',
       live: '#',
-      tags: ['React', 'Tailwind CSS', 'Framer Motion', 'JavaScript', 'Vite'],
+      tags: ['React', 'Tailwind CSS', 'Vite', 'Node.js', 'JavaScript'],
       features: [
         'Responsive Design',
         'Smooth Animations',
@@ -99,10 +99,20 @@ const Projects = () => {
                   <div className="flex items-center mb-4">
                     <div className={`p-3 rounded-xl bg-gradient-to-r from-brand-accent/20 to-brand-secondary/20 border border-brand-accent/30 mr-4`}>
                       <img 
-                        src={project.icon} 
+                        src="../../public/Icon.svg" 
                         alt={`${project.title} icon`}
                         className="w-8 h-8 object-contain"
+                        onError={(e) => {
+                          e.target.style.display = 'none';
+                          e.target.nextSibling.style.display = 'block';
+                        }}
                       />
+                      <div 
+                        className="w-8 h-8 hidden flex items-center justify-center text-brand-accent"
+                        style={{ display: 'none' }}
+                      >
+                        <FaCode size={30} />
+                      </div>
                     </div>
                     <div>
                       <h3 className="text-xl font-bold text-primary-text mb-1">{project.title}</h3>
@@ -168,13 +178,6 @@ const Projects = () => {
                         <FaExternalLinkAlt size={18} />
                       </motion.a>
                     </div>
-                    
-                    <motion.button
-                      className="text-sm text-brand-accent hover:text-brand-secondary transition-colors duration-300"
-                      whileHover={{ x: 5 }}
-                    >
-                      View Details →
-                    </motion.button>
                   </div>
                 </div>
               </div>
