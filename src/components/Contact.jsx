@@ -44,7 +44,7 @@ const Contact = () => {
     setToken(null);
 
     try {
-      const res = await axios.post(`${import.meta.env.VITE_API_URL}/api/contact`, formData);
+      const res = await axios.post("https://ayush-portfolio-1.onrender.com/api/contact", formData);
       if (res.data.success) {
         setStatus("✅ Submitted successfully!");
         setFormData({ name: "", email: "", message: "" });
