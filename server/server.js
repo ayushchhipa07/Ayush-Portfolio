@@ -6,7 +6,14 @@ import nodemailer from "nodemailer";
 dotenv.config();
 
 const app = express();
-app.use(cors());
+app.use(cors({
+  origin: "https://ayushchhipa-codes.onrender.com", 
+  methods: ["POST"],
+  allowedHeaders: ["Content-Type", "Authorization"]
+}));
+
+app.options("/api/contact", cors());
+
 app.use(express.json());
 
 // ✅ Route only for sending email
@@ -21,7 +28,10 @@ app.post("/api/contact", async (req, res) => {
     body: `response=${token}&secret=${secret}`,
   });
 
-    console.log("📩 Contact form data:", req.body); // debug
+  const captchaResult = await response.json();
+  if (!captchaResult.success) {
+    return res.status(400).json({ success: false, message: "Captcha verification failed ❌" });
+  }
 
     const transporter = nodemailer.createTransport({
         service: "gmail",
@@ -37,8 +47,6 @@ app.post("/api/contact", async (req, res) => {
       subject: "📩 New Contact Request",
       text: `Name: ${name}\nEmail: ${email}\nMessage: ${message}`,
     });
-
-    console.log("✅ Email sent:", info.response);
 
     res.status(200).json({ success: true, message: "Message sent successfully ✅" });
   } catch (error) {

@@ -39,12 +39,11 @@ const Contact = () => {
     }
     
     setStatus("Sending...");
-    console.log("Form submitted:", formData, token);
     captchaRef.current.resetCaptcha();
     setToken(null);
 
     try {
-      const res = await axios.post("https://ayush-portfolio-1.onrender.com/api/contact", formData);
+      const res = await axios.post("https://ayush-portfolio-1.onrender.com/api/contact", { ...formData, token });
       if (res.data.success) {
         setStatus("✅ Submitted successfully!");
         setFormData({ name: "", email: "", message: "" });

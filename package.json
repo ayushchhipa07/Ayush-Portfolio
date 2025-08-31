@@ -10,7 +10,7 @@
     "lint": "eslint .",
     "preview": "vite preview",
     "predeploy": "npm run build",
-     "deploy": "gh-pages -d dist"
+    "deploy": "gh-pages -d dist"
   },
   "dependencies": {
     "@hcaptcha/react-hcaptcha": "^1.12.1",
@@ -22,6 +22,7 @@
     "framer-motion": "^12.23.12",
     "lucide-react": "^0.541.0",
     "mongoose": "^8.18.0",
+    "node-fetch": "^3.3.2",
     "nodemailer": "^7.0.5",
     "react": "^19.1.1",
     "react-dom": "^19.1.1",
