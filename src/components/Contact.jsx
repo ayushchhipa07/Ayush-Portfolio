@@ -154,7 +154,7 @@ const Contact = () => {
               <div className="flex justify-center mb-6">
                 <div className="bg-white/5 border border-white/10 rounded-xl p-4">
                   <HCaptcha
-                    sitekey="ES_c19ee4bbd642454081502105356acf19"
+                    sitekey="7c388a76-d286-486a-8860-96d643ee6464"
                     onVerify={(token) => setToken(token)}
                     ref={captchaRef}
                   />
