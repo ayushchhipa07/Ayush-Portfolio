@@ -2,7 +2,15 @@ import HCaptcha from "@hcaptcha/react-hcaptcha";
 import axios from "axios";
 import { AnimatePresence, motion } from "framer-motion";
 import { useRef, useState } from "react";
-import { FaCheckCircle, FaChevronUp, FaEnvelope, FaExclamationTriangle, FaGithub, FaLinkedin, FaPaperPlane } from "react-icons/fa";
+import {
+  FaCheckCircle,
+  FaChevronUp,
+  FaEnvelope,
+  FaExclamationTriangle,
+  FaGithub,
+  FaLinkedin,
+  FaPaperPlane,
+} from "react-icons/fa";
 
 const Contact = () => {
   const [formData, setFormData] = useState({
@@ -25,7 +33,7 @@ const Contact = () => {
     setToastMessage(message);
     setToastType(type);
     setShowToast(true);
-    
+
     setTimeout(() => {
       setShowToast(false);
     }, 3000);
@@ -37,13 +45,16 @@ const Contact = () => {
       showToastNotification("⚠️ Please verify you are human!", "error");
       return;
     }
-    
+
     setStatus("Sending...");
     captchaRef.current.resetCaptcha();
     setToken(null);
 
     try {
-      const res = await axios.post("https://ayush-portfolio-1.onrender.com/api/contact", { ...formData, token });
+      const res = await axios.post(
+        "https://ayush-portfolio-1.onrender.com/api/contact",
+        { ...formData, token }
+      );
       if (res.data.success) {
         setStatus("✅ Submitted successfully!");
         setFormData({ name: "", email: "", message: "" });
@@ -55,7 +66,10 @@ const Contact = () => {
     } catch (err) {
       console.error(err);
       setStatus("❌ Something went wrong");
-      showToastNotification("❌ Failed to send message. Please try again.", "error");
+      showToastNotification(
+        "❌ Failed to send message. Please try again.",
+        "error"
+      );
     }
   };
 
@@ -63,7 +77,7 @@ const Contact = () => {
   const isError = status.startsWith("❌");
 
   return (
-    <div className="relative min-h-screen bg-dark-bg pt-14 px-4 overflow-hidden">
+    <div className="relative min-h-screen bg-white dark:bg-dark-bg text-black dark:text-white pt-14 px-4 overflow-hidden">
       {/* Background Elements */}
       <div className="absolute inset-0">
         <div className="absolute inset-0 bg-gradient-radial from-brand-accent/10 via-transparent to-transparent"></div>
@@ -71,16 +85,19 @@ const Contact = () => {
         <div className="absolute bottom-20 right-20 w-40 h-40 bg-brand-secondary/15 rounded-full blur-3xl"></div>
       </div>
 
-      <div className="relative z-10 max-w-6xl mx-auto w-full">
+      <div className="relative z-10 max-w-6xl mx-auto w-full ">
         {/* Heading */}
-        <motion.h2 
+        <motion.h2
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="text-4xl md:text-5xl font-bold text-center mb-16 text-primary-text"
+          className="text-4xl md:text-5xl font-bold text-center mb-16 text-gray-700 dark:text-white"
         >
-          <span className="bg-gradient-to-r from-brand-accent to-brand-secondary bg-clip-text text-transparent">Contact</span> Me
+          <span className="bg-gradient-to-r from-brand-accent to-brand-secondary bg-clip-text text-transparent">
+            Contact
+          </span>{" "}
+          Me
         </motion.h2>
 
         {/* Centered Form */}
@@ -91,15 +108,18 @@ const Contact = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
-            className="space-y-8 w-full max-w-2xl"
+            className="space-y-8 w-full max-w-2xl "
           >
             {/* Form Container with Glassmorphism */}
-            <div className="rounded-2xl border border-white/10 bg-gradient-to-br from-white/[0.08] to-white/[0.02] backdrop-blur-xl shadow-2xl p-8">
+            <div className="rounded-2xl border border-gray-300 dark:border-white/10 bg-gradient-to-br from-white/[0.08] to-white/[0.02] backdrop-blur-xl shadow-2xl p-8">
               {/* Name + Email in 2 columns */}
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
                 {/* Name */}
                 <div className="relative group">
-                  <label htmlFor="name" className="block text-sm font-medium text-secondary-text mb-2">
+                  <label
+                    htmlFor="name"
+                    className="block text-sm font-medium text-secondary-text mb-2"
+                  >
                     Your Name
                   </label>
                   <input
@@ -108,15 +128,29 @@ const Contact = () => {
                     placeholder="Enter your name"
                     value={formData.name}
                     onChange={handleChange}
-                    className="w-full bg-white/5 border border-white/10 text-primary-text placeholder-secondary-text/60 rounded-xl h-12 px-4 focus:outline-none focus:ring-2 focus:ring-brand-accent/50 focus:border-brand-accent/50 transition-all duration-300 group-hover:border-white/20"
+                    className="
+                          w-full 
+                          bg-gray-100 dark:bg-white/5
+                          border border-gray-300 dark:border-white/10
+                          text-gray-900 dark:text-primary-text
+                          placeholder-gray-500 dark:placeholder-secondary-text/60
+                          rounded-xl h-12 px-4
+                          focus:outline-none focus:ring-2 
+                          focus:ring-brand-accent/50 focus:border-brand-accent/50
+                          transition-all duration-300
+                        "
                     required
                   />
+
                   <div className="absolute inset-0 rounded-xl bg-gradient-to-r from-brand-accent/0 to-brand-secondary/0 group-hover:from-brand-accent/5 group-hover:to-brand-secondary/5 transition-all duration-300 pointer-events-none"></div>
                 </div>
 
                 {/* Email */}
                 <div className="relative group">
-                  <label htmlFor="email" className="block text-sm font-medium text-secondary-text mb-2">
+                  <label
+                    htmlFor="email"
+                    className="block text-sm font-medium text-secondary-text mb-2"
+                  >
                     Your Email
                   </label>
                   <input
@@ -125,16 +159,29 @@ const Contact = () => {
                     placeholder="Enter your email"
                     value={formData.email}
                     onChange={handleChange}
-                    className="w-full bg-white/5 border border-white/10 text-primary-text placeholder-secondary-text/60 rounded-xl h-12 px-4 focus:outline-none focus:ring-2 focus:ring-brand-accent/50 focus:border-brand-accent/50 transition-all duration-300 group-hover:border-white/20"
+                    className="
+                        w-full 
+                        bg-gray-100 dark:bg-white/5
+                        border border-gray-300 dark:border-white/10
+                        text-gray-900 dark:text-primary-text
+                        placeholder-gray-500 dark:placeholder-secondary-text/60
+                        rounded-xl h-12 px-4
+                        focus:outline-none focus:ring-2 
+                        focus:ring-brand-accent/50 focus:border-brand-accent/50
+                        transition-all duration-300"
                     required
                   />
+
                   <div className="absolute inset-0 rounded-xl bg-gradient-to-r from-brand-accent/0 to-brand-secondary/0 group-hover:from-brand-accent/5 group-hover:to-brand-secondary/5 transition-all duration-300 pointer-events-none"></div>
                 </div>
               </div>
 
               {/* Message */}
               <div className="relative group mb-6">
-                <label htmlFor="message" className="block text-sm font-medium text-secondary-text mb-2">
+                <label
+                  htmlFor="message"
+                  className="block text-sm font-medium text-secondary-text mb-2"
+                >
                   Your Message
                 </label>
                 <textarea
@@ -143,15 +190,27 @@ const Contact = () => {
                   placeholder="Tell me about your project or inquiry..."
                   value={formData.message}
                   onChange={handleChange}
-                  className="w-full bg-white/5 border border-white/10 text-primary-text placeholder-secondary-text/60 rounded-xl p-4 focus:outline-none focus:ring-2 focus:ring-brand-accent/50 focus:border-brand-accent/50 transition-all duration-300 group-hover:border-white/20 resize-none"
+                  className="
+                      w-full
+                      bg-gray-100 dark:bg-white/5
+                      border border-gray-300 dark:border-white/10
+                      text-gray-900 dark:text-primary-text
+                      placeholder-gray-500 dark:placeholder-secondary-text/60
+                      rounded-xl p-4
+                      focus:outline-none focus:ring-2 
+                      focus:ring-brand-accent/50 focus:border-brand-accent/50
+                      transition-all duration-300
+                      resize-none
+                    "
                   required
                 ></textarea>
+
                 <div className="absolute inset-0 rounded-xl bg-gradient-to-r from-brand-accent/0 to-brand-secondary/0 group-hover:from-brand-accent/5 group-hover:to-brand-secondary/5 transition-all duration-300 pointer-events-none"></div>
               </div>
 
               {/* hCaptcha */}
               <div className="flex justify-center mb-6">
-                <div className="bg-white/5 border border-white/10 rounded-xl p-4">
+                <div className="bg-white/5 rounded-2xl border border-gray-300 dark:border-white/10 p-4">
                   <HCaptcha
                     sitekey="7c388a76-d286-486a-8860-96d643ee6464"
                     onVerify={(token) => setToken(token)}
@@ -219,13 +278,13 @@ const Contact = () => {
 
       {/* Footer */}
       <div className="relative z-10 mt-10">
-        <hr className="max-w-6xl mx-auto border-white/10" />
+        <hr className="max-w-6xl mx-auto border border-gray-300 dark:border-white/10" />
         <div className="max-w-6xl mx-auto px-4 py-10">
           <div className="grid gap-8 md:grid-cols-3 items-start">
             <div className="flex md:justify-start gap-4">
               <a
                 href="mailto:ayushchhipa7@gmail.com"
-                className="p-3 rounded-xl bg-white/5 border border-white/10 hover:border-brand-accent/40 hover:text-light-text transition-all duration-300"
+                className="p-3 rounded-xl bg-white/5 border border-gray-500 dark:border-white/20 hover:border-brand-accent/40 hover:text-light-text transition-all duration-300"
               >
                 <FaEnvelope />
               </a>
@@ -233,7 +292,7 @@ const Contact = () => {
                 href="https://github.com/ayushchhipa07"
                 target="_blank"
                 rel="noreferrer"
-                className="p-3 rounded-xl bg-white/5 border border-white/10 hover:border-brand-accent/40 hover:text-light-text transition-all duration-300"
+                className="p-3 rounded-xl bg-white/5 border border-gray-500 dark:border-white/20 hover:border-brand-accent/40 hover:text-light-text transition-all duration-300"
               >
                 <FaGithub />
               </a>
@@ -241,17 +300,19 @@ const Contact = () => {
                 href="https://www.linkedin.com/in/ayush-chhipa/"
                 target="_blank"
                 rel="noreferrer"
-                className="p-3 rounded-xl bg-white/5 border border-white/10 hover:border-brand-accent/40 hover:text-light-text transition-all duration-300"
+                className="p-3 rounded-xl bg-white/5 border border-gray-500 dark:border-white/20 hover:border-brand-accent/40 hover:text-light-text transition-all duration-300"
               >
                 <FaLinkedin />
               </a>
             </div>
-            <span className="text-secondary-text text-center">Copyright © 2025 a portfolio website by Ayush.</span>
+            <span className="text-black dark:text-primary-text text-center">
+              Copyright © 2025 a portfolio website by Ayush.
+            </span>
             <div className="flex md:justify-end gap-4">
               {/* Scroll to Top */}
               <button
                 onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-                className="p-3 rounded-xl bg-white/5 border border-white/10 hover:border-brand-accent/40 hover:text-light-text transition-all duration-300"
+                className="p-3 rounded-xl bg-white/5 border border-gray-500 dark:border-white/20 hover:border-brand-accent/40 hover:text-light-text transition-all duration-300"
               >
                 <FaChevronUp />
               </button>

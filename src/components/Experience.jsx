@@ -21,7 +21,8 @@ const Experience = () => {
   ];
 
   return (
-    <div className="relative pb-5 pt-4 px-4 bg-dark-bg overflow-hidden">
+    <div className="relative pb-5 pt-4 px-4 bg-white dark:bg-dark-bg 
+    text-black dark:text-white overflow-hidden transition-colors duration-300">
       {/* Enhanced background with animated elements */}
       <div className="absolute inset-0 pointer-events-none">
         <div className="absolute -top-24 right-10 h-72 w-72 rounded-full bg-gradient-to-br from-brand-accent/25 to-brand-secondary/15 blur-3xl animate-pulse"></div>
@@ -35,7 +36,7 @@ const Experience = () => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="text-4xl md:text-5xl font-bold text-center mb-16 text-primary-text"
+          className="text-4xl md:text-5xl font-bold text-center mb-16 text-gray-700 dark:text-white"
         >
           Professional <span className="bg-gradient-to-r from-brand-accent to-brand-secondary bg-clip-text text-transparent">Experience</span>
         </motion.h2>
@@ -52,7 +53,11 @@ const Experience = () => {
           {/* Glowing border effect */}
           <div className="absolute -inset-1 bg-gradient-to-r from-brand-accent/20 via-brand-secondary/20 to-brand-accent/20 rounded-3xl blur opacity-0 group-hover:opacity-100 transition duration-500"></div>
           
-          <div className="relative rounded-3xl border border-white/10 bg-gradient-to-br from-white/[0.08] to-white/[0.02] backdrop-blur-xl shadow-2xl overflow-hidden">
+          <div className=" relative rounded-3xl 
+    border border-gray-300 dark:border-white/10 
+    bg-white dark:bg-white/[0.06]
+    backdrop-blur-xl shadow-lg dark:shadow-2xl overflow-hidden
+    transition-colors duration-300">
             {/* Header section */}
             <div className="relative p-8 md:p-10">
               <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-8">
@@ -61,9 +66,9 @@ const Experience = () => {
                     <div className="flex h-8 w-8 items-center justify-center rounded-full bg-gradient-to-r from-brand-accent to-brand-secondary text-white shadow-lg">
                       <FaBriefcase className="text-sm" />
                     </div>
-                    <span className="text-sm font-medium text-primary-text">Dec 2022 – Present</span>
+                    <span className="text-sm font-medium text-gray-700 dark:text-white">Dec 2022 – Present</span>
                   </div>
-                  <h3 className="text-3xl md:text-4xl font-bold text-primary-text mb-2">
+                  <h3 className="text-3xl md:text-4xl font-bold text-gray-700 dark:text-white mb-2">
                     Web Developer
                   </h3>
                   <p className="text-xl text-brand-accent font-semibold">Businessnow Private Limited</p>
@@ -79,7 +84,8 @@ const Experience = () => {
                       viewport={{ once: true }}
                       transition={{ delay: 0.2 + index * 0.1 }}
                       whileHover={{ scale: 1.1, rotate: 5 }}
-                      className="flex flex-col items-center gap-2 p-3 rounded-xl bg-white/5 border border-white/10 hover:border-brand-accent/30 transition-all"
+                      className="flex flex-col items-center gap-2 p-3 
+    rounded-xl hover:border-brand-accent/30 transition-all"
                     >
                       <achievement.icon className={`text-2xl ${achievement.color}`} />
                       <span className="text-xs text-secondary-text text-center">{achievement.text}</span>
@@ -91,7 +97,7 @@ const Experience = () => {
               {/* Work summary with enhanced styling */}
               <div className="grid md:grid-cols-2 gap-6">
                 <div className="space-y-4">
-                  <h4 className="text-lg font-semibold text-primary-text mb-4">Key Responsibilities</h4>
+                  <h4 className="text-lg font-semibold text-gray-700 dark:text-white mb-4">Key Responsibilities</h4>
                   <ul className="space-y-3">
                     <li className="flex items-start gap-3 text-secondary-text">
                       <div className="w-2 h-2 bg-brand-accent rounded-full mt-2 flex-shrink-0"></div>
@@ -113,7 +119,7 @@ const Experience = () => {
                   </ul>
                 </div>
                 <div className="space-y-4">
-                  <h4 className="text-lg font-semibold text-primary-text mb-4">Technical Achievements</h4>
+                  <h4 className="text-lg font-semibold text-gray-700 dark:text-white mb-4">Technical Achievements</h4>
                   <ul className="space-y-3">
                     <li className="flex items-start gap-3 text-secondary-text">
                       <div className="w-2 h-2 bg-light-text rounded-full mt-2 flex-shrink-0"></div>

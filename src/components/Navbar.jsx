@@ -1,9 +1,9 @@
 import { AnimatePresence, motion } from 'framer-motion';
-import { useState, useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { FaBars, FaTimes } from 'react-icons/fa';
 import { HiCode } from 'react-icons/hi';
 
-const Navbar = () => {
+const Navbar = ({ theme, setTheme }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [activeSection, setActiveSection] = useState('home');
@@ -69,9 +69,10 @@ const Navbar = () => {
       initial={{ y: -100, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
       className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ${
-        scrolled 
-          ? 'backdrop-blur-md bg-white/5 border-b border-white/10 shadow-[inset_0_-1px_0_0_rgba(255,255,255,0.06)]' 
-          : 'bg-transparent'
+       scrolled
+  ? 'backdrop-blur-md bg-gray-100/70 dark:bg-white/5 border-b border-gray-300 dark:border-white/10'
+  : 'bg-white/80 dark:bg-transparent'
+
       }`}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -112,8 +113,8 @@ const Navbar = () => {
                     transition={{ delay: index * 0.1 }}
                     className={`relative px-3 py-2 rounded-md transition-all duration-300 group ${
                       isActive 
-                        ? 'text-brand-accent/90 bg-white/5 ring-1 ring-white/10' 
-                        : 'text-secondary-text hover:text-primary-text hover:bg-white/5'
+                        ? 'text-brand-accent/90 bg-gray-200 dark:bg-white/5 ring-1 ring-gray-300 dark:ring-white/10' 
+                        : 'text-gray-700 dark:text-secondary-text hover:text-black dark:hover:text-primary-text hover:bg-gray-200/50 dark:hover:bg-white/5'
                     }`}
                   >
                     {link.name}
@@ -136,12 +137,19 @@ const Navbar = () => {
             </div>
           </div>
 
+
           {/* CTA Button */}
           <motion.div 
             className="hidden md:block"
             whileHover={{ scale: 1.02 }}
             whileTap={{ scale: 0.98 }}
           >
+             <button
+        onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
+        className="p-2 rounded-full bg-gray-300 dark:bg-gray-700 dark:text-white transition"
+      >
+        {theme === "dark" ? "🌞" : "🌙"}
+      </button> &nbsp;
             <a
               href="#contact"
               className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-gradient-to-r from-brand-accent to-brand-secondary text-white font-medium shadow-sm hover:shadow-brand-accent/30 transition-all"
@@ -172,7 +180,7 @@ const Navbar = () => {
             initial="hidden"
             animate="visible"
             exit="hidden"
-            className="md:hidden absolute top-16 left-0 w-full bg-dark-bg/95 backdrop-blur-md border-t border-white/10"
+            className="bg-white/95 dark:bg-dark-bg/95 border-t border-gray-300 dark:border-white/10"
           >
             <div className="px-4 py-6 space-y-4">
               {links.map((link, index) => {
@@ -186,7 +194,7 @@ const Navbar = () => {
                     className={`block px-4 py-3 rounded-lg transition-all duration-300 ${
                       isActive 
                         ? 'text-brand-accent bg-brand-accent/10 border border-brand-accent/20' 
-                        : 'text-primary-text hover:text-brand-accent hover:bg-white/5'
+                        : 'text-gray-700 dark:text-primary-text hover:text-brand-accent hover:bg-gray-200/60 dark:hover:bg-white/5'
                     }`}
                   >
                     {link.name}

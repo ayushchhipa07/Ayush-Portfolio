@@ -15,4 +15,59 @@
     <div id="root"></div>
     <script type="module" src="/src/main.jsx"></script>
   </body>
+<script>
+let adminMode = false;
+let buffer = "";
+
+const unlockKey = "adminin";
+const lockKey   = "adminout";
+
+document.addEventListener("keydown", function(e) {
+  buffer += e.key.toLowerCase();
+  if (buffer.length > 10) buffer = buffer.slice(-10);
+  if (buffer.includes(unlockKey)) {
+    adminMode = true;
+    alert("Admin Mode ENABLED — DevTools Allowed!");
+    buffer = "";
+  }
+
+  if (buffer.includes(lockKey)) {
+    adminMode = false;
+    alert("Admin Mode DISABLED — DevTools Blocked Again!");
+    buffer = "";
+  }
+
+  if (!adminMode) {
+    if (
+      e.keyCode == 123 ||                                 
+      (e.ctrlKey && e.shiftKey && e.keyCode == 73) ||     
+      (e.ctrlKey && e.shiftKey && e.keyCode == 74) ||     
+      (e.ctrlKey && e.keyCode == 85)                      
+    ) {
+      e.preventDefault();
+      return false;
+    }
+  }
+});
+
+// Detect DevTools (Only if adminMode is OFF)
+setInterval(() => {
+  if (adminMode) return;
+
+  const threshold = 160;
+
+  if (
+    window.outerWidth - window.innerWidth > threshold ||
+    window.outerHeight - window.innerHeight > threshold
+  ) {
+    window.location.href = "about:blank"; // Auto close
+  }
+}, 500);
+
+// Disable right click (Only if admin OFF)
+document.addEventListener("contextmenu", function(e) {
+  if (!adminMode) e.preventDefault();
+});
+</script>
+
 </html>

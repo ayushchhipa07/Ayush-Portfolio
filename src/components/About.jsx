@@ -16,12 +16,14 @@ const About = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-dark-bg flex items-center justify-center pb-12 pt-7 px-4 relative overflow-hidden">
+    <div className="min-h-screen bg-white dark:bg-dark-bg text-black dark:text-white flex items-center justify-center pb-12 pt-7 px-4 relative overflow-hidden 
+     transition-colors duration-300">
       {/* Background Elements */}
       <div className="absolute inset-0">
-        <div className="absolute inset-0 bg-gradient-radial from-brand-accent/10 via-transparent to-transparent"></div>
-        <div className="absolute top-20 left-20 w-32 h-32 bg-brand-accent/15 rounded-full blur-3xl"></div>
-        <div className="absolute bottom-20 right-20 w-40 h-40 bg-brand-secondary/15 rounded-full blur-3xl"></div>
+        <div className="absolute inset-0 bg-gradient-radial from-purple-300/20 dark:from-brand-accent/10"></div>
+        <div className="absolute top-20 left-20 w-32 h-32 bg-purple-300/20 dark:bg-brand-accent/15 rounded-full blur-3xl"></div>
+        <div className="absolute bottom-20 right-20 w-40 h-40 bg-blue-300/20 dark:bg-brand-secondary/15
+ rounded-full blur-3xl"></div>
       </div>
 
       <div className="max-w-6xl mx-auto relative z-10">
@@ -33,7 +35,7 @@ const About = () => {
           transition={{ duration: 0.8 }}
           className="text-center mb-16"
         > 
-          <h2 className="text-4xl md:text-5xl font-bold text-primary-text mb-6">
+          <h2 className="text-4xl md:text-5xl font-bold text-gray-700 dark:text-white mb-6">
             Passionate <span className="bg-gradient-to-r from-brand-accent to-brand-secondary bg-clip-text text-transparent">Full Stack Developer</span>
           </h2>
           <p className="text-secondary-text text-lg max-w-3xl mx-auto">
@@ -50,8 +52,8 @@ const About = () => {
             transition={{ duration: 0.8 }}
           >
             <div className="space-y-6">
-              <div className="rounded-2xl border border-white/10 bg-gradient-to-br from-white/[0.08] to-white/[0.02] backdrop-blur-xl shadow-2xl p-6">
-                <h3 className="text-xl font-semibold text-primary-text mb-4 flex items-center">
+              <div className="rounded-2xl border border-gray-300 dark:border-white/10 bg-gray-100 dark:bg-white/[0.06] backdrop-blur-xl shadow-2xl p-6 transition-colors duration-300">
+                <h3 className="text-xl font-semibold text-gray-700 dark:text-white mb-4 flex items-center">
                   <HiAcademicCap className="text-brand-accent mr-3" />
                   Professional Background
                 </h3>
@@ -62,8 +64,12 @@ const About = () => {
                 </p>
               </div>
 
-              <div className="rounded-2xl border border-white/10 bg-gradient-to-br from-white/[0.08] to-white/[0.02] backdrop-blur-xl shadow-2xl p-6">
-                <h3 className="text-xl font-semibold text-primary-text mb-4 flex items-center">
+              <div className="rounded-2xl border 
+  border-gray-300 dark:border-white/10 
+  bg-gray-100 dark:bg-white/[0.06] 
+  backdrop-blur-xl shadow-2xl p-6
+  transition-colors duration-300">
+                <h3 className="text-xl font-semibold text-gray-700 dark:text-white mb-4 flex items-center">
                   <HiLightBulb className="text-brand-secondary mr-3" />
                   Technical Expertise
                 </h3>
@@ -87,8 +93,12 @@ const About = () => {
                 </div>
               </div>
 
-              <div className="rounded-2xl border border-white/10 bg-gradient-to-br from-white/[0.08] to-white/[0.02] backdrop-blur-xl shadow-2xl p-6">
-                <h3 className="text-xl font-semibold text-primary-text mb-4 flex items-center">
+              <div className="rounded-2xl border 
+  border-gray-300 dark:border-white/10 
+  bg-gray-100 dark:bg-white/[0.06] 
+  backdrop-blur-xl shadow-2xl p-6
+  transition-colors duration-300">
+                <h3 className="text-xl font-semibold text-gray-700 dark:text-white mb-4 flex items-center">
                   <HiUserGroup className="text-light-text mr-3" />
                   Career Goals
                 </h3>
@@ -118,10 +128,16 @@ const About = () => {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ delay: index * 0.1 }}
-                  className="rounded-xl border border-white/10 bg-gradient-to-br from-white/[0.08] to-white/[0.02] backdrop-blur-xl shadow-2xl p-6 text-center hover:border-brand-accent/30 transition-all duration-300"
+                  className="rounded-xl
+  border border-gray-300 dark:border-white/10
+  bg-white dark:bg-white/[0.06]
+  shadow-lg dark:shadow-2xl
+  p-6 text-center
+  hover:border-brand-accent/40
+  transition-all duration-300"
                 >
                   <stat.icon className={`text-3xl ${stat.color} mb-3 mx-auto`} />
-                  <div className="text-2xl font-bold text-primary-text mb-1">{stat.value}</div>
+                  <div className="text-2xl font-bold text-gray-700 dark:text-white mb-1">{stat.value}</div>
                   <div className="text-sm text-secondary-text">{stat.label}</div>
                 </motion.div>
               ))}
@@ -133,20 +149,19 @@ const About = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: 0.4 }}
-              className="rounded-2xl border border-white/10 bg-gradient-to-br from-white/[0.08] to-white/[0.02] backdrop-blur-xl shadow-2xl p-6"
-            >
-              <h3 className="text-xl font-semibold text-primary-text mb-4 flex items-center">
+              className="rounded-2xl border border-gray-300 dark:border-white/10 bg-gray-100 dark:bg-white/[0.06] backdrop-blur-xl shadow-2xl p-6 transition-colors duration-300">
+              <h3 className="text-xl font-semibold text-gray-700 dark:text-white mb-4 flex items-center">
                 <FaGraduationCap className="text-brand-accent mr-3" />
                 Education
               </h3>
               <div className="space-y-4">
                 <div className="border-l-4 border-brand-accent pl-4">
-                  <h4 className="text-primary-text font-semibold">Bachelor of Computer Application</h4>
+                  <h4 className="text-gray-700 dark:text-white font-semibold">Bachelor of Computer Application</h4>
                   <p className="text-brand-accent text-sm">Rajasthan University Stani Memorial P.G College</p>
                   <p className="text-secondary-text text-sm">2021 - 2024</p>
                 </div>
                 <div className="border-l-4 border-brand-secondary pl-4">
-                  <h4 className="text-primary-text font-semibold">12th Grade</h4>
+                  <h4 className="text-gray-700 dark:text-white font-semibold">12th Grade</h4>
                   <p className="text-brand-secondary text-sm">RBSE Board Govt. Senior Secondary School</p>
                   <p className="text-secondary-text text-sm">2020 - 2021 • 79.20%</p>
                 </div>
@@ -159,9 +174,13 @@ const About = () => {
               whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
               transition={{ delay: 0.6 }}
-              className="rounded-2xl border border-white/10 bg-gradient-to-br from-white/[0.08] to-white/[0.02] backdrop-blur-xl shadow-2xl p-6"
+              className="rounded-2xl border 
+  border-gray-300 dark:border-white/10 
+  bg-gray-100 dark:bg-white/[0.06] 
+  backdrop-blur-xl shadow-2xl p-6
+  transition-colors duration-300"
             >
-              <h3 className="text-xl font-semibold text-primary-text mb-4 flex items-center">
+              <h3 className="text-xl font-semibold text-gray-700 dark:text-white mb-4 flex items-center">
                 <FaAward className="text-light-text mr-3" />
                 Notable Achievement
               </h3>
