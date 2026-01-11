@@ -182,8 +182,14 @@ const About = () => {
             >
               <h3 className="text-xl font-semibold text-gray-700 dark:text-white mb-4 flex items-center">
                 <FaAward className="text-light-text mr-3" />
-                Notable Achievement
+                 Notable Achievements
               </h3>
+              <p className="text-secondary-text">  <span className="text-light-text font-semibold">
+    HackerRank Certified – Software Engineer Intern  </span>{" "}  – Successfully cleared the HackerRank certification, demonstrating proficiency in
+  problem-solving, SQL, and core programming fundamentals through industry-standard assessments.{" "}
+  <a href="https://www.hackerrank.com/certificates/iframe/ca4f374cd071"  target="_blank"  rel="noopener noreferrer" className="text-blue-500 underline ml-1" >  View Certificate </a>
+  </p>
+
               <p className="text-secondary-text">
                 <span className="text-light-text font-semibold">Top Scorer in Business Communication</span> - 
                 Recognized for exceptional communication skills and academic excellence.
