@@ -1,223 +1,157 @@
-import { AnimatePresence, motion } from 'framer-motion';
-import { useEffect, useState } from 'react';
-import { FaBars, FaTimes } from 'react-icons/fa';
-import { HiCode } from 'react-icons/hi';
+import { AnimatePresence, motion } from "framer-motion";
+import { BriefcaseBusiness, Code2, Menu, Moon, Sun, X } from "lucide-react";
+import { useEffect, useState } from "react";
+
+const links = [
+  { name: "Home", href: "#home" },
+  { name: "About", href: "#about" },
+  { name: "Experience", href: "#experience" },
+  { name: "Projects", href: "#projects" },
+  { name: "Skills", href: "#skills" },
+  { name: "Contact", href: "#contact" },
+];
 
 const Navbar = ({ theme, setTheme }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
-  const [activeSection, setActiveSection] = useState('home');
+  const [activeSection, setActiveSection] = useState("home");
 
   useEffect(() => {
     const handleScroll = () => {
-      setScrolled(window.scrollY > 50);
-      
-      // Get all sections
-      const sections = document.querySelectorAll('section[id], div[id]');
-      const scrollPosition = window.scrollY + 100; // Offset for navbar height
+      setScrolled(window.scrollY > 20);
 
-      // Find which section is currently in view
-      sections.forEach((section) => {
-        const sectionTop = section.offsetTop;
-        const sectionHeight = section.offsetHeight;
-        const sectionId = section.getAttribute('id');
+      const current = links
+        .map((link) => document.querySelector(link.href))
+        .filter(Boolean)
+        .findLast((section) => window.scrollY + 140 >= section.offsetTop);
 
-        if (scrollPosition >= sectionTop && scrollPosition < sectionTop + sectionHeight) {
-          setActiveSection(sectionId);
-        }
-      });
+      if (current?.id) setActiveSection(current.id);
     };
 
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+    handleScroll();
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const links = [
-    { name: 'Home', href: '#home' },
-    { name: 'About', href: '#about' },
-    { name: 'Experience', href: '#experience' },
-    { name: 'Projects', href: '#projects' },
-    { name: 'Skills', href: '#skills' },
-    { name: 'Contact', href: '#contact' },
-  ];
-
-  const menuVariants = {
-    hidden: { 
-      opacity: 0,
-      y: -20,
-      scale: 0.95
-    },
-    visible: { 
-      opacity: 1,
-      y: 0,
-      scale: 1,
-      transition: { 
-        duration: 0.3, 
-        ease: 'easeOut',
-        staggerChildren: 0.1
-      } 
-    },
-  };
-
-  const linkVariants = {
-    hidden: { opacity: 0, x: -20 },
-    visible: { opacity: 1, x: 0 }
-  };
+  useEffect(() => {
+    document.body.style.overflow = isOpen ? "hidden" : "";
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [isOpen]);
 
   return (
-    <motion.nav 
-      initial={{ y: -100, opacity: 0 }}
+    <motion.header
+      initial={{ y: -24, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
-      className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ${
-       scrolled
-  ? 'backdrop-blur-md bg-gray-100/70 dark:bg-white/5 border-b border-gray-300 dark:border-white/10'
-  : 'bg-white/80 dark:bg-transparent'
-
-      }`}
+      className="fixed inset-x-0 top-0 z-50 px-3 pt-3 sm:px-5"
     >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-16">
-          {/* Logo */}
-          <motion.div 
-            className="flex-shrink-0"
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-          >
-            <a href="#home" className="flex items-center space-x-2 group">
-              <div className="relative">
-                <HiCode className="text-3xl text-brand-accent group-hover:text-brand-secondary transition-colors duration-300" />
-                <motion.div
-                  className="absolute inset-0 bg-gradient-to-r from-brand-accent to-brand-secondary rounded-full opacity-0 group-hover:opacity-20 blur-xl"
-                  animate={{ scale: [1, 1.2, 1] }}
-                  transition={{ duration: 2, repeat: Infinity }}
-                />
-              </div>
-              <span className="text-xl md:text-2xl font-semibold tracking-tight bg-gradient-to-r from-brand-accent to-brand-secondary bg-clip-text text-transparent">
-                Ayush
-              </span>
-            </a>
-          </motion.div>
-
-          {/* Desktop Navigation */}
-          <div className="hidden md:block">
-            <div className="ml-10 flex items-center space-x-2">
-              {links.map((link, index) => {
-                const isActive = activeSection === link.href.substring(1);
-                return (
-                  <motion.a
-                    key={link.name}
-                    href={link.href}
-                    variants={linkVariants}
-                    initial="hidden"
-                    animate="visible"
-                    transition={{ delay: index * 0.1 }}
-                    className={`relative px-3 py-2 rounded-md transition-all duration-300 group ${
-                      isActive 
-                        ? 'text-brand-accent/90 bg-gray-200 dark:bg-white/5 ring-1 ring-gray-300 dark:ring-white/10' 
-                        : 'text-gray-700 dark:text-secondary-text hover:text-black dark:hover:text-primary-text hover:bg-gray-200/50 dark:hover:bg-white/5'
-                    }`}
-                  >
-                    {link.name}
-                    <motion.div
-                      className={`absolute bottom-0 left-1/2 -translate-x-1/2 h-0.5 bg-gradient-to-r from-brand-accent to-brand-secondary ${
-                        isActive ? 'w-2/3' : 'w-0 group-hover:w-2/3'
-                      }`}
-                      transition={{ duration: 0.3 }}
-                    />
-                    {isActive && (
-                      <motion.div
-                        className="absolute inset-0 bg-brand-accent/5 rounded-md"
-                        layoutId="activeSection"
-                        transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}
-                      />
-                    )}
-                  </motion.a>
-                );
-              })}
-            </div>
-          </div>
-
-
-          {/* CTA Button */}
-          <motion.div 
-            className="hidden md:block"
-            whileHover={{ scale: 1.02 }}
-            whileTap={{ scale: 0.98 }}
-          >
-             <button
-        onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
-        className="p-2 rounded-full bg-gray-300 dark:bg-gray-700 dark:text-white transition"
+      <nav
+        className={`mx-auto flex h-16 max-w-7xl items-center justify-between rounded-full border px-4 transition-all duration-300 sm:px-5 ${
+          scrolled
+            ? "border-slate-200 bg-white/80 shadow-lg shadow-slate-200/70 backdrop-blur-2xl dark:border-white/10 dark:bg-[#07111f]/80 dark:shadow-black/30"
+            : "border-transparent bg-white/45 backdrop-blur-md dark:bg-white/[0.03]"
+        }`}
       >
-        {theme === "dark" ? "🌞" : "🌙"}
-      </button> &nbsp;
-            <a
-              href="#contact"
-              className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-gradient-to-r from-brand-accent to-brand-secondary text-white font-medium shadow-sm hover:shadow-brand-accent/30 transition-all"
-            >
-              <span>Hire Me</span>
-            </a>
-          </motion.div>
+        <a href="#home" className="flex items-center gap-3" onClick={() => setIsOpen(false)}>
+          <span className="grid h-10 w-10 place-items-center rounded-full bg-slate-950 text-white shadow-lg shadow-cyan-500/20 dark:bg-white dark:text-slate-950">
+            <Code2 size={20} />
+          </span>
+          <span className="leading-tight">
+            <span className="block text-sm font-black tracking-tight sm:text-base">Ayush Chhipa</span>
+            <span className="hidden text-[11px] font-semibold uppercase tracking-[0.18em] text-slate-500 dark:text-slate-400 sm:block">
+              Full stack developer
+            </span>
+          </span>
+        </a>
 
-          {/* Mobile Menu Button */}
-          <div className="md:hidden">
-            <motion.button 
-              onClick={() => setIsOpen(!isOpen)} 
-              className="text-primary-text hover:text-brand-accent transition-colors duration-300"
-              whileHover={{ scale: 1.1 }}
-              whileTap={{ scale: 0.9 }}
-            >
-              {isOpen ? <FaTimes size={24} /> : <FaBars size={24} />}
-            </motion.button>
-          </div>
+        <div className="hidden items-center gap-1 lg:flex">
+          {links.map((link) => {
+            const isActive = activeSection === link.href.slice(1);
+            return (
+              <a
+                key={link.href}
+                href={link.href}
+                className={`relative rounded-full px-4 py-2 text-sm font-semibold transition ${
+                  isActive
+                    ? "text-slate-950 dark:text-white"
+                    : "text-slate-600 hover:text-slate-950 dark:text-slate-300 dark:hover:text-white"
+                }`}
+              >
+                {isActive && (
+                  <motion.span
+                    layoutId="active-nav-pill"
+                    className="absolute inset-0 rounded-full bg-slate-100 ring-1 ring-slate-200 dark:bg-white/[0.08] dark:ring-white/10"
+                    transition={{ type: "spring", stiffness: 360, damping: 32 }}
+                  />
+                )}
+                <span className="relative z-10">{link.name}</span>
+              </a>
+            );
+          })}
         </div>
-      </div>
 
-      {/* Mobile Menu */}
+        <div className="flex items-center gap-2">
+          <button
+            type="button"
+            aria-label="Toggle theme"
+            onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
+            className="grid h-11 w-11 place-items-center rounded-full border border-slate-200 bg-white text-slate-800 shadow-sm transition hover:-translate-y-0.5 hover:border-cyan-300 dark:border-white/10 dark:bg-white/[0.07] dark:text-white"
+          >
+            {theme === "dark" ? <Sun size={18} /> : <Moon size={18} />}
+          </button>
+          <a
+            href="#contact"
+            className="hidden items-center gap-2 rounded-full bg-slate-950 px-4 py-2.5 text-sm font-bold text-white shadow-lg shadow-slate-300 transition hover:-translate-y-0.5 hover:bg-cyan-700 dark:bg-white dark:text-slate-950 dark:shadow-cyan-950/30 md:inline-flex"
+          >
+            <BriefcaseBusiness size={16} />
+            Hire Me
+          </a>
+          <button
+            type="button"
+            aria-label="Toggle menu"
+            onClick={() => setIsOpen((value) => !value)}
+            className="grid h-11 w-11 place-items-center rounded-full border border-slate-200 bg-white text-slate-900 shadow-sm dark:border-white/10 dark:bg-white/[0.07] dark:text-white lg:hidden"
+          >
+            {isOpen ? <X size={20} /> : <Menu size={20} />}
+          </button>
+        </div>
+      </nav>
+
       <AnimatePresence>
         {isOpen && (
           <motion.div
-            variants={menuVariants}
-            initial="hidden"
-            animate="visible"
-            exit="hidden"
-            className="bg-white/95 dark:bg-dark-bg/95 border-t border-gray-300 dark:border-white/10"
+            initial={{ opacity: 0, y: -12, scale: 0.98 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: -12, scale: 0.98 }}
+            className="mx-auto mt-3 max-w-7xl rounded-3xl border border-slate-200 bg-white/95 p-3 shadow-2xl shadow-slate-300/70 backdrop-blur-2xl dark:border-white/10 dark:bg-[#07111f]/95 dark:shadow-black/40 lg:hidden"
           >
-            <div className="px-4 py-6 space-y-4">
-              {links.map((link, index) => {
-                const isActive = activeSection === link.href.substring(1);
-                return (
-                  <motion.a
-                    key={link.name}
-                    href={link.href}
-                    variants={linkVariants}
-                    onClick={() => setIsOpen(false)}
-                    className={`block px-4 py-3 rounded-lg transition-all duration-300 ${
-                      isActive 
-                        ? 'text-brand-accent bg-brand-accent/10 border border-brand-accent/20' 
-                        : 'text-gray-700 dark:text-primary-text hover:text-brand-accent hover:bg-gray-200/60 dark:hover:bg-white/5'
-                    }`}
-                  >
-                    {link.name}
-                  </motion.a>
-                );
-              })}
-              <motion.div
-                variants={linkVariants}
-                className="pt-4 border-t border-white/10"
+            {links.map((link) => (
+              <a
+                key={link.href}
+                href={link.href}
+                onClick={() => setIsOpen(false)}
+                className={`block rounded-2xl px-4 py-3 text-base font-semibold ${
+                  activeSection === link.href.slice(1)
+                    ? "bg-cyan-500/10 text-cyan-700 dark:text-cyan-300"
+                    : "text-slate-700 dark:text-slate-200"
+                }`}
               >
-                <a
-                  href="#contact"
-                  onClick={() => setIsOpen(false)}
-                  className="inline-flex items-center justify-center px-6 py-3 rounded-full bg-gradient-to-r from-brand-accent to-brand-secondary text-white font-medium w-full"
-                >
-                  Hire Me
-                </a>
-              </motion.div>
-            </div>
+                {link.name}
+              </a>
+            ))}
+            <a
+              href="#contact"
+              onClick={() => setIsOpen(false)}
+              className="mt-2 flex items-center justify-center gap-2 rounded-2xl bg-slate-950 px-4 py-3 font-bold text-white dark:bg-white dark:text-slate-950"
+            >
+              <BriefcaseBusiness size={18} />
+              Hire Me
+            </a>
           </motion.div>
         )}
       </AnimatePresence>
-    </motion.nav>
+    </motion.header>
   );
 };
 

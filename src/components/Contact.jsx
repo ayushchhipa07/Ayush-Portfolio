@@ -1,325 +1,226 @@
 import HCaptcha from "@hcaptcha/react-hcaptcha";
 import axios from "axios";
 import { AnimatePresence, motion } from "framer-motion";
+import { ArrowUp, CheckCircle2, Github, Linkedin, Mail, MapPin, Send, TriangleAlert } from "lucide-react";
 import { useRef, useState } from "react";
-import {
-  FaCheckCircle,
-  FaChevronUp,
-  FaEnvelope,
-  FaExclamationTriangle,
-  FaGithub,
-  FaLinkedin,
-  FaPaperPlane,
-} from "react-icons/fa";
+
+const contactLinks = [
+  { icon: Mail, label: "Email", value: "ayushchhipa7@gmail.com", href: "mailto:ayushchhipa7@gmail.com" },
+  { icon: Github, label: "GitHub", value: "ayushchhipa07", href: "https://github.com/ayushchhipa07" },
+  { icon: Linkedin, label: "LinkedIn", value: "ayush-chhipa", href: "https://www.linkedin.com/in/ayush-chhipa/" },
+  { icon: MapPin, label: "Location", value: "Jaipur, Rajasthan", href: "#contact" },
+];
 
 const Contact = () => {
-  const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    message: "",
-  });
+  const [formData, setFormData] = useState({ name: "", email: "", message: "" });
   const [token, setToken] = useState(null);
-  const captchaRef = useRef(null);
   const [status, setStatus] = useState("");
-  const [showToast, setShowToast] = useState(false);
-  const [toastMessage, setToastMessage] = useState("");
-  const [toastType, setToastType] = useState("success");
+  const [toast, setToast] = useState(null);
+  const captchaRef = useRef(null);
 
-  const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.id]: e.target.value });
+  const showToast = (message, type = "success") => {
+    setToast({ message, type });
+    window.setTimeout(() => setToast(null), 3200);
   };
 
-  const showToastNotification = (message, type = "success") => {
-    setToastMessage(message);
-    setToastType(type);
-    setShowToast(true);
-
-    setTimeout(() => {
-      setShowToast(false);
-    }, 3000);
+  const handleChange = (event) => {
+    setFormData((current) => ({ ...current, [event.target.id]: event.target.value }));
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+
     if (!token) {
-      showToastNotification("⚠️ Please verify you are human!", "error");
+      showToast("Please verify that you are human.", "error");
       return;
     }
 
-    setStatus("Sending...");
-    captchaRef.current.resetCaptcha();
-    setToken(null);
+    setStatus("Sending message...");
 
     try {
-      const res = await axios.post(
-        "https://ayush-portfolio-1.onrender.com/api/contact",
-        { ...formData, token }
-      );
-      if (res.data.success) {
-        setStatus("✅ Submitted successfully!");
+      const response = await axios.post("https://ayush-portfolio-1.onrender.com/api/contact", {
+        ...formData,
+        token,
+      });
+
+      if (response.data.success) {
+        setStatus("Message sent successfully.");
         setFormData({ name: "", email: "", message: "" });
-        showToastNotification("✅ Message sent successfully!", "success");
-        setTimeout(() => {
-          setStatus("");
-        }, 3000);
+        showToast("Message sent successfully.");
+      } else {
+        throw new Error("Contact API did not return success.");
       }
-    } catch (err) {
-      console.error(err);
-      setStatus("❌ Something went wrong");
-      showToastNotification(
-        "❌ Failed to send message. Please try again.",
-        "error"
-      );
+    } catch (error) {
+      console.error(error);
+      setStatus("Something went wrong. Please try again.");
+      showToast("Failed to send message. Please try again.", "error");
+    } finally {
+      captchaRef.current?.resetCaptcha();
+      setToken(null);
+      window.setTimeout(() => setStatus(""), 3500);
     }
   };
 
-  const isSuccess = status.startsWith("✅");
-  const isError = status.startsWith("❌");
-
   return (
-    <div className="relative min-h-screen bg-white dark:bg-dark-bg text-black dark:text-white pt-14 px-4 overflow-hidden">
-      {/* Background Elements */}
-      <div className="absolute inset-0">
-        <div className="absolute inset-0 bg-gradient-radial from-brand-accent/10 via-transparent to-transparent"></div>
-        <div className="absolute top-20 left-20 w-32 h-32 bg-brand-accent/15 rounded-full blur-3xl"></div>
-        <div className="absolute bottom-20 right-20 w-40 h-40 bg-brand-secondary/15 rounded-full blur-3xl"></div>
-      </div>
-
-      <div className="relative z-10 max-w-6xl mx-auto w-full ">
-        {/* Heading */}
-        <motion.h2
-          initial={{ opacity: 0, y: 30 }}
+    <div className="relative overflow-hidden">
+      <div className="section-shell pb-10">
+        <motion.div
+          initial={{ opacity: 0, y: 28 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
+          viewport={{ once: true, amount: 0.3 }}
           transition={{ duration: 0.6 }}
-          className="text-4xl md:text-5xl font-bold text-center mb-16 text-gray-700 dark:text-white"
+          className="mx-auto max-w-3xl text-center"
         >
-          <span className="bg-gradient-to-r from-brand-accent to-brand-secondary bg-clip-text text-transparent">
-            Contact
-          </span>{" "}
-          Me
-        </motion.h2>
+          <div className="section-kicker">Contact</div>
+          <h2 className="section-title">Have a project idea? Let us build it properly.</h2>
+          <p className="section-copy mx-auto">
+            Send me a message for websites, dashboards, product improvements,
+            backend features, or full-stack development work.
+          </p>
+        </motion.div>
 
-        {/* Centered Form */}
-        <div className="flex justify-center">
+        <div className="mt-12 grid gap-6 lg:grid-cols-[0.85fr_1.15fr]">
+          <motion.div
+            initial={{ opacity: 0, x: -24 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            className="glass-panel rounded-[2rem] p-6 sm:p-8"
+          >
+            <h3 className="text-2xl font-black text-slate-950 dark:text-white">Let us connect</h3>
+            <p className="mt-3 leading-8 text-slate-600 dark:text-slate-300">
+              I usually respond with a clear next step, timeline idea, and the
+              technical direction that fits your project.
+            </p>
+
+            <div className="mt-8 space-y-3">
+              {contactLinks.map((item) => (
+                <a
+                  key={item.label}
+                  href={item.href}
+                  target={item.href.startsWith("http") ? "_blank" : undefined}
+                  rel={item.href.startsWith("http") ? "noreferrer" : undefined}
+                  className="flex items-center gap-4 rounded-2xl border border-slate-200 bg-slate-50 p-4 transition hover:-translate-y-1 hover:border-cyan-300 dark:border-white/10 dark:bg-white/[0.04]"
+                >
+                  <span className="grid h-11 w-11 shrink-0 place-items-center rounded-full bg-cyan-500/10 text-cyan-700 dark:text-cyan-300">
+                    <item.icon size={19} />
+                  </span>
+                  <span>
+                    <span className="block text-sm font-bold text-slate-500 dark:text-slate-400">{item.label}</span>
+                    <span className="block break-all font-black text-slate-950 dark:text-white">{item.value}</span>
+                  </span>
+                </a>
+              ))}
+            </div>
+          </motion.div>
+
           <motion.form
             onSubmit={handleSubmit}
-            initial={{ opacity: 0, y: 40 }}
-            whileInView={{ opacity: 1, y: 0 }}
+            initial={{ opacity: 0, x: 24 }}
+            whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-            className="space-y-8 w-full max-w-2xl "
+            className="glass-panel rounded-[2rem] p-6 sm:p-8"
           >
-            {/* Form Container with Glassmorphism */}
-            <div className="rounded-2xl border border-gray-300 dark:border-white/10 bg-gradient-to-br from-white/[0.08] to-white/[0.02] backdrop-blur-xl shadow-2xl p-8">
-              {/* Name + Email in 2 columns */}
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
-                {/* Name */}
-                <div className="relative group">
-                  <label
-                    htmlFor="name"
-                    className="block text-sm font-medium text-secondary-text mb-2"
-                  >
-                    Your Name
-                  </label>
-                  <input
-                    type="text"
-                    id="name"
-                    placeholder="Enter your name"
-                    value={formData.name}
-                    onChange={handleChange}
-                    className="
-                          w-full 
-                          bg-gray-100 dark:bg-white/5
-                          border border-gray-300 dark:border-white/10
-                          text-gray-900 dark:text-primary-text
-                          placeholder-gray-500 dark:placeholder-secondary-text/60
-                          rounded-xl h-12 px-4
-                          focus:outline-none focus:ring-2 
-                          focus:ring-brand-accent/50 focus:border-brand-accent/50
-                          transition-all duration-300
-                        "
-                    required
-                  />
-
-                  <div className="absolute inset-0 rounded-xl bg-gradient-to-r from-brand-accent/0 to-brand-secondary/0 group-hover:from-brand-accent/5 group-hover:to-brand-secondary/5 transition-all duration-300 pointer-events-none"></div>
-                </div>
-
-                {/* Email */}
-                <div className="relative group">
-                  <label
-                    htmlFor="email"
-                    className="block text-sm font-medium text-secondary-text mb-2"
-                  >
-                    Your Email
-                  </label>
-                  <input
-                    type="email"
-                    id="email"
-                    placeholder="Enter your email"
-                    value={formData.email}
-                    onChange={handleChange}
-                    className="
-                        w-full 
-                        bg-gray-100 dark:bg-white/5
-                        border border-gray-300 dark:border-white/10
-                        text-gray-900 dark:text-primary-text
-                        placeholder-gray-500 dark:placeholder-secondary-text/60
-                        rounded-xl h-12 px-4
-                        focus:outline-none focus:ring-2 
-                        focus:ring-brand-accent/50 focus:border-brand-accent/50
-                        transition-all duration-300"
-                    required
-                  />
-
-                  <div className="absolute inset-0 rounded-xl bg-gradient-to-r from-brand-accent/0 to-brand-secondary/0 group-hover:from-brand-accent/5 group-hover:to-brand-secondary/5 transition-all duration-300 pointer-events-none"></div>
-                </div>
-              </div>
-
-              {/* Message */}
-              <div className="relative group mb-6">
-                <label
-                  htmlFor="message"
-                  className="block text-sm font-medium text-secondary-text mb-2"
-                >
-                  Your Message
+            <div className="grid gap-5 sm:grid-cols-2">
+              <div>
+                <label htmlFor="name" className="mb-2 block text-sm font-bold text-slate-600 dark:text-slate-300">
+                  Your Name
                 </label>
-                <textarea
-                  id="message"
-                  rows="6"
-                  placeholder="Tell me about your project or inquiry..."
-                  value={formData.message}
+                <input
+                  id="name"
+                  type="text"
+                  value={formData.name}
                   onChange={handleChange}
-                  className="
-                      w-full
-                      bg-gray-100 dark:bg-white/5
-                      border border-gray-300 dark:border-white/10
-                      text-gray-900 dark:text-primary-text
-                      placeholder-gray-500 dark:placeholder-secondary-text/60
-                      rounded-xl p-4
-                      focus:outline-none focus:ring-2 
-                      focus:ring-brand-accent/50 focus:border-brand-accent/50
-                      transition-all duration-300
-                      resize-none
-                    "
+                  placeholder="Enter your name"
+                  className="h-12 w-full rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 text-slate-950 outline-none transition focus:border-cyan-400 focus:ring-4 focus:ring-cyan-400/15 dark:border-white/10 dark:bg-white/[0.04] dark:text-white"
                   required
-                ></textarea>
-
-                <div className="absolute inset-0 rounded-xl bg-gradient-to-r from-brand-accent/0 to-brand-secondary/0 group-hover:from-brand-accent/5 group-hover:to-brand-secondary/5 transition-all duration-300 pointer-events-none"></div>
+                />
               </div>
-
-              {/* hCaptcha */}
-              <div className="flex justify-center mb-6">
-                <div className="bg-white/5 rounded-2xl border border-gray-300 dark:border-white/10 p-4">
-                  <HCaptcha
-                    sitekey="7c388a76-d286-486a-8860-96d643ee6464"
-                    onVerify={(token) => setToken(token)}
-                    ref={captchaRef}
-                  />
-                </div>
-              </div>
-
-              {/* Button */}
-              <div className="flex justify-center">
-                <motion.button
-                  type="submit"
-                  whileHover={{ scale: 1.02, y: -2 }}
-                  whileTap={{ scale: 0.98 }}
-                  className="inline-flex items-center gap-3 px-8 py-4 bg-gradient-to-r from-brand-accent to-brand-secondary text-white font-semibold rounded-xl hover:shadow-lg hover:shadow-brand-accent/25 transition-all duration-300"
-                >
-                  <FaPaperPlane className="text-sm" />
-                  Send Message
-                </motion.button>
+              <div>
+                <label htmlFor="email" className="mb-2 block text-sm font-bold text-slate-600 dark:text-slate-300">
+                  Your Email
+                </label>
+                <input
+                  id="email"
+                  type="email"
+                  value={formData.email}
+                  onChange={handleChange}
+                  placeholder="Enter your email"
+                  className="h-12 w-full rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 text-slate-950 outline-none transition focus:border-cyan-400 focus:ring-4 focus:ring-cyan-400/15 dark:border-white/10 dark:bg-white/[0.04] dark:text-white"
+                  required
+                />
               </div>
             </div>
 
-            {/* Status */}
-            {status && (
-              <motion.div
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                className={`text-sm rounded-xl px-4 py-3 border ${
-                  isSuccess
-                    ? "bg-emerald-500/10 border-emerald-500/30 text-emerald-300"
-                    : isError
-                    ? "bg-rose-500/10 border-rose-500/30 text-rose-300"
-                    : "bg-white/5 border-white/10 text-secondary-text"
-                }`}
+            <div className="mt-5">
+              <label htmlFor="message" className="mb-2 block text-sm font-bold text-slate-600 dark:text-slate-300">
+                Project Details
+              </label>
+              <textarea
+                id="message"
+                rows="6"
+                value={formData.message}
+                onChange={handleChange}
+                placeholder="Tell me what you want to build..."
+                className="w-full resize-none rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 text-slate-950 outline-none transition focus:border-cyan-400 focus:ring-4 focus:ring-cyan-400/15 dark:border-white/10 dark:bg-white/[0.04] dark:text-white"
+                required
+              />
+            </div>
+
+            <div className="mt-5 overflow-hidden rounded-2xl border border-slate-200 bg-white p-3 dark:border-white/10 dark:bg-white/[0.04]">
+              <HCaptcha
+                sitekey="7c388a76-d286-486a-8860-96d643ee6464"
+                onVerify={(captchaToken) => setToken(captchaToken)}
+                ref={captchaRef}
+              />
+            </div>
+
+            <div className="mt-6 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+              <motion.button
+                type="submit"
+                whileHover={{ y: -3 }}
+                whileTap={{ scale: 0.98 }}
+                className="inline-flex items-center justify-center gap-2 rounded-full bg-slate-950 px-6 py-3.5 text-sm font-bold text-white shadow-xl shadow-slate-300 transition hover:bg-cyan-700 dark:bg-white dark:text-slate-950 dark:shadow-cyan-950/30"
               >
-                {status}
-              </motion.div>
-            )}
+                <Send size={17} />
+                Send Message
+              </motion.button>
+              {status && <p className="text-sm font-semibold text-slate-500 dark:text-slate-400">{status}</p>}
+            </div>
           </motion.form>
         </div>
       </div>
 
-      {/* Toast Notification */}
+      <footer className="border-t border-slate-200 bg-white/60 px-4 py-8 backdrop-blur-xl dark:border-white/10 dark:bg-white/[0.03]">
+        <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-5 text-center sm:flex-row sm:text-left">
+          <p className="text-sm font-semibold text-slate-500 dark:text-slate-400">
+            Copyright © 2026 Ayush Chhipa. Built with React, Tailwind CSS, and care.
+          </p>
+          <button
+            type="button"
+            onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+            className="grid h-11 w-11 place-items-center rounded-full border border-slate-200 bg-white text-slate-800 transition hover:-translate-y-1 hover:text-cyan-700 dark:border-white/10 dark:bg-white/[0.06] dark:text-white"
+            aria-label="Scroll to top"
+          >
+            <ArrowUp size={18} />
+          </button>
+        </div>
+      </footer>
+
       <AnimatePresence>
-        {showToast && (
+        {toast && (
           <motion.div
-            initial={{ opacity: 0, y: 50, scale: 0.9 }}
+            initial={{ opacity: 0, y: 24, scale: 0.96 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={{ opacity: 0, y: 50, scale: 0.9 }}
-            className={`fixed bottom-6 right-6 z-50 flex items-center gap-3 px-6 py-4 rounded-xl shadow-2xl border ${
-              toastType === "success"
-                ? "bg-emerald-500/90 border-emerald-400/30 text-white"
-                : "bg-rose-500/90 border-rose-400/30 text-white"
+            exit={{ opacity: 0, y: 24, scale: 0.96 }}
+            className={`fixed bottom-5 right-5 z-[60] flex max-w-sm items-center gap-3 rounded-2xl px-5 py-4 text-sm font-bold text-white shadow-2xl ${
+              toast.type === "error" ? "bg-rose-600" : "bg-emerald-600"
             }`}
           >
-            {toastType === "success" ? (
-              <FaCheckCircle className="text-lg" />
-            ) : (
-              <FaExclamationTriangle className="text-lg" />
-            )}
-            <span className="font-medium">{toastMessage}</span>
+            {toast.type === "error" ? <TriangleAlert size={18} /> : <CheckCircle2 size={18} />}
+            {toast.message}
           </motion.div>
         )}
       </AnimatePresence>
-
-      {/* Footer */}
-      <div className="relative z-10 mt-10">
-        <hr className="max-w-6xl mx-auto border border-gray-300 dark:border-white/10" />
-        <div className="max-w-6xl mx-auto px-4 py-10">
-          <div className="grid gap-8 md:grid-cols-3 items-start">
-            <div className="flex md:justify-start gap-4">
-              <a
-                href="mailto:ayushchhipa7@gmail.com"
-                className="p-3 rounded-xl bg-white/5 border border-gray-500 dark:border-white/20 hover:border-brand-accent/40 hover:text-light-text transition-all duration-300"
-              >
-                <FaEnvelope />
-              </a>
-              <a
-                href="https://github.com/ayushchhipa07"
-                target="_blank"
-                rel="noreferrer"
-                className="p-3 rounded-xl bg-white/5 border border-gray-500 dark:border-white/20 hover:border-brand-accent/40 hover:text-light-text transition-all duration-300"
-              >
-                <FaGithub />
-              </a>
-              <a
-                href="https://www.linkedin.com/in/ayush-chhipa/"
-                target="_blank"
-                rel="noreferrer"
-                className="p-3 rounded-xl bg-white/5 border border-gray-500 dark:border-white/20 hover:border-brand-accent/40 hover:text-light-text transition-all duration-300"
-              >
-                <FaLinkedin />
-              </a>
-            </div>
-            <span className="text-black dark:text-primary-text text-center">
-              Copyright © 2025 a portfolio website by Ayush.
-            </span>
-            <div className="flex md:justify-end gap-4">
-              {/* Scroll to Top */}
-              <button
-                onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-                className="p-3 rounded-xl bg-white/5 border border-gray-500 dark:border-white/20 hover:border-brand-accent/40 hover:text-light-text transition-all duration-300"
-              >
-                <FaChevronUp />
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
     </div>
   );
 };

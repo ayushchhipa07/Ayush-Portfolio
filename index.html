@@ -1,73 +1,88 @@
 <!doctype html>
-<html lang="en">
+<html lang="en-IN">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/Icon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="google-site-verification" content="iYHKT8l-ufqrVlWuEzUxbE9DC-bAXip2UMaxif_oEFM" />
-    <meta name="description" content="Portfolio of Ayush Chhipa - Web Developer specializing in React, Node.js, and modern web apps.">
-    <meta name="keywords" content="Ayush Chhipa, portfolio, web developer, react, node.js, frontend, backend">
-    <meta name="author" content="Ayush Chhipa">
 
-    <title>Portfolio | Ayush Chhipa</title>
+    <title>Ayush Chhipa | Full Stack Web Developer Portfolio</title>
+    <meta
+      name="description"
+      content="Ayush Chhipa is a full stack web developer from Jaipur specializing in React, PHP, CodeIgniter, Node.js, MySQL, responsive UI, APIs, and modern web applications."
+    />
+    <meta
+      name="keywords"
+      content="Ayush, Ayush Chhipa, Ayush Chhipa portfolio, Ayush Chhipa web developer, full stack developer Jaipur, React developer, PHP developer, CodeIgniter developer, Node.js developer"
+    />
+    <meta name="author" content="Ayush Chhipa" />
+    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
+    <meta name="theme-color" content="#050816" />
+    <link rel="canonical" href="https://ayushchhipa-codes.onrender.com/" />
+    <link rel="icon" type="image/svg+xml" href="/Icon.svg" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Ayush Chhipa Portfolio" />
+    <meta property="og:title" content="Ayush Chhipa | Full Stack Web Developer Portfolio" />
+    <meta
+      property="og:description"
+      content="Official portfolio of Ayush Chhipa, full stack web developer skilled in React, PHP, CodeIgniter, Node.js, MySQL, APIs, and responsive web apps."
+    />
+    <meta property="og:url" content="https://ayushchhipa-codes.onrender.com/" />
+    <meta property="og:image" content="https://ayushchhipa-codes.onrender.com/Icon.svg" />
+    <meta property="og:locale" content="en_IN" />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Ayush Chhipa | Full Stack Web Developer Portfolio" />
+    <meta
+      name="twitter:description"
+      content="Ayush Chhipa portfolio showcasing full stack web development, React, PHP, CodeIgniter, Node.js, MySQL, and modern responsive UI work."
+    />
+    <meta name="twitter:image" content="https://ayushchhipa-codes.onrender.com/Icon.svg" />
+
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Person",
+        "name": "Ayush Chhipa",
+        "url": "https://ayushchhipa-codes.onrender.com/",
+        "image": "https://ayushchhipa-codes.onrender.com/Icon.svg",
+        "jobTitle": "Full Stack Web Developer",
+        "email": "mailto:ayushchhipa7@gmail.com",
+        "address": {
+          "@type": "PostalAddress",
+          "addressLocality": "Jaipur",
+          "addressRegion": "Rajasthan",
+          "addressCountry": "IN"
+        },
+        "knowsAbout": [
+          "React",
+          "PHP",
+          "CodeIgniter",
+          "Node.js",
+          "MySQL",
+          "JavaScript",
+          "Tailwind CSS",
+          "REST APIs"
+        ],
+        "sameAs": [
+          "https://github.com/ayushchhipa07",
+          "https://www.linkedin.com/in/ayush-chhipa/"
+        ]
+      }
+    </script>
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "WebSite",
+        "name": "Ayush Chhipa Portfolio",
+        "alternateName": ["Ayush Portfolio", "Ayush Chhipa Web Developer"],
+        "url": "https://ayushchhipa-codes.onrender.com/",
+        "inLanguage": "en-IN"
+      }
+    </script>
   </head>
   <body>
     <div id="root"></div>
     <script type="module" src="/src/main.jsx"></script>
   </body>
-<script>
-let adminMode = false;
-let buffer = "";
-
-const unlockKey = "adminin";
-const lockKey   = "adminout";
-
-document.addEventListener("keydown", function(e) {
-  buffer += e.key.toLowerCase();
-  if (buffer.length > 10) buffer = buffer.slice(-10);
-  if (buffer.includes(unlockKey)) {
-    adminMode = true;
-    alert("Admin Mode ENABLED — DevTools Allowed!");
-    buffer = "";
-  }
-
-  if (buffer.includes(lockKey)) {
-    adminMode = false;
-    alert("Admin Mode DISABLED — DevTools Blocked Again!");
-    buffer = "";
-  }
-
-  if (!adminMode) {
-    if (
-      e.keyCode == 123 ||                                 
-      (e.ctrlKey && e.shiftKey && e.keyCode == 73) ||     
-      (e.ctrlKey && e.shiftKey && e.keyCode == 74) ||     
-      (e.ctrlKey && e.keyCode == 85)                      
-    ) {
-      e.preventDefault();
-      return false;
-    }
-  }
-});
-
-// Detect DevTools (Only if adminMode is OFF)
-setInterval(() => {
-  if (adminMode) return;
-
-  const threshold = 160;
-
-  // if (
-  //   window.outerWidth - window.innerWidth > threshold ||
-  //   window.outerHeight - window.innerHeight > threshold
-  // ) {
-  //   window.location.href = "about:blank"; // Auto close
-  // }
-}, 500);
-
-// Disable right click (Only if admin OFF)
-document.addEventListener("contextmenu", function(e) {
-  if (!adminMode) e.preventDefault();
-});
-</script>
-
 </html>
