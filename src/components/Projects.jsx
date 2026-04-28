@@ -9,8 +9,8 @@ const projects = [
       "A centralized product for professionals like CS and CA to manage tasks, documents, compliance work, and productivity-focused workflows.",
     image: "/complyrelax.png",
     live: "https://complyrelax.com",
-    tags: ["PHP", "CodeIgniter", "MySQL", "JavaScript", "Bootstrap", "jQuery", "AJAX"],
-    impact: ["Task management", "Document workflows", "User authentication", "Responsive UI", "Database optimization"],
+    tags: ["API Integration", "MySQL", "JavaScript", "PHP", "CodeIgniter", "Bootstrap", "AJAX"],
+    impact: ["Task management", "API-backed workflows", "Document workflows", "User authentication", "Responsive UI"],
   },
   {
     title: "Ayush Portfolio",
@@ -20,7 +20,7 @@ const projects = [
     image: "/Icon.svg",
     github: "https://github.com/ayushchhipa07/Ayush-Portfolio",
     live: "#home",
-    tags: ["React", "Tailwind CSS", "Framer Motion", "Vite", "Responsive Design"],
+    tags: ["React", "Node.js Ready", "API Integration", "Tailwind CSS", "Framer Motion", "Vite"],
     impact: ["Theme switcher", "Animated sections", "SEO-friendly structure", "Fast Vite build", "Mobile-first layout"],
   },
 ];
@@ -32,7 +32,7 @@ const Projects = () => {
         <motion.div
           initial={{ opacity: 0, y: 28 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.3 }}
+          viewport={{ once: false, amount: 0.3 }}
           transition={{ duration: 0.6 }}
           className="flex flex-col justify-between gap-6 lg:flex-row lg:items-end"
         >
@@ -62,7 +62,7 @@ const Projects = () => {
               key={project.title}
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, amount: 0.25 }}
+              viewport={{ once: false, amount: 0.25 }}
               transition={{ delay: index * 0.08, duration: 0.6 }}
               className="glass-panel group overflow-hidden rounded-[2rem]"
             >

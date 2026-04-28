@@ -2,9 +2,9 @@ import { motion } from "framer-motion";
 import { BriefcaseBusiness, CheckCircle2, Database, Globe2, ServerCog, Users } from "lucide-react";
 
 const responsibilities = [
-  "Built and maintained ComplyRelax.com using Core PHP and CodeIgniter.",
+  "Built and improved product workflows with React-style UI thinking, JavaScript, APIs, PHP, and CodeIgniter.",
   "Handled user queries and improved workflows for smoother user experience.",
-  "Developed new features that reduce manual effort and processing time.",
+  "Developed API-backed features that reduce manual effort and processing time.",
   "Worked on server setup, deployment, SSL integration, backups, and uptime monitoring.",
 ];
 
@@ -22,22 +22,23 @@ const Experience = () => {
         <motion.div
           initial={{ opacity: 0, y: 28 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.3 }}
+          viewport={{ once: false, amount: 0.3 }}
           transition={{ duration: 0.6 }}
           className="mx-auto max-w-3xl text-center"
         >
           <div className="section-kicker">Experience</div>
           <h2 className="section-title">Real product work, not just portfolio screens.</h2>
           <p className="section-copy mx-auto">
-            My professional work spans frontend improvements, backend development,
-            database logic, integrations, and production maintenance.
+            My professional work now leans strongly toward React, Node.js-ready
+            workflows, API integration, frontend improvements, database logic, and
+            production maintenance.
           </p>
         </motion.div>
 
         <motion.div
           initial={{ opacity: 0, y: 32 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.25 }}
+          viewport={{ once: false, amount: 0.25 }}
           transition={{ duration: 0.65 }}
           className="mt-12 glass-panel overflow-hidden rounded-[2rem]"
         >
@@ -54,9 +55,11 @@ const Experience = () => {
                 Businessnow Private Limited
               </p>
               <p className="mt-5 leading-8 text-slate-600 dark:text-slate-300">
-                I contribute to full-stack development, feature delivery, user support,
-                performance improvements, and the technical care needed to keep a web
-                product dependable in production.
+                I contribute to full-stack development, API-backed feature delivery,
+                user support, performance improvements, and the technical care needed
+                to keep a web product dependable in production. PHP and CodeIgniter
+                are part of my base experience, while React, Node.js, and API
+                integration are my current growth focus.
               </p>
 
               <div className="mt-8 grid grid-cols-2 gap-3">
@@ -78,7 +81,7 @@ const Experience = () => {
                     key={item}
                     initial={{ opacity: 0, x: 24 }}
                     whileInView={{ opacity: 1, x: 0 }}
-                    viewport={{ once: true }}
+                    viewport={{ once: false, amount: 0.25 }}
                     transition={{ delay: index * 0.08 }}
                     className="flex gap-3 rounded-2xl border border-slate-200 bg-white p-4 dark:border-white/10 dark:bg-white/[0.04]"
                   >

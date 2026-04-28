@@ -12,18 +12,18 @@ import {
   Sparkles,
 } from "lucide-react";
 
-const techStack = ["React", "PHP", "CodeIgniter", "Node.js", "MySQL", "Tailwind CSS", "REST APIs"];
+const techStack = ["React", "Node.js", "API Integration", "Express.js", "MySQL", "Tailwind CSS", "PHP"];
 
 const metrics = [
   { value: "2+", label: "Years", detail: "hands-on experience" },
   { value: "3+", label: "Certificates", detail: "verified learning" },
-  { value: "10+", label: "Tools", detail: "full-stack toolkit" },
+  { value: "MCA", label: "AI Specialization", detail: "started in 2026" },
 ];
 
 const codeLines = [
   "const developer = 'Ayush Chhipa';",
-  "stack.build(['React', 'PHP', 'MySQL']);",
-  "ship(cleanUI && reliableBackend);",
+  "stack.build(['React', 'Node.js', 'APIs']);",
+  "ship(cleanUI && scalableBackend);",
 ];
 
 const Hero = () => {
@@ -49,13 +49,14 @@ const Hero = () => {
             Hi, I am{" "}
             <span className="hero-gradient-text">Ayush Chhipa</span>.
             <span className="block pt-2 text-3xl sm:text-4xl lg:text-5xl">
-              I build fast web apps with clean UI and reliable backend logic.
+              I build React, Node.js and API-powered web applications.
             </span>
           </h1>
 
           <p className="mt-6 max-w-2xl text-base leading-8 text-slate-600 sm:text-lg dark:text-slate-300">
-            Full-stack web developer from Jaipur working with React, PHP,
-            CodeIgniter, Node.js, MySQL, and production-ready web workflows.
+            Full-stack web developer from Jaipur focused on React, Node.js,
+            API integrations, MySQL, and production-ready web workflows. I also
+            work with PHP and CodeIgniter from real product experience.
           </p>
 
           <div className="mt-7 grid gap-3 sm:grid-cols-3">

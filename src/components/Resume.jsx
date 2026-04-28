@@ -64,7 +64,7 @@ const Resume = () => {
         <motion.div
           initial={{ opacity: 0, y: 50 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
+          viewport={{ once: false, amount: 0.25 }}
           transition={{ duration: 0.8 }}
           className="text-center mb-16"
         >
@@ -72,7 +72,7 @@ const Resume = () => {
             className="inline-block px-4 py-2 bg-gradient-to-r from-brand-accent/20 to-brand-secondary/20 rounded-full text-brand-accent font-medium text-sm border border-brand-accent/30 mb-4"
             initial={{ scale: 0 }}
             whileInView={{ scale: 1 }}
-            viewport={{ once: true }}
+            viewport={{ once: false, amount: 0.25 }}
             transition={{ delay: 0.2 }}
           >
             Professional Resume
@@ -104,7 +104,7 @@ const Resume = () => {
             <motion.div
               initial={{ opacity: 0, x: -50 }}
               whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
+              viewport={{ once: false, amount: 0.25 }}
               transition={{ duration: 0.8 }}
               className="bg-dark-card/50 backdrop-blur-sm border border-white/10 rounded-2xl p-6"
             >
@@ -118,7 +118,7 @@ const Resume = () => {
                     key={index}
                     initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
+                    viewport={{ once: false, amount: 0.25 }}
                     transition={{ delay: index * 0.1 }}
                     className="border-l-4 border-brand-accent pl-4"
                   >
@@ -135,7 +135,7 @@ const Resume = () => {
             <motion.div
               initial={{ opacity: 0, x: -50 }}
               whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
+              viewport={{ once: false, amount: 0.25 }}
               transition={{ duration: 0.8, delay: 0.2 }}
               className="bg-dark-card/50 backdrop-blur-sm border border-white/10 rounded-2xl p-6"
             >
@@ -149,7 +149,7 @@ const Resume = () => {
                     key={index}
                     initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
+                    viewport={{ once: false, amount: 0.25 }}
                     transition={{ delay: index * 0.1 }}
                     className="border-l-4 border-brand-secondary pl-4"
                   >
@@ -176,7 +176,7 @@ const Resume = () => {
             <motion.div
               initial={{ opacity: 0, x: 50 }}
               whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
+              viewport={{ once: false, amount: 0.25 }}
               transition={{ duration: 0.8 }}
               className="bg-dark-card/50 backdrop-blur-sm border border-white/10 rounded-2xl p-6"
             >
@@ -190,7 +190,7 @@ const Resume = () => {
                     key={index}
                     initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
+                    viewport={{ once: false, amount: 0.25 }}
                     transition={{ delay: index * 0.1 }}
                   >
                     <h4 className="text-primary-text font-medium mb-2">{skillGroup.category}</h4>
@@ -213,7 +213,7 @@ const Resume = () => {
             <motion.div
               initial={{ opacity: 0, x: 50 }}
               whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
+              viewport={{ once: false, amount: 0.25 }}
               transition={{ duration: 0.8, delay: 0.2 }}
               className="bg-gradient-to-r from-brand-accent/10 to-brand-secondary/10 border border-brand-accent/20 rounded-2xl p-6"
             >
@@ -227,7 +227,7 @@ const Resume = () => {
                     key={index}
                     initial={{ opacity: 0, x: 20 }}
                     whileInView={{ opacity: 1, x: 0 }}
-                    viewport={{ once: true }}
+                    viewport={{ once: false, amount: 0.25 }}
                     transition={{ delay: index * 0.1 }}
                     className="flex items-start text-sm text-secondary-text"
                   >
@@ -242,7 +242,7 @@ const Resume = () => {
             <motion.div
               initial={{ opacity: 0, x: 50 }}
               whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
+              viewport={{ once: false, amount: 0.25 }}
               transition={{ duration: 0.8, delay: 0.4 }}
               className="bg-dark-card/50 backdrop-blur-sm border border-white/10 rounded-2xl p-6"
             >

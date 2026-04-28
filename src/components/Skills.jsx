@@ -4,18 +4,18 @@ import { BadgeCheck, Brain, Code2, Database, Globe2, Hammer } from "lucide-react
 const skillGroups = [
   {
     icon: Code2,
-    title: "Languages",
-    items: ["JavaScript", "PHP", "SQL", "HTML", "CSS", "C", "C++", "Java", "Node.js"],
+    title: "Core Development",
+    items: ["JavaScript", "React", "Node.js", "Express.js", "API Integration", "SQL", "HTML", "CSS", "PHP"],
   },
   {
     icon: Hammer,
-    title: "Frameworks",
-    items: ["React", "CodeIgniter MVC", "Bootstrap", "Tailwind CSS", "jQuery"],
+    title: "Frontend & Backend",
+    items: ["React Components", "REST APIs", "JSON Workflows", "Tailwind CSS", "Vite", "CodeIgniter MVC", "Bootstrap"],
   },
   {
     icon: Database,
     title: "Database & Tools",
-    items: ["MySQL", "SQL Server", "Git", "GitHub", "Postman", "AJAX", "cURL", "Apache"],
+    items: ["MySQL", "Postman", "Git", "GitHub", "AJAX", "cURL", "SQL Server", "Apache"],
   },
 ];
 
@@ -40,7 +40,7 @@ const Skills = () => {
         <motion.div
           initial={{ opacity: 0, y: 28 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.3 }}
+          viewport={{ once: false, amount: 0.3 }}
           transition={{ duration: 0.6 }}
           className="mx-auto max-w-3xl text-center"
         >
@@ -50,8 +50,9 @@ const Skills = () => {
           </div>
           <h2 className="section-title">A practical toolkit for full-stack delivery.</h2>
           <p className="section-copy mx-auto">
-            I combine frontend craft, backend implementation, database thinking, and
-            communication skills to move features from idea to production.
+            My current focus is React UI, Node.js backend work, API integration,
+            database thinking, and clean production workflows. PHP and CodeIgniter
+            support my existing product experience.
           </p>
         </motion.div>
 
@@ -61,7 +62,7 @@ const Skills = () => {
               key={group.title}
               initial={{ opacity: 0, y: 26 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, amount: 0.25 }}
+              viewport={{ once: false, amount: 0.25 }}
               transition={{ delay: index * 0.08, duration: 0.55 }}
               className="glass-panel rounded-3xl p-6"
             >
@@ -84,7 +85,7 @@ const Skills = () => {
           <motion.div
             initial={{ opacity: 0, x: -24 }}
             whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
+            viewport={{ once: false, amount: 0.25 }}
             className="glass-panel rounded-3xl p-6 sm:p-8"
           >
             <div className="flex items-center gap-3">
@@ -103,7 +104,7 @@ const Skills = () => {
                       className="h-full rounded-full bg-gradient-to-r from-cyan-500 via-indigo-500 to-pink-500"
                       initial={{ width: 0 }}
                       whileInView={{ width: `${skill.level}%` }}
-                      viewport={{ once: true }}
+                      viewport={{ once: false, amount: 0.25 }}
                       transition={{ delay: index * 0.08, duration: 0.8, ease: "easeOut" }}
                     />
                   </div>
@@ -115,7 +116,7 @@ const Skills = () => {
           <motion.div
             initial={{ opacity: 0, x: 24 }}
             whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
+            viewport={{ once: false, amount: 0.25 }}
             className="glass-panel rounded-3xl p-6 sm:p-8"
           >
             <div className="flex items-center gap-3">

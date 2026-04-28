@@ -67,7 +67,7 @@ const Contact = () => {
         <motion.div
           initial={{ opacity: 0, y: 28 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.3 }}
+          viewport={{ once: false, amount: 0.3 }}
           transition={{ duration: 0.6 }}
           className="mx-auto max-w-3xl text-center"
         >
@@ -83,7 +83,7 @@ const Contact = () => {
           <motion.div
             initial={{ opacity: 0, x: -24 }}
             whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
+            viewport={{ once: false, amount: 0.25 }}
             className="glass-panel rounded-[2rem] p-6 sm:p-8"
           >
             <h3 className="text-2xl font-black text-slate-950 dark:text-white">Let us connect</h3>
@@ -117,7 +117,7 @@ const Contact = () => {
             onSubmit={handleSubmit}
             initial={{ opacity: 0, x: 24 }}
             whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
+            viewport={{ once: false, amount: 0.25 }}
             className="glass-panel rounded-[2rem] p-6 sm:p-8"
           >
             <div className="grid gap-5 sm:grid-cols-2">
