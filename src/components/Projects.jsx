@@ -2,26 +2,90 @@ import { motion } from "framer-motion";
 import { ArrowUpRight, Github, Sparkles } from "lucide-react";
 
 const projects = [
+  // {
+  //   title: "NiyamHub",
+  //   subtitle: "AI-Powered Compliance, Legal & Regulatory Management Platform",
+  //   // description:
+  //   // "An enterprise-grade compliance and legal operations platform that helps professionals automate regulatory workflows, manage documents, track notices, monitor compliance deadlines, and leverage AI-powered assistance for faster decision-making.",
+  //   description:
+  //   "Designed and developed a full-stack enterprise compliance platform that automates MCA, GST, Income Tax, ROC, and legal compliance workflows. Built secure credential management, compliance tracking, notice management, director & entity management, payment gateway integration, real-time document synchronization, AI-powered compliance assistance, automated workflow automation, dashboard analytics, and user management modules.Securely user management with Fully secure encrypted data, role-based access control, and cloud-ready architecture.",
+  //   image: "/Icon.svg",
+  //   live: "https://niyamhub.com/", 
+  //   tags: [
+  //   "React.js",
+  //   "Vite",
+  //   "Node.js",
+  //   "Express.js",
+  //   "MySQL",
+  //   "REST APIs",
+  //   "JWT Authentication",
+  //   "CryptoJS Encryption",
+  //   "Cashfree Payment Gateway",
+  //   "Server-Sent Events (SSE)",
+  //   "AI Integration",  
+  //   "Role Based Access Control",
+  //   "Responsive UI"
+  //   ],
+  //  impact: [
+  //     "AI Compliance Assistant",
+  //     "MCA Compliance Automation",
+  //     "GST Return Management",
+  //     "ROC Compliance Tracking",
+  //     "Notice & Order Monitoring",
+  //     "Director & Entity Management",
+  //     "Document Vault System",
+  //     "Credential Management",
+  //     "Cashfree Wallet & Payments",
+  //     "Real-Time Sync Engine",
+  //     "Multi-User Access Control",
+  //     "Dashboard Analytics"
+  //   ]
+  //   // tags: ["React", "Vite", "Node.js", "MySQL", "REST API", "API Integration", "Tailwind CSS"],
+  //   // impact: ["TAI Compliance Assistant", "Document Management", "Task Automation", "Notice Tracking", "ROC Compliance", "Dashboard Analytics"],
+  // },
+  {
+  title: "NiyamHub",
+  subtitle: "AI-Powered Compliance & Regulatory Management Platform",
+
+  description:
+    "Built a full-stack compliance platform for automating MCA, GST, Income Tax, and ROC workflows. Developed secure credential management, document vault, compliance tracking, AI-powered assistance, payment integration, and role-based access control with real-time synchronization.",
+
+  image: "/NiyamHubLogo.jpeg",
+
+  live: "https://niyamhub.com/",
+
+  tags: [
+    "React.js",
+    "Node.js",
+    "Express.js",
+    "MySQL",
+    "REST APIs",
+    "JWT Auth",
+    "Cashfree",
+    "AI Integration"
+  ],
+
+  impact: [
+    "MCA & ROC Compliance",
+    "GST Management",
+    "Income Tax Tracking",
+    "AI Assistant",
+    "Document Vault",
+    "Director Management",
+    // "Payments",
+      "Cashfree Wallet & Payments",
+    "Dashboard Analytics"
+  ]
+},
   {
     title: "ComplyRelax",
     subtitle: "AI-powered compliance and office management platform",
     description:
       "A centralized product for professionals like CS and CA to manage tasks, documents, compliance work, and productivity-focused workflows.",
-    image: "/complyrelax.png",
+    image: "/WebLogoComplyrelax.png",
     live: "https://complyrelax.com",
     tags: ["API Integration", "MySQL", "JavaScript", "PHP", "CodeIgniter", "Bootstrap", "AJAX"],
     impact: ["Task management", "API-backed workflows", "Document workflows", "User authentication", "Responsive UI"],
-  },
-  {
-    title: "Ayush Portfolio",
-    subtitle: "Modern responsive developer portfolio",
-    description:
-      "A polished React portfolio with dark and light mode, motion design, responsive sections, and a conversion-focused contact experience.",
-    image: "/Icon.svg",
-    github: "https://github.com/ayushchhipa07/Ayush-Portfolio",
-    live: "#home",
-    tags: ["React", "Node.js Ready", "API Integration", "Tailwind CSS", "Framer Motion", "Vite"],
-    impact: ["Theme switcher", "Animated sections", "SEO-friendly structure", "Fast Vite build", "Mobile-first layout"],
   },
 ];
 
@@ -72,7 +136,13 @@ const Projects = () => {
                   <img
                     src={project.image}
                     alt={`${project.title} logo`}
-                    className="max-h-24 max-w-64 object-contain drop-shadow-2xl transition duration-500 group-hover:scale-105"
+                    // className="max-h-24 max-w-64 object-contain drop-shadow-2xl transition duration-500 group-hover:scale-105"
+                      // className="w-full h-full object-cover transition duration-500 group-hover:scale-105"
+                      className={`${
+                        project.title === "NiyamHub"
+                          ? "w-100 h-40 object-contain"
+                          : "w-full h-40 object-contain"
+                      }`}
                   />
                 </div>
               </div>
