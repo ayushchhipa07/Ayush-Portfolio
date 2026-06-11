@@ -45,7 +45,10 @@ const Hero = () => {
             Ayush Chhipa Portfolio
           </div>
 
-          <h1 className="max-w-3xl text-4xl font-black leading-[1.03] tracking-tight text-slate-950 sm:text-5xl lg:text-6xl dark:text-white">
+          <h1
+            id="home-heading"
+            className="max-w-3xl text-4xl font-black leading-[1.03] tracking-tight text-slate-950 sm:text-5xl lg:text-6xl dark:text-white"
+          >
             Hi, I am{" "}
             <span className="hero-gradient-text">Ayush Chhipa</span>.
             <span className="block pt-2 text-3xl sm:text-4xl lg:text-5xl">
@@ -78,6 +81,7 @@ const Hero = () => {
           <div className="mt-8 flex flex-col gap-3 sm:flex-row">
             <a
               href="#projects"
+              data-analytics="hero-see-work"
               className="inline-flex items-center justify-center gap-2 rounded-full bg-slate-950 px-6 py-3.5 text-sm font-bold text-white shadow-xl shadow-slate-300 transition hover:-translate-y-1 hover:bg-cyan-700 dark:bg-white dark:text-slate-950 dark:shadow-cyan-950/30"
             >
               See My Work
@@ -86,6 +90,9 @@ const Hero = () => {
             <a
               href="/Ayush_Chhipa_Resume.pdf"
               download="Ayush_Chhipa_Resume.pdf"
+              type="application/pdf"
+              data-analytics="hero-download-resume"
+              aria-label="Download Ayush Chhipa resume PDF"
               className="inline-flex items-center justify-center gap-2 rounded-full border border-slate-300 bg-white/70 px-6 py-3.5 text-sm font-bold text-slate-950 shadow-sm transition hover:-translate-y-1 hover:border-cyan-400 dark:border-white/10 dark:bg-white/[0.06] dark:text-white"
             >
               <Download size={18} />
@@ -192,11 +199,11 @@ const Hero = () => {
                   <Mail size={18} />
                   Email
                 </a>
-                <a className="hero-social" href="https://github.com/ayushchhipa07" target="_blank" rel="noreferrer" aria-label="Ayush Chhipa GitHub">
+                <a className="hero-social" href="https://github.com/ayushchhipa07" target="_blank" rel="noopener noreferrer" aria-label="Ayush Chhipa GitHub">
                   <Github size={18} />
                   GitHub
                 </a>
-                <a className="hero-social" href="https://www.linkedin.com/in/ayush-chhipa/" target="_blank" rel="noreferrer" aria-label="Ayush Chhipa LinkedIn">
+                <a className="hero-social" href="https://www.linkedin.com/in/ayush-chhipa/" target="_blank" rel="noopener noreferrer" aria-label="Ayush Chhipa LinkedIn">
                   <Linkedin size={18} />
                   LinkedIn
                 </a>

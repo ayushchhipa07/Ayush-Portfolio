@@ -20,7 +20,7 @@ const cards = [
 ];
 
 const highlights = [
-  { icon: Code2, value: "2+", label: "Projects Delivered" },
+  { icon: Code2, value: "3+", label: "Projects Delivered" },
   { icon: GraduationCap, value: "MCA", label: "AI Specialization" },
   { icon: Award, value: "3+", label: "Achievements" },
   { icon: Rocket, value: "Fast", label: "Learning Curve" },
@@ -38,7 +38,7 @@ const About = () => {
           className="max-w-3xl"
         >
           <div className="section-kicker">About me</div>
-          <h2 className="section-title">
+          <h2 id="about-heading" className="section-title">
             A developer who connects clean UI with dependable backend systems.
           </h2>
           <p className="section-copy">

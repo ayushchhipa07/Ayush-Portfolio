@@ -2,87 +2,37 @@ import { motion } from "framer-motion";
 import { ArrowUpRight, Github, Sparkles } from "lucide-react";
 
 const projects = [
-  // {
-  //   title: "NiyamHub",
-  //   subtitle: "AI-Powered Compliance, Legal & Regulatory Management Platform",
-  //   // description:
-  //   // "An enterprise-grade compliance and legal operations platform that helps professionals automate regulatory workflows, manage documents, track notices, monitor compliance deadlines, and leverage AI-powered assistance for faster decision-making.",
-  //   description:
-  //   "Designed and developed a full-stack enterprise compliance platform that automates MCA, GST, Income Tax, ROC, and legal compliance workflows. Built secure credential management, compliance tracking, notice management, director & entity management, payment gateway integration, real-time document synchronization, AI-powered compliance assistance, automated workflow automation, dashboard analytics, and user management modules.Securely user management with Fully secure encrypted data, role-based access control, and cloud-ready architecture.",
-  //   image: "/Icon.svg",
-  //   live: "https://niyamhub.com/", 
-  //   tags: [
-  //   "React.js",
-  //   "Vite",
-  //   "Node.js",
-  //   "Express.js",
-  //   "MySQL",
-  //   "REST APIs",
-  //   "JWT Authentication",
-  //   "CryptoJS Encryption",
-  //   "Cashfree Payment Gateway",
-  //   "Server-Sent Events (SSE)",
-  //   "AI Integration",  
-  //   "Role Based Access Control",
-  //   "Responsive UI"
-  //   ],
-  //  impact: [
-  //     "AI Compliance Assistant",
-  //     "MCA Compliance Automation",
-  //     "GST Return Management",
-  //     "ROC Compliance Tracking",
-  //     "Notice & Order Monitoring",
-  //     "Director & Entity Management",
-  //     "Document Vault System",
-  //     "Credential Management",
-  //     "Cashfree Wallet & Payments",
-  //     "Real-Time Sync Engine",
-  //     "Multi-User Access Control",
-  //     "Dashboard Analytics"
-  //   ]
-  //   // tags: ["React", "Vite", "Node.js", "MySQL", "REST API", "API Integration", "Tailwind CSS"],
-  //   // impact: ["TAI Compliance Assistant", "Document Management", "Task Automation", "Notice Tracking", "ROC Compliance", "Dashboard Analytics"],
-  // },
   {
-  title: "NiyamHub",
-  subtitle: "AI-Powered Compliance & Regulatory Management Platform",
-
-  description:
-    "Built a full-stack compliance platform for automating MCA, GST, Income Tax, and ROC workflows. Developed secure credential management, document vault, compliance tracking, AI-powered assistance, payment integration, and role-based access control with real-time synchronization.",
-
-  image: "/NiyamHubLogo.jpeg",
-
-  live: "https://niyamhub.com/",
-
-  tags: [
-    "React.js",
-    "Node.js",
-    "Express.js",
-    "MySQL",
-    "REST APIs",
-    "JWT Auth",
-    "Cashfree",
-    "AI Integration"
-  ],
-
-  impact: [
-    "MCA & ROC Compliance",
-    "GST Management",
-    "Income Tax Tracking",
-    "AI Assistant",
-    "Document Vault",
-    "Director Management",
-    // "Payments",
-      "Cashfree Wallet & Payments",
-    "Dashboard Analytics"
-  ]
-},
+    title: "NiyamHub",
+    subtitle: "AI-powered compliance and regulatory management platform",
+    description:
+      "Built a full-stack compliance platform for automating MCA, GST, Income Tax, and ROC workflows. Developed secure credential management, document vault, compliance tracking, AI-powered assistance, payment integration, and role-based access control with real-time synchronization.",
+    image: "/NiyamHubLogo.jpeg",
+    imageAlt: "NiyamHub compliance platform logo",
+    imageWidth: 1169,
+    imageHeight: 535,
+    live: "https://niyamhub.com/",
+    tags: ["React.js", "Node.js", "Express.js", "MySQL", "REST APIs", "JWT Auth", "Cashfree", "AI Integration"],
+    impact: [
+      "MCA and ROC compliance",
+      "GST management",
+      "Income tax tracking",
+      "AI assistant",
+      "Document vault",
+      "Director management",
+      "Cashfree wallet and payments",
+      "Dashboard analytics",
+    ],
+  },
   {
     title: "ComplyRelax",
     subtitle: "AI-powered compliance and office management platform",
     description:
       "A centralized product for professionals like CS and CA to manage tasks, documents, compliance work, and productivity-focused workflows.",
     image: "/WebLogoComplyrelax.png",
+    imageAlt: "ComplyRelax compliance management platform logo",
+    imageWidth: 1089,
+    imageHeight: 400,
     live: "https://complyrelax.com",
     tags: ["API Integration", "MySQL", "JavaScript", "PHP", "CodeIgniter", "Bootstrap", "AJAX"],
     impact: ["Task management", "API-backed workflows", "Document workflows", "User authentication", "Responsive UI"],
@@ -105,7 +55,7 @@ const Projects = () => {
               <Sparkles size={14} />
               Featured work
             </div>
-            <h2 className="section-title">Projects with practical business value.</h2>
+            <h2 id="projects-heading" className="section-title">Projects with practical business value.</h2>
             <p className="section-copy">
               A compact showcase of the products and interfaces I have built or improved,
               with focus on usability, performance, and maintainable implementation.
@@ -113,6 +63,7 @@ const Projects = () => {
           </div>
           <a
             href="#contact"
+            data-analytics="projects-start-project"
             className="inline-flex w-fit items-center gap-2 rounded-full border border-slate-300 bg-white px-5 py-3 text-sm font-bold text-slate-950 transition hover:-translate-y-1 hover:border-cyan-400 dark:border-white/10 dark:bg-white/[0.06] dark:text-white"
           >
             Start a Project
@@ -135,14 +86,12 @@ const Projects = () => {
                 <div className="relative flex h-full min-h-44 items-center justify-center rounded-3xl border border-white/10 bg-white/[0.05] p-8">
                   <img
                     src={project.image}
-                    alt={`${project.title} logo`}
-                    // className="max-h-24 max-w-64 object-contain drop-shadow-2xl transition duration-500 group-hover:scale-105"
-                      // className="w-full h-full object-cover transition duration-500 group-hover:scale-105"
-                      className={`${
-                        project.title === "NiyamHub"
-                          ? "w-100 h-40 object-contain"
-                          : "w-full h-40 object-contain"
-                      }`}
+                    alt={project.imageAlt}
+                    width={project.imageWidth}
+                    height={project.imageHeight}
+                    loading="lazy"
+                    decoding="async"
+                    className="h-40 w-full max-w-md object-contain transition duration-500 group-hover:scale-105"
                   />
                 </div>
               </div>
@@ -173,7 +122,7 @@ const Projects = () => {
                     <a
                       href={project.github}
                       target="_blank"
-                      rel="noreferrer"
+                      rel="noopener noreferrer"
                       className="grid h-11 w-11 place-items-center rounded-full border border-slate-200 bg-white text-slate-700 transition hover:-translate-y-1 hover:text-cyan-700 dark:border-white/10 dark:bg-white/[0.06] dark:text-white"
                       aria-label={`${project.title} GitHub`}
                     >
@@ -183,7 +132,9 @@ const Projects = () => {
                   <a
                     href={project.live}
                     target={project.live.startsWith("http") ? "_blank" : undefined}
-                    rel={project.live.startsWith("http") ? "noreferrer" : undefined}
+                    rel={project.live.startsWith("http") ? "noopener noreferrer" : undefined}
+                    data-analytics={`project-live-${project.title.toLowerCase()}`}
+                    aria-label={`View ${project.title} live website`}
                     className="inline-flex items-center gap-2 rounded-full bg-slate-950 px-5 py-3 text-sm font-bold text-white transition hover:-translate-y-1 hover:bg-cyan-700 dark:bg-white dark:text-slate-950"
                   >
                     View Live

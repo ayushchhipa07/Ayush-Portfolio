@@ -47,6 +47,7 @@ const Navbar = ({ theme, setTheme }) => {
       className="fixed inset-x-0 top-0 z-50 px-3 pt-3 sm:px-5"
     >
       <nav
+        aria-label="Primary navigation"
         className={`mx-auto flex h-16 max-w-7xl items-center justify-between rounded-full border px-4 transition-all duration-300 sm:px-5 ${
           scrolled
             ? "border-slate-200 bg-white/80 shadow-lg shadow-slate-200/70 backdrop-blur-2xl dark:border-white/10 dark:bg-[#07111f]/80 dark:shadow-black/30"
@@ -72,6 +73,7 @@ const Navbar = ({ theme, setTheme }) => {
               <a
                 key={link.href}
                 href={link.href}
+                aria-current={isActive ? "page" : undefined}
                 className={`relative rounded-full px-4 py-2 text-sm font-semibold transition ${
                   isActive
                     ? "text-slate-950 dark:text-white"
@@ -94,7 +96,7 @@ const Navbar = ({ theme, setTheme }) => {
         <div className="flex items-center gap-2">
           <button
             type="button"
-            aria-label="Toggle theme"
+            aria-label={`Switch to ${theme === "dark" ? "light" : "dark"} theme`}
             onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
             className="grid h-11 w-11 place-items-center rounded-full border border-slate-200 bg-white text-slate-800 shadow-sm transition hover:-translate-y-0.5 hover:border-cyan-300 dark:border-white/10 dark:bg-white/[0.07] dark:text-white"
           >
@@ -102,6 +104,7 @@ const Navbar = ({ theme, setTheme }) => {
           </button>
           <a
             href="#contact"
+            data-analytics="nav-hire-me"
             className="hidden items-center gap-2 rounded-full bg-slate-950 px-4 py-2.5 text-sm font-bold text-white shadow-lg shadow-slate-300 transition hover:-translate-y-0.5 hover:bg-cyan-700 dark:bg-white dark:text-slate-950 dark:shadow-cyan-950/30 md:inline-flex"
           >
             <BriefcaseBusiness size={16} />
@@ -109,7 +112,8 @@ const Navbar = ({ theme, setTheme }) => {
           </a>
           <button
             type="button"
-            aria-label="Toggle menu"
+            aria-label={isOpen ? "Close menu" : "Open menu"}
+            aria-expanded={isOpen}
             onClick={() => setIsOpen((value) => !value)}
             className="grid h-11 w-11 place-items-center rounded-full border border-slate-200 bg-white text-slate-900 shadow-sm dark:border-white/10 dark:bg-white/[0.07] dark:text-white lg:hidden"
           >
@@ -130,6 +134,7 @@ const Navbar = ({ theme, setTheme }) => {
               <a
                 key={link.href}
                 href={link.href}
+                aria-current={activeSection === link.href.slice(1) ? "page" : undefined}
                 onClick={() => setIsOpen(false)}
                 className={`block rounded-2xl px-4 py-3 text-base font-semibold ${
                   activeSection === link.href.slice(1)
@@ -143,6 +148,7 @@ const Navbar = ({ theme, setTheme }) => {
             <a
               href="#contact"
               onClick={() => setIsOpen(false)}
+              data-analytics="mobile-nav-hire-me"
               className="mt-2 flex items-center justify-center gap-2 rounded-2xl bg-slate-950 px-4 py-3 font-bold text-white dark:bg-white dark:text-slate-950"
             >
               <BriefcaseBusiness size={18} />

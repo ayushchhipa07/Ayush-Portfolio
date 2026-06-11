@@ -36,6 +36,7 @@ const CustomCursor = () => {
     <>
       <motion.div
         className="custom-cursor-dot"
+        aria-hidden="true"
         animate={{
           x: position.x - 4,
           y: position.y - 4,
@@ -46,6 +47,7 @@ const CustomCursor = () => {
       />
       <motion.div
         className="custom-cursor-ring"
+        aria-hidden="true"
         animate={{
           x: position.x - 20,
           y: position.y - 20,

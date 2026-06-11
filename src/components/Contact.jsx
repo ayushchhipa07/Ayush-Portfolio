@@ -72,7 +72,7 @@ const Contact = () => {
           className="mx-auto max-w-3xl text-center"
         >
           <div className="section-kicker">Contact</div>
-          <h2 className="section-title">Have a project idea? Let us build it properly.</h2>
+          <h2 id="contact-heading" className="section-title">Have a project idea? Let us build it properly.</h2>
           <p className="section-copy mx-auto">
             Send me a message for websites, dashboards, product improvements,
             backend features, or full-stack development work.
@@ -98,7 +98,8 @@ const Contact = () => {
                   key={item.label}
                   href={item.href}
                   target={item.href.startsWith("http") ? "_blank" : undefined}
-                  rel={item.href.startsWith("http") ? "noreferrer" : undefined}
+                  rel={item.href.startsWith("http") ? "noopener noreferrer" : undefined}
+                  data-analytics={`contact-${item.label.toLowerCase()}`}
                   className="flex items-center gap-4 rounded-2xl border border-slate-200 bg-slate-50 p-4 transition hover:-translate-y-1 hover:border-cyan-300 dark:border-white/10 dark:bg-white/[0.04]"
                 >
                   <span className="grid h-11 w-11 shrink-0 place-items-center rounded-full bg-cyan-500/10 text-cyan-700 dark:text-cyan-300">
@@ -118,6 +119,7 @@ const Contact = () => {
             initial={{ opacity: 0, x: 24 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: false, amount: 0.25 }}
+            aria-label="Contact Ayush Chhipa"
             className="glass-panel rounded-[2rem] p-6 sm:p-8"
           >
             <div className="grid gap-5 sm:grid-cols-2">
@@ -131,6 +133,7 @@ const Contact = () => {
                   value={formData.name}
                   onChange={handleChange}
                   placeholder="Enter your name"
+                  autoComplete="name"
                   className="h-12 w-full rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 text-slate-950 outline-none transition focus:border-cyan-400 focus:ring-4 focus:ring-cyan-400/15 dark:border-white/10 dark:bg-white/[0.04] dark:text-white"
                   required
                 />
@@ -145,6 +148,7 @@ const Contact = () => {
                   value={formData.email}
                   onChange={handleChange}
                   placeholder="Enter your email"
+                  autoComplete="email"
                   className="h-12 w-full rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 text-slate-950 outline-none transition focus:border-cyan-400 focus:ring-4 focus:ring-cyan-400/15 dark:border-white/10 dark:bg-white/[0.04] dark:text-white"
                   required
                 />
@@ -179,12 +183,17 @@ const Contact = () => {
                 type="submit"
                 whileHover={{ y: -3 }}
                 whileTap={{ scale: 0.98 }}
+                data-analytics="contact-submit"
                 className="inline-flex items-center justify-center gap-2 rounded-full bg-slate-950 px-6 py-3.5 text-sm font-bold text-white shadow-xl shadow-slate-300 transition hover:bg-cyan-700 dark:bg-white dark:text-slate-950 dark:shadow-cyan-950/30"
               >
                 <Send size={17} />
                 Send Message
               </motion.button>
-              {status && <p className="text-sm font-semibold text-slate-500 dark:text-slate-400">{status}</p>}
+              {status && (
+                <p className="text-sm font-semibold text-slate-500 dark:text-slate-400" aria-live="polite">
+                  {status}
+                </p>
+              )}
             </div>
           </motion.form>
         </div>
@@ -193,7 +202,7 @@ const Contact = () => {
       <footer className="border-t border-slate-200 bg-white/60 px-4 py-8 backdrop-blur-xl dark:border-white/10 dark:bg-white/[0.03]">
         <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-5 text-center sm:flex-row sm:text-left">
           <p className="text-sm font-semibold text-slate-500 dark:text-slate-400">
-            Copyright © 2026 Ayush Chhipa. Built with React, Tailwind CSS, and care.
+            Copyright 2026 Ayush Chhipa. Built with React, Tailwind CSS, and care.
           </p>
           <button
             type="button"

@@ -3,7 +3,7 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
-  "homepage": "https://ayushchhipa17.github.io/ayush_portfolio",
+  "homepage": "https://ayushchhipa-codes.onrender.com/",
   "scripts": {
     "dev": "vite",
     "build": "vite build",

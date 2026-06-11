@@ -48,7 +48,7 @@ const Skills = () => {
             <Globe2 size={14} />
             Skill stack
           </div>
-          <h2 className="section-title">A practical toolkit for full-stack delivery.</h2>
+          <h2 id="skills-heading" className="section-title">A practical toolkit for full-stack delivery.</h2>
           <p className="section-copy mx-auto">
             My current focus is React UI, Node.js backend work, API integration,
             database thinking, and clean production workflows. PHP and CodeIgniter
@@ -134,7 +134,8 @@ const Skills = () => {
             <a
               href="https://www.hackerrank.com/certificates/iframe/ca4f374cd071"
               target="_blank"
-              rel="noreferrer"
+              rel="noopener noreferrer"
+              data-analytics="skills-hackerrank-certificate"
               className="mt-6 inline-flex rounded-full border border-slate-300 bg-white px-5 py-3 text-sm font-bold text-slate-950 transition hover:-translate-y-1 hover:border-cyan-400 dark:border-white/10 dark:bg-white/[0.06] dark:text-white"
             >
               View HackerRank Certificate
