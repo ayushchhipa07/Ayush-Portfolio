@@ -1,4 +1,3 @@
-import { motion } from "framer-motion";
 import {
   ArrowRight,
   BadgeCheck,
@@ -28,18 +27,13 @@ const codeLines = [
 
 const Hero = () => {
   return (
-    <div className="relative isolate min-h-screen overflow-hidden pt-28">
+    <div className="relative isolate overflow-hidden pt-24 sm:pt-28">
       <div className="aurora absolute inset-0 -z-20" />
       <div className="animated-grid absolute inset-0 -z-10" />
       <div className="hero-scanline absolute inset-x-0 top-24 -z-10 h-px" />
 
-      <div className="section-shell grid min-h-[calc(100vh-7rem)] items-center gap-10 pt-8 lg:grid-cols-[0.92fr_1.08fr]">
-        <motion.div
-          initial={{ opacity: 0, y: 28 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, ease: "easeOut" }}
-          className="relative z-10"
-        >
+      <div className="section-shell grid min-w-0 items-center gap-10 pb-16 pt-10 lg:grid-cols-[0.92fr_1.08fr] lg:pb-20 lg:pt-16">
+        <div className="relative z-10 min-w-0 max-w-[22.25rem] sm:max-w-none">
           <div className="section-kicker">
             <Sparkles size={14} />
             Ayush Chhipa Portfolio
@@ -47,12 +41,13 @@ const Hero = () => {
 
           <h1
             id="home-heading"
-            className="max-w-3xl text-4xl font-black leading-[1.03] tracking-tight text-slate-950 sm:text-5xl lg:text-6xl dark:text-white"
+            className="max-w-3xl break-words text-3xl font-black leading-[1.06] tracking-tight text-slate-950 sm:text-5xl lg:text-6xl dark:text-white"
           >
             Hi, I am{" "}
             <span className="hero-gradient-text">Ayush Chhipa</span>.
-            <span className="block pt-2 text-3xl sm:text-4xl lg:text-5xl">
-              I build React, Node.js and API-powered web applications.
+            <span className="block pt-2 text-2xl sm:text-4xl lg:text-5xl">
+              <span className="block">I build React, Node.js</span>
+              <span className="block">and API-powered web applications.</span>
             </span>
           </h1>
 
@@ -63,18 +58,15 @@ const Hero = () => {
           </p>
 
           <div className="mt-7 grid gap-3 sm:grid-cols-3">
-            {metrics.map((metric, index) => (
-              <motion.div
+            {metrics.map((metric) => (
+              <div
                 key={metric.label}
-                initial={{ opacity: 0, y: 18 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.28 + index * 0.08 }}
                 className="rounded-2xl border border-slate-200 bg-white/75 p-4 shadow-sm backdrop-blur dark:border-white/10 dark:bg-white/[0.06]"
               >
                 <p className="text-3xl font-black text-cyan-700 dark:text-cyan-300">{metric.value}</p>
                 <p className="mt-1 text-sm font-black text-slate-950 dark:text-white">{metric.label}</p>
                 <p className="text-xs font-semibold text-slate-500 dark:text-slate-400">{metric.detail}</p>
-              </motion.div>
+              </div>
             ))}
           </div>
 
@@ -101,30 +93,20 @@ const Hero = () => {
           </div>
 
           <div className="mt-7 flex flex-wrap gap-2">
-            {techStack.map((tech, index) => (
-              <motion.span
+            {techStack.map((tech) => (
+              <span
                 key={tech}
-                initial={{ opacity: 0, y: 12 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.5 + index * 0.045 }}
                 className="chip hover-lift"
               >
                 {tech}
-              </motion.span>
+              </span>
             ))}
           </div>
-        </motion.div>
+        </div>
 
-        <motion.div
-          initial={{ opacity: 0, scale: 0.94, y: 28 }}
-          animate={{ opacity: 1, scale: 1, y: 0 }}
-          transition={{ delay: 0.12, duration: 0.8, ease: "easeOut" }}
-          className="relative mx-auto w-full max-w-xl lg:max-w-none"
-        >
-          <motion.div
+        <div className="relative mx-auto w-full min-w-0 max-w-[22.25rem] sm:max-w-xl lg:max-w-none">
+          <div
             className="absolute -left-3 top-16 hidden rounded-3xl border border-slate-200 bg-white/85 p-4 shadow-xl shadow-slate-200/70 backdrop-blur-xl dark:border-white/10 dark:bg-[#07111f]/80 dark:shadow-black/30 sm:block"
-            animate={{ y: [0, -12, 0], rotate: [-1, 1, -1] }}
-            transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
           >
             <div className="flex items-center gap-3">
               <span className="grid h-10 w-10 place-items-center rounded-2xl bg-emerald-500/10 text-emerald-600 dark:text-emerald-300">
@@ -135,12 +117,10 @@ const Hero = () => {
                 <p className="font-black text-slate-950 dark:text-white">Open to work</p>
               </div>
             </div>
-          </motion.div>
+          </div>
 
-          <motion.div
+          <div
             className="absolute -right-2 bottom-20 hidden rounded-3xl border border-slate-200 bg-white/85 p-4 shadow-xl shadow-slate-200/70 backdrop-blur-xl dark:border-white/10 dark:bg-[#07111f]/80 dark:shadow-black/30 md:block"
-            animate={{ y: [0, 12, 0], rotate: [1, -1, 1] }}
-            transition={{ duration: 5.6, repeat: Infinity, ease: "easeInOut" }}
           >
             <div className="flex items-center gap-3">
               <span className="grid h-10 w-10 place-items-center rounded-2xl bg-cyan-500/10 text-cyan-700 dark:text-cyan-300">
@@ -151,11 +131,11 @@ const Hero = () => {
                 <p className="font-black text-slate-950 dark:text-white">Jaipur, India</p>
               </div>
             </div>
-          </motion.div>
+          </div>
 
-          <div className="glass-panel hero-card relative overflow-hidden rounded-[2rem] p-4 sm:p-5">
+          <div className="glass-panel hero-card relative min-w-0 overflow-hidden rounded-[2rem] p-4 sm:p-5">
             <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_0%,rgba(34,211,238,0.18),transparent_28%),radial-gradient(circle_at_100%_20%,rgba(236,72,153,0.12),transparent_24%)]" />
-            <div className="relative rounded-[1.5rem] border border-white/10 bg-slate-950 p-5 text-white shadow-2xl">
+            <div className="relative min-w-0 rounded-[1.5rem] border border-white/10 bg-slate-950 p-5 text-white shadow-2xl">
               <div className="mb-5 flex items-center justify-between">
                 <div className="flex items-center gap-3">
                   <span className="grid h-11 w-11 place-items-center rounded-2xl bg-cyan-300/10 text-cyan-300">
@@ -173,23 +153,20 @@ const Hero = () => {
                 </div>
               </div>
 
-              <div className="code-window rounded-3xl bg-[#07111f] p-5 ring-1 ring-white/10">
+              <div className="code-window min-w-0 rounded-3xl bg-[#07111f] p-5 ring-1 ring-white/10">
                 <div className="mb-4 flex items-center gap-2 text-cyan-300">
                   <Braces size={18} />
                   <span className="text-sm font-bold">portfolio.config.js</span>
                 </div>
-                <div className="space-y-3 font-mono text-sm leading-7">
+                <div className="space-y-3 overflow-hidden font-mono text-sm leading-7">
                   {codeLines.map((line, index) => (
-                    <motion.p
+                    <p
                       key={line}
-                      initial={{ opacity: 0, x: -16 }}
-                      animate={{ opacity: 1, x: 0 }}
-                      transition={{ delay: 0.55 + index * 0.16 }}
-                      className="text-slate-300"
+                      className="break-words text-slate-300"
                     >
                       <span className="mr-3 select-none text-slate-600">0{index + 1}</span>
                       {line}
-                    </motion.p>
+                    </p>
                   ))}
                 </div>
               </div>
@@ -210,7 +187,7 @@ const Hero = () => {
               </div>
             </div>
           </div>
-        </motion.div>
+        </div>
       </div>
     </div>
   );

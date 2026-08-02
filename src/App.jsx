@@ -1,12 +1,14 @@
 import { useEffect, useState } from "react";
 import About from "./components/About";
 import Contact from "./components/Contact";
-import CustomCursor from "./components/CustomCursor";
 import Experience from "./components/Experience";
 import Hero from "./components/Hero";
 import Navbar from "./components/Navbar";
+import Process from "./components/Process";
 import Projects from "./components/Projects";
+import Services from "./components/Services";
 import Skills from "./components/Skills";
+import StickyCTA from "./components/StickyCTA";
 
 const getInitialTheme = () => {
   if (typeof window === "undefined") return "dark";
@@ -33,7 +35,6 @@ const App = () => {
       >
         Skip to main content
       </a>
-      <CustomCursor />
       <Navbar theme={theme} setTheme={setTheme} />
       <main id="main-content">
         <section id="home" aria-labelledby="home-heading">
@@ -42,11 +43,17 @@ const App = () => {
         <section id="about" aria-labelledby="about-heading">
           <About />
         </section>
+        <section id="services" aria-labelledby="services-heading">
+          <Services />
+        </section>
         <section id="experience" aria-labelledby="experience-heading">
           <Experience />
         </section>
         <section id="projects" aria-labelledby="projects-heading">
           <Projects />
+        </section>
+        <section id="process" aria-labelledby="process-heading">
+          <Process />
         </section>
         <section id="skills" aria-labelledby="skills-heading">
           <Skills />
@@ -55,6 +62,7 @@ const App = () => {
           <Contact />
         </section>
       </main>
+      <StickyCTA />
     </div>
   );
 };

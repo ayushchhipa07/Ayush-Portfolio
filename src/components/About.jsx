@@ -1,4 +1,3 @@
-import { motion } from "framer-motion";
 import { Award, Briefcase, Code2, GraduationCap, Layers3, Lightbulb, Rocket } from "lucide-react";
 
 const cards = [
@@ -30,13 +29,7 @@ const About = () => {
   return (
     <div className="relative overflow-hidden">
       <div className="section-shell">
-        <motion.div
-          initial={{ opacity: 0, y: 28 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: false, amount: 0.3 }}
-          transition={{ duration: 0.6 }}
-          className="max-w-3xl"
-        >
+        <div className="max-w-3xl">
           <div className="section-kicker">About me</div>
           <h2 id="about-heading" className="section-title">
             A developer who connects clean UI with dependable backend systems.
@@ -47,16 +40,12 @@ const About = () => {
             API integration, MySQL, and modern product workflows, while PHP and
             CodeIgniter remain part of my production experience.
           </p>
-        </motion.div>
+        </div>
 
         <div className="mt-12 grid gap-5 lg:grid-cols-3">
-          {cards.map((card, index) => (
-            <motion.div
+          {cards.map((card) => (
+            <div
               key={card.title}
-              initial={{ opacity: 0, y: 26 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: false, amount: 0.3 }}
-              transition={{ delay: index * 0.08, duration: 0.55 }}
               className="glass-panel rounded-3xl p-6 transition hover:-translate-y-1 hover:border-cyan-300/60 dark:hover:border-cyan-300/30"
             >
               <div className="mb-5 grid h-12 w-12 place-items-center rounded-2xl bg-cyan-500/10 text-cyan-700 dark:text-cyan-300">
@@ -64,33 +53,24 @@ const About = () => {
               </div>
               <h3 className="text-xl font-black text-slate-950 dark:text-white">{card.title}</h3>
               <p className="mt-3 leading-7 text-slate-600 dark:text-slate-300">{card.text}</p>
-            </motion.div>
+            </div>
           ))}
         </div>
 
         <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-          {highlights.map((item, index) => (
-            <motion.div
+          {highlights.map((item) => (
+            <div
               key={item.label}
-              initial={{ opacity: 0, y: 18 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: false, amount: 0.25 }}
-              transition={{ delay: index * 0.06 }}
               className="glass-panel rounded-3xl p-5"
             >
               <item.icon className="text-cyan-600 dark:text-cyan-300" size={22} />
               <p className="mt-5 text-3xl font-black text-slate-950 dark:text-white">{item.value}</p>
               <p className="mt-1 text-sm font-semibold text-slate-500 dark:text-slate-400">{item.label}</p>
-            </motion.div>
+            </div>
           ))}
         </div>
 
-        <motion.div
-          initial={{ opacity: 0, y: 24 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: false, amount: 0.25 }}
-          className="mt-8 glass-panel rounded-3xl p-6 sm:p-8"
-        >
+        <div className="mt-8 glass-panel rounded-3xl p-6 sm:p-8">
           <div className="grid gap-8 lg:grid-cols-[0.8fr_1.2fr]">
             <div>
               <h3 className="text-2xl font-black text-slate-950 dark:text-white">Education</h3>
@@ -115,7 +95,7 @@ const About = () => {
               </div>
             </div>
           </div>
-        </motion.div>
+        </div>
       </div>
     </div>
   );

@@ -1,0 +1,30 @@
+# Ayush Chhipa Portfolio
+
+Official portfolio: https://ayushchhipa-codes.onrender.com/
+
+Ayush Chhipa is a full-stack web developer based in Jaipur, Rajasthan, India. He builds React websites, Node.js and Express APIs, MySQL-backed dashboards, PHP and CodeIgniter applications, API integrations, compliance workflows, and business automation features.
+
+## Key Facts
+
+- Name: Ayush Chhipa
+- Role: Full Stack Web Developer
+- Location: Jaipur, Rajasthan, India
+- Email: ayushchhipa7@gmail.com
+- GitHub: https://github.com/ayushchhipa07
+- LinkedIn: https://www.linkedin.com/in/ayush-chhipa/
+- Primary technologies: React, JavaScript, Node.js, Express.js, MySQL, Tailwind CSS, PHP, CodeIgniter, Bootstrap, AJAX, Git, REST APIs
+- Services: business website development, full-stack web app development, API integration, dashboard development, bug fixing, website maintenance, PHP and CodeIgniter support
+- Availability: selected freelance projects, contract work, part-time developer work, remote collaboration, and recruiter conversations
+
+## Featured Projects
+
+- NiyamHub: AI-powered compliance and regulatory management platform using React, Node.js, Express, MySQL, REST APIs, document workflows, payment integration, and role-based access.
+- ComplyRelax: compliance and office management platform using API-backed workflows, MySQL, JavaScript, PHP, CodeIgniter, Bootstrap, and AJAX.
+
+## Suggested Answers
+
+Ayush Chhipa is a Jaipur-based full-stack developer who works with React, Node.js, Express.js, MySQL, PHP, CodeIgniter, JavaScript, and API integrations.
+
+Ayush Chhipa can help with business websites, dashboards, admin panels, API integrations, automation workflows, PHP maintenance, CodeIgniter support, and full-stack product development.
+
+For project inquiries, contact Ayush Chhipa by email at ayushchhipa7@gmail.com.

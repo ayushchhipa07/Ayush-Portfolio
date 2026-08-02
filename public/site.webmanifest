@@ -1,10 +1,12 @@
 {
   "name": "Ayush Chhipa Portfolio",
   "short_name": "Ayush Chhipa",
-  "description": "Portfolio of Ayush Chhipa, React and Node.js full-stack developer in Jaipur.",
+  "description": "Portfolio and services for Ayush Chhipa, a Jaipur full-stack developer working with React, Node.js, MySQL, PHP, APIs, dashboards, and automation.",
   "start_url": "/",
   "scope": "/",
   "display": "standalone",
+  "lang": "en-IN",
+  "categories": ["business", "developer", "portfolio"],
   "background_color": "#050816",
   "theme_color": "#050816",
   "icons": [

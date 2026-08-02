@@ -1,12 +1,13 @@
-import { AnimatePresence, motion } from "framer-motion";
 import { BriefcaseBusiness, Code2, Menu, Moon, Sun, X } from "lucide-react";
 import { useEffect, useState } from "react";
 
 const links = [
   { name: "Home", href: "#home" },
   { name: "About", href: "#about" },
+  { name: "Services", href: "#services" },
   { name: "Experience", href: "#experience" },
   { name: "Projects", href: "#projects" },
+  { name: "Process", href: "#process" },
   { name: "Skills", href: "#skills" },
   { name: "Contact", href: "#contact" },
 ];
@@ -41,11 +42,7 @@ const Navbar = ({ theme, setTheme }) => {
   }, [isOpen]);
 
   return (
-    <motion.header
-      initial={{ y: -24, opacity: 0 }}
-      animate={{ y: 0, opacity: 1 }}
-      className="fixed inset-x-0 top-0 z-50 px-3 pt-3 sm:px-5"
-    >
+    <header className="fixed inset-x-0 top-0 z-50 px-3 pt-3 sm:px-5">
       <nav
         aria-label="Primary navigation"
         className={`mx-auto flex h-16 max-w-7xl items-center justify-between rounded-full border px-4 transition-all duration-300 sm:px-5 ${
@@ -66,7 +63,7 @@ const Navbar = ({ theme, setTheme }) => {
           </span>
         </a>
 
-        <div className="hidden items-center gap-1 lg:flex">
+        <div className="hidden items-center gap-1 xl:flex">
           {links.map((link) => {
             const isActive = activeSection === link.href.slice(1);
             return (
@@ -81,11 +78,7 @@ const Navbar = ({ theme, setTheme }) => {
                 }`}
               >
                 {isActive && (
-                  <motion.span
-                    layoutId="active-nav-pill"
-                    className="absolute inset-0 rounded-full bg-slate-100 ring-1 ring-slate-200 dark:bg-white/[0.08] dark:ring-white/10"
-                    transition={{ type: "spring", stiffness: 360, damping: 32 }}
-                  />
+                  <span className="absolute inset-0 rounded-full bg-slate-100 ring-1 ring-slate-200 dark:bg-white/[0.08] dark:ring-white/10" />
                 )}
                 <span className="relative z-10">{link.name}</span>
               </a>
@@ -115,21 +108,15 @@ const Navbar = ({ theme, setTheme }) => {
             aria-label={isOpen ? "Close menu" : "Open menu"}
             aria-expanded={isOpen}
             onClick={() => setIsOpen((value) => !value)}
-            className="grid h-11 w-11 place-items-center rounded-full border border-slate-200 bg-white text-slate-900 shadow-sm dark:border-white/10 dark:bg-white/[0.07] dark:text-white lg:hidden"
+            className="grid h-11 w-11 place-items-center rounded-full border border-slate-200 bg-white text-slate-900 shadow-sm dark:border-white/10 dark:bg-white/[0.07] dark:text-white xl:hidden"
           >
             {isOpen ? <X size={20} /> : <Menu size={20} />}
           </button>
         </div>
       </nav>
 
-      <AnimatePresence>
-        {isOpen && (
-          <motion.div
-            initial={{ opacity: 0, y: -12, scale: 0.98 }}
-            animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={{ opacity: 0, y: -12, scale: 0.98 }}
-            className="mx-auto mt-3 max-w-7xl rounded-3xl border border-slate-200 bg-white/95 p-3 shadow-2xl shadow-slate-300/70 backdrop-blur-2xl dark:border-white/10 dark:bg-[#07111f]/95 dark:shadow-black/40 lg:hidden"
-          >
+      {isOpen && (
+        <div className="mx-auto mt-3 max-w-7xl rounded-3xl border border-slate-200 bg-white/95 p-3 shadow-2xl shadow-slate-300/70 backdrop-blur-2xl dark:border-white/10 dark:bg-[#07111f]/95 dark:shadow-black/40 xl:hidden">
             {links.map((link) => (
               <a
                 key={link.href}
@@ -154,10 +141,9 @@ const Navbar = ({ theme, setTheme }) => {
               <BriefcaseBusiness size={18} />
               Hire Me
             </a>
-          </motion.div>
-        )}
-      </AnimatePresence>
-    </motion.header>
+        </div>
+      )}
+    </header>
   );
 };
 

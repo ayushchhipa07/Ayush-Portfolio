@@ -1,4 +1,3 @@
-import { motion } from "framer-motion";
 import { BadgeCheck, Brain, Code2, Database, Globe2, Hammer } from "lucide-react";
 
 const skillGroups = [
@@ -37,13 +36,7 @@ const Skills = () => {
   return (
     <div className="relative overflow-hidden bg-white/50 dark:bg-white/[0.02]">
       <div className="section-shell">
-        <motion.div
-          initial={{ opacity: 0, y: 28 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: false, amount: 0.3 }}
-          transition={{ duration: 0.6 }}
-          className="mx-auto max-w-3xl text-center"
-        >
+        <div className="mx-auto max-w-3xl text-center">
           <div className="section-kicker">
             <Globe2 size={14} />
             Skill stack
@@ -54,16 +47,12 @@ const Skills = () => {
             database thinking, and clean production workflows. PHP and CodeIgniter
             support my existing product experience.
           </p>
-        </motion.div>
+        </div>
 
         <div className="mt-12 grid gap-6 lg:grid-cols-3">
-          {skillGroups.map((group, index) => (
-            <motion.div
+          {skillGroups.map((group) => (
+            <div
               key={group.title}
-              initial={{ opacity: 0, y: 26 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: false, amount: 0.25 }}
-              transition={{ delay: index * 0.08, duration: 0.55 }}
               className="glass-panel rounded-3xl p-6"
             >
               <div className="mb-5 grid h-12 w-12 place-items-center rounded-2xl bg-cyan-500/10 text-cyan-700 dark:text-cyan-300">
@@ -77,48 +66,35 @@ const Skills = () => {
                   </span>
                 ))}
               </div>
-            </motion.div>
+            </div>
           ))}
         </div>
 
         <div className="mt-6 grid gap-6 lg:grid-cols-[1.05fr_0.95fr]">
-          <motion.div
-            initial={{ opacity: 0, x: -24 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: false, amount: 0.25 }}
-            className="glass-panel rounded-3xl p-6 sm:p-8"
-          >
+          <div className="glass-panel rounded-3xl p-6 sm:p-8">
             <div className="flex items-center gap-3">
               <Brain className="text-cyan-600 dark:text-cyan-300" size={24} />
               <h3 className="text-2xl font-black text-slate-950 dark:text-white">Professional Strengths</h3>
             </div>
             <div className="mt-7 space-y-5">
-              {softSkills.map((skill, index) => (
+              {softSkills.map((skill) => (
                 <div key={skill.name}>
                   <div className="mb-2 flex justify-between text-sm font-bold text-slate-700 dark:text-slate-300">
                     <span>{skill.name}</span>
                     <span>{skill.level}%</span>
                   </div>
                   <div className="h-3 overflow-hidden rounded-full bg-slate-200 dark:bg-white/10">
-                    <motion.div
+                    <div
                       className="h-full rounded-full bg-gradient-to-r from-cyan-500 via-indigo-500 to-pink-500"
-                      initial={{ width: 0 }}
-                      whileInView={{ width: `${skill.level}%` }}
-                      viewport={{ once: false, amount: 0.25 }}
-                      transition={{ delay: index * 0.08, duration: 0.8, ease: "easeOut" }}
+                      style={{ width: `${skill.level}%` }}
                     />
                   </div>
                 </div>
               ))}
             </div>
-          </motion.div>
+          </div>
 
-          <motion.div
-            initial={{ opacity: 0, x: 24 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: false, amount: 0.25 }}
-            className="glass-panel rounded-3xl p-6 sm:p-8"
-          >
+          <div className="glass-panel rounded-3xl p-6 sm:p-8">
             <div className="flex items-center gap-3">
               <BadgeCheck className="text-cyan-600 dark:text-cyan-300" size={24} />
               <h3 className="text-2xl font-black text-slate-950 dark:text-white">Certifications</h3>
@@ -140,7 +116,7 @@ const Skills = () => {
             >
               View HackerRank Certificate
             </a>
-          </motion.div>
+          </div>
         </div>
       </div>
     </div>

@@ -1,4 +1,3 @@
-import { motion } from "framer-motion";
 import { ArrowUpRight, Github, Sparkles } from "lucide-react";
 
 const projects = [
@@ -43,13 +42,7 @@ const Projects = () => {
   return (
     <div className="relative overflow-hidden">
       <div className="section-shell">
-        <motion.div
-          initial={{ opacity: 0, y: 28 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: false, amount: 0.3 }}
-          transition={{ duration: 0.6 }}
-          className="flex flex-col justify-between gap-6 lg:flex-row lg:items-end"
-        >
+        <div className="flex flex-col justify-between gap-6 lg:flex-row lg:items-end">
           <div>
             <div className="section-kicker">
               <Sparkles size={14} />
@@ -69,16 +62,12 @@ const Projects = () => {
             Start a Project
             <ArrowUpRight size={18} />
           </a>
-        </motion.div>
+        </div>
 
         <div className="mt-12 grid gap-6 lg:grid-cols-2">
-          {projects.map((project, index) => (
-            <motion.article
+          {projects.map((project) => (
+            <article
               key={project.title}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: false, amount: 0.25 }}
-              transition={{ delay: index * 0.08, duration: 0.6 }}
               className="glass-panel group overflow-hidden rounded-[2rem]"
             >
               <div className="relative min-h-56 overflow-hidden bg-slate-950 p-6">
@@ -142,7 +131,7 @@ const Projects = () => {
                   </a>
                 </div>
               </div>
-            </motion.article>
+            </article>
           ))}
         </div>
       </div>

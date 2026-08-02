@@ -1,4 +1,3 @@
-import { motion } from "framer-motion";
 import { BriefcaseBusiness, CheckCircle2, Database, Globe2, ServerCog, Users } from "lucide-react";
 
 // const responsibilities = [
@@ -50,13 +49,7 @@ const Experience = () => {
   return (
     <div className="relative overflow-hidden bg-white/50 dark:bg-white/[0.02]">
       <div className="section-shell">
-        <motion.div
-          initial={{ opacity: 0, y: 28 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: false, amount: 0.3 }}
-          transition={{ duration: 0.6 }}
-          className="mx-auto max-w-3xl text-center"
-        >
+        <div className="mx-auto max-w-3xl text-center">
           <div className="section-kicker">Experience</div>
           <h2 id="experience-heading" className="section-title">Real product work, not just portfolio screens.</h2>
           <p className="section-copy mx-auto">
@@ -64,15 +57,9 @@ const Experience = () => {
             workflows, API integration, frontend improvements, database logic, and
             production maintenance.
           </p>
-        </motion.div>
+        </div>
 
-        <motion.div
-          initial={{ opacity: 0, y: 32 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: false, amount: 0.25 }}
-          transition={{ duration: 0.65 }}
-          className="mt-12 glass-panel overflow-hidden rounded-[2rem]"
-        >
+        <div className="mt-12 glass-panel overflow-hidden rounded-[2rem]">
           <div className="grid gap-0 lg:grid-cols-[0.95fr_1.05fr]">
             <div className="border-b border-slate-200 p-6 sm:p-8 dark:border-white/10 lg:border-b-0 lg:border-r">
               <div className="inline-flex items-center gap-3 rounded-full border border-cyan-300/40 bg-cyan-500/10 px-4 py-2 text-sm font-bold text-cyan-700 dark:text-cyan-300">
@@ -80,7 +67,7 @@ const Experience = () => {
                 Dec 2022 - Present
               </div>
               <h3 className="mt-7 text-3xl font-black text-slate-950 sm:text-4xl dark:text-white">
-                Full Stack Developer – AI & Automation
+                Full Stack Developer - AI & Automation
               </h3>
               <p className="mt-2 text-lg font-bold text-cyan-700 dark:text-cyan-300">
                 Businessnow Private Limited
@@ -121,23 +108,19 @@ const Experience = () => {
             <div className="p-6 sm:p-8">
               <h4 className="text-xl font-black text-slate-950 dark:text-white">Key Responsibilities</h4>
               <div className="mt-6 space-y-4">
-                {responsibilities.map((item, index) => (
-                  <motion.div
+                {responsibilities.map((item) => (
+                  <div
                     key={item}
-                    initial={{ opacity: 0, x: 24 }}
-                    whileInView={{ opacity: 1, x: 0 }}
-                    viewport={{ once: false, amount: 0.25 }}
-                    transition={{ delay: index * 0.08 }}
                     className="flex gap-3 rounded-2xl border border-slate-200 bg-white p-4 dark:border-white/10 dark:bg-white/[0.04]"
                   >
                     <CheckCircle2 className="mt-0.5 shrink-0 text-emerald-500" size={20} />
                     <p className="leading-7 text-slate-600 dark:text-slate-300">{item}</p>
-                  </motion.div>
+                  </div>
                 ))}
               </div>
             </div>
           </div>
-        </motion.div>
+        </div>
       </div>
     </div>
   );

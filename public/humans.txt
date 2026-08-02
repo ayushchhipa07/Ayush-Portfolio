@@ -1,0 +1,14 @@
+/* TEAM */
+Name: Ayush Chhipa
+Role: Full Stack Web Developer
+Location: Jaipur, Rajasthan, India
+Contact: ayushchhipa7@gmail.com
+GitHub: https://github.com/ayushchhipa07
+LinkedIn: https://www.linkedin.com/in/ayush-chhipa/
+
+/* SITE */
+URL: https://ayushchhipa-codes.onrender.com/
+Language: English (India)
+Last update: 2026-08-01
+Stack: React, Vite, Tailwind CSS
+Purpose: Developer portfolio, project showcase, service inquiries, recruiter inquiries

@@ -1,8 +1,7 @@
-import HCaptcha from "@hcaptcha/react-hcaptcha";
-import axios from "axios";
-import { AnimatePresence, motion } from "framer-motion";
 import { ArrowUp, CheckCircle2, Github, Linkedin, Mail, MapPin, Send, TriangleAlert } from "lucide-react";
-import { useRef, useState } from "react";
+import { lazy, Suspense, useRef, useState } from "react";
+
+const HCaptcha = lazy(() => import("@hcaptcha/react-hcaptcha"));
 
 const contactLinks = [
   { icon: Mail, label: "Email", value: "ayushchhipa7@gmail.com", href: "mailto:ayushchhipa7@gmail.com" },
@@ -14,6 +13,7 @@ const contactLinks = [
 const Contact = () => {
   const [formData, setFormData] = useState({ name: "", email: "", message: "" });
   const [token, setToken] = useState(null);
+  const [captchaReady, setCaptchaReady] = useState(false);
   const [status, setStatus] = useState("");
   const [toast, setToast] = useState(null);
   const captchaRef = useRef(null);
@@ -27,8 +27,16 @@ const Contact = () => {
     setFormData((current) => ({ ...current, [event.target.id]: event.target.value }));
   };
 
+  const prepareCaptcha = () => setCaptchaReady(true);
+
   const handleSubmit = async (event) => {
     event.preventDefault();
+
+    if (!captchaReady) {
+      setCaptchaReady(true);
+      showToast("Please complete the human verification before sending.", "error");
+      return;
+    }
 
     if (!token) {
       showToast("Please verify that you are human.", "error");
@@ -38,12 +46,15 @@ const Contact = () => {
     setStatus("Sending message...");
 
     try {
-      const response = await axios.post("https://ayush-portfolio-1.onrender.com/api/contact", {
-        ...formData,
-        token,
+      const response = await fetch("https://ayush-portfolio-1.onrender.com/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ ...formData, token }),
       });
 
-      if (response.data.success) {
+      const result = await response.json();
+
+      if (response.ok && result.success) {
         setStatus("Message sent successfully.");
         setFormData({ name: "", email: "", message: "" });
         showToast("Message sent successfully.");
@@ -64,28 +75,17 @@ const Contact = () => {
   return (
     <div className="relative overflow-hidden">
       <div className="section-shell pb-10">
-        <motion.div
-          initial={{ opacity: 0, y: 28 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: false, amount: 0.3 }}
-          transition={{ duration: 0.6 }}
-          className="mx-auto max-w-3xl text-center"
-        >
+        <div className="mx-auto max-w-3xl text-center">
           <div className="section-kicker">Contact</div>
           <h2 id="contact-heading" className="section-title">Have a project idea? Let us build it properly.</h2>
           <p className="section-copy mx-auto">
             Send me a message for websites, dashboards, product improvements,
             backend features, or full-stack development work.
           </p>
-        </motion.div>
+        </div>
 
         <div className="mt-12 grid gap-6 lg:grid-cols-[0.85fr_1.15fr]">
-          <motion.div
-            initial={{ opacity: 0, x: -24 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: false, amount: 0.25 }}
-            className="glass-panel rounded-[2rem] p-6 sm:p-8"
-          >
+          <div className="glass-panel rounded-[2rem] p-6 sm:p-8">
             <h3 className="text-2xl font-black text-slate-950 dark:text-white">Let us connect</h3>
             <p className="mt-3 leading-8 text-slate-600 dark:text-slate-300">
               I usually respond with a clear next step, timeline idea, and the
@@ -112,13 +112,10 @@ const Contact = () => {
                 </a>
               ))}
             </div>
-          </motion.div>
+          </div>
 
-          <motion.form
+          <form
             onSubmit={handleSubmit}
-            initial={{ opacity: 0, x: 24 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: false, amount: 0.25 }}
             aria-label="Contact Ayush Chhipa"
             className="glass-panel rounded-[2rem] p-6 sm:p-8"
           >
@@ -129,9 +126,11 @@ const Contact = () => {
                 </label>
                 <input
                   id="name"
+                  name="name"
                   type="text"
                   value={formData.name}
                   onChange={handleChange}
+                  onFocus={prepareCaptcha}
                   placeholder="Enter your name"
                   autoComplete="name"
                   className="h-12 w-full rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 text-slate-950 outline-none transition focus:border-cyan-400 focus:ring-4 focus:ring-cyan-400/15 dark:border-white/10 dark:bg-white/[0.04] dark:text-white"
@@ -144,9 +143,11 @@ const Contact = () => {
                 </label>
                 <input
                   id="email"
+                  name="email"
                   type="email"
                   value={formData.email}
                   onChange={handleChange}
+                  onFocus={prepareCaptcha}
                   placeholder="Enter your email"
                   autoComplete="email"
                   className="h-12 w-full rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 text-slate-950 outline-none transition focus:border-cyan-400 focus:ring-4 focus:ring-cyan-400/15 dark:border-white/10 dark:bg-white/[0.04] dark:text-white"
@@ -161,9 +162,11 @@ const Contact = () => {
               </label>
               <textarea
                 id="message"
+                name="message"
                 rows="6"
                 value={formData.message}
                 onChange={handleChange}
+                onFocus={prepareCaptcha}
                 placeholder="Tell me what you want to build..."
                 className="w-full resize-none rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 text-slate-950 outline-none transition focus:border-cyan-400 focus:ring-4 focus:ring-cyan-400/15 dark:border-white/10 dark:bg-white/[0.04] dark:text-white"
                 required
@@ -171,31 +174,47 @@ const Contact = () => {
             </div>
 
             <div className="mt-5 overflow-hidden rounded-2xl border border-slate-200 bg-white p-3 dark:border-white/10 dark:bg-white/[0.04]">
-              <HCaptcha
-                sitekey="7c388a76-d286-486a-8860-96d643ee6464"
-                onVerify={(captchaToken) => setToken(captchaToken)}
-                ref={captchaRef}
-              />
+              {captchaReady ? (
+                <Suspense
+                  fallback={
+                    <p className="px-2 py-3 text-sm font-semibold text-slate-500 dark:text-slate-400">
+                      Loading verification...
+                    </p>
+                  }
+                >
+                  <HCaptcha
+                    sitekey="7c388a76-d286-486a-8860-96d643ee6464"
+                    onVerify={(captchaToken) => setToken(captchaToken)}
+                    ref={captchaRef}
+                  />
+                </Suspense>
+              ) : (
+                <button
+                  type="button"
+                  onClick={prepareCaptcha}
+                  className="w-full rounded-xl border border-dashed border-slate-300 px-4 py-3 text-sm font-bold text-slate-600 transition hover:border-cyan-400 hover:text-cyan-700 dark:border-white/15 dark:text-slate-300 dark:hover:text-cyan-300"
+                >
+                  Load human verification
+                </button>
+              )}
             </div>
 
             <div className="mt-6 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-              <motion.button
+              <button
                 type="submit"
-                whileHover={{ y: -3 }}
-                whileTap={{ scale: 0.98 }}
                 data-analytics="contact-submit"
                 className="inline-flex items-center justify-center gap-2 rounded-full bg-slate-950 px-6 py-3.5 text-sm font-bold text-white shadow-xl shadow-slate-300 transition hover:bg-cyan-700 dark:bg-white dark:text-slate-950 dark:shadow-cyan-950/30"
               >
                 <Send size={17} />
                 Send Message
-              </motion.button>
+              </button>
               {status && (
                 <p className="text-sm font-semibold text-slate-500 dark:text-slate-400" aria-live="polite">
                   {status}
                 </p>
               )}
             </div>
-          </motion.form>
+          </form>
         </div>
       </div>
 
@@ -215,21 +234,16 @@ const Contact = () => {
         </div>
       </footer>
 
-      <AnimatePresence>
-        {toast && (
-          <motion.div
-            initial={{ opacity: 0, y: 24, scale: 0.96 }}
-            animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={{ opacity: 0, y: 24, scale: 0.96 }}
-            className={`fixed bottom-5 right-5 z-[60] flex max-w-sm items-center gap-3 rounded-2xl px-5 py-4 text-sm font-bold text-white shadow-2xl ${
-              toast.type === "error" ? "bg-rose-600" : "bg-emerald-600"
-            }`}
-          >
-            {toast.type === "error" ? <TriangleAlert size={18} /> : <CheckCircle2 size={18} />}
-            {toast.message}
-          </motion.div>
-        )}
-      </AnimatePresence>
+      {toast && (
+        <div
+          className={`fixed bottom-5 right-5 z-[60] flex max-w-sm items-center gap-3 rounded-2xl px-5 py-4 text-sm font-bold text-white shadow-2xl ${
+            toast.type === "error" ? "bg-rose-600" : "bg-emerald-600"
+          }`}
+        >
+          {toast.type === "error" ? <TriangleAlert size={18} /> : <CheckCircle2 size={18} />}
+          {toast.message}
+        </div>
+      )}
     </div>
   );
 };

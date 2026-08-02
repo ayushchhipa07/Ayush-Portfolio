@@ -33,14 +33,6 @@ textarea {
   -webkit-tap-highlight-color: transparent;
 }
 
-@media (pointer: fine) {
-  body,
-  a,
-  button {
-    cursor: none;
-  }
-}
-
 @layer components {
   .section-shell {
     @apply relative mx-auto w-full max-w-7xl px-4 py-20 sm:px-6 lg:px-8 lg:py-28;
@@ -162,38 +154,6 @@ textarea {
 .hover-lift:hover {
   transform: translateY(-4px);
   border-color: rgba(8, 145, 178, 0.45);
-}
-
-.custom-cursor-dot,
-.custom-cursor-ring {
-  pointer-events: none;
-  position: fixed;
-  left: 0;
-  top: 0;
-  z-index: 9999;
-  mix-blend-mode: difference;
-}
-
-.custom-cursor-dot {
-  height: 8px;
-  width: 8px;
-  border-radius: 999px;
-  background: #ffffff;
-}
-
-.custom-cursor-ring {
-  height: 40px;
-  width: 40px;
-  border-radius: 999px;
-  border: 1px solid rgba(255, 255, 255, 0.8);
-  box-shadow: 0 0 24px rgba(34, 211, 238, 0.4);
-}
-
-@media (pointer: coarse) {
-  .custom-cursor-dot,
-  .custom-cursor-ring {
-    display: none;
-  }
 }
 
 @media (prefers-reduced-motion: reduce) {
