@@ -1,0 +1,280 @@
+---
+import { projects } from '../data/site';
+---
+
+<div class="project-grid">
+  {projects.map((project) => (
+    <article class="project" id={project.id} aria-labelledby={`${project.id}-heading`}>
+      <div class="project-body">
+        <div class="project-header">
+          <div class="project-title">
+            <h3 id={`${project.id}-heading`}>{project.name}</h3>
+            <p class="project-role">{project.role}</p>
+          </div>
+          <div class="project-logo">
+            <img
+              src={project.imageSmall}
+              srcset={`${project.imageSmall} 468w, ${project.image} 936w`}
+              sizes="(max-width: 850px) 80px, (max-width: 1000px) 84px, 108px"
+              width={project.imageWidth}
+              height={project.imageHeight}
+              loading="lazy"
+              decoding="async"
+              alt={project.imageAlt}
+            />
+          </div>
+        </div>
+        <p class="project-subtitle">{project.subtitle}</p>
+        <p class="project-description">{project.description}</p>
+        <ul class="project-features" aria-label={`${project.name} features`}>
+          {project.features.map((feature) => (
+            <li>
+              <span aria-hidden="true">✓</span>
+              {feature}
+            </li>
+          ))}
+        </ul>
+        <details class="project-tech">
+          <summary>
+            Technology stack <span aria-hidden="true">+</span>
+          </summary>
+          <ul class="project-stack" aria-label={`${project.name} technology stack`}>
+            {project.stack.map((technology) => (
+              <li>{technology}</li>
+            ))}
+          </ul>
+        </details>
+      </div>
+      <div class="project-footer">
+        <a
+          class="button project-live"
+          href={project.live}
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label={`View live website: ${project.name} (opens in a new tab)`}
+        >
+          View live website <span aria-hidden="true">↗</span>
+        </a>
+        <span class="project-domain">{new URL(project.live).hostname}</span>
+      </div>
+    </article>
+  ))}
+</div>
+
+<style>
+  .project-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 28px;
+  }
+
+  .project {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    border: 1px solid var(--line);
+    border-radius: 6px;
+    scroll-margin-top: var(--anchor-offset);
+  }
+
+  .project-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    width: 100%;
+    margin-bottom: 24px;
+  }
+
+  .project-title {
+    min-width: 0;
+  }
+
+  .project-logo {
+    display: grid;
+    place-items: center;
+    width: 128px;
+    height: 84px;
+    flex-shrink: 0;
+    padding: 10px;
+    background: #f7f7f7;
+    border-radius: 4px;
+  }
+
+  .project-logo img {
+    display: block;
+    width: 100%;
+    height: auto;
+    max-height: 100%;
+    object-fit: contain;
+  }
+
+  .project-body {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 28px;
+    padding-bottom: 0;
+  }
+
+  .project-role {
+    margin: 10px 0 0;
+    color: var(--gold);
+    font-size: 0.78rem;
+  }
+
+  h3 {
+    font-size: 1.85rem;
+  }
+
+  .project-subtitle {
+    margin: 0 0 10px;
+    max-width: 43ch;
+    font-size: 1rem;
+    line-height: 1.5;
+  }
+
+  .project-description {
+    color: var(--muted);
+    font-size: 0.91rem;
+    max-width: 60ch;
+    margin-bottom: 22px;
+  }
+
+  .project-tech {
+    width: 100%;
+    border-top: 1px solid var(--line);
+  }
+
+  .project-tech summary {
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    min-height: 52px;
+    padding-block: 13px;
+    font-size: 0.83rem;
+    list-style: none;
+  }
+
+  .project-tech summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .project-tech summary > span {
+    font-size: 1.2rem;
+    color: var(--teal);
+  }
+
+  .project-tech[open] summary > span {
+    transform: rotate(45deg);
+  }
+
+  .project-stack {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 7px;
+    list-style: none;
+    padding: 0;
+    margin: 0 0 18px;
+  }
+
+  .project-stack li {
+    padding: 6px 9px;
+    background: var(--surface);
+    color: var(--teal);
+    font-size: 0.75rem;
+    line-height: 1.5;
+  }
+
+  .project-features {
+    padding: 0;
+    margin: 0 0 22px;
+    list-style: none;
+    color: var(--muted);
+    font-size: 0.85rem;
+    line-height: 1.65;
+  }
+
+  .project-features li + li {
+    margin-top: 8px;
+  }
+
+  .project-features li {
+    display: flex;
+    align-items: baseline;
+    gap: 10px;
+  }
+
+  .project-features li > span {
+    color: var(--teal);
+    flex-shrink: 0;
+  }
+
+  .project-footer {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    margin-top: auto;
+    padding: 20px 28px 28px;
+  }
+
+  .project-domain {
+    color: var(--muted);
+    font-size: 0.75rem;
+  }
+
+  @media (max-width: 1000px) {
+    .project-grid {
+      gap: 22px;
+    }
+
+    .project-body {
+      padding: 23px 23px 0;
+    }
+
+    .project-header {
+      gap: 14px;
+    }
+
+    .project-logo {
+      width: 104px;
+      height: 72px;
+    }
+
+    h3 {
+      font-size: 1.6rem;
+    }
+
+    .project-footer {
+      padding: 18px 23px 23px;
+    }
+  }
+
+  @media (max-width: 850px) {
+    .project-grid {
+      grid-template-columns: 1fr;
+      gap: 22px;
+    }
+
+    .project-body {
+      padding: 24px 20px 0;
+    }
+
+    .project-logo {
+      width: 100px;
+      height: 68px;
+    }
+
+    .project-role {
+      font-size: 0.72rem;
+    }
+
+    .project-footer {
+      padding: 18px 20px 24px;
+    }
+  }
+</style>

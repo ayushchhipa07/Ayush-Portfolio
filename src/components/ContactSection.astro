@@ -1,0 +1,123 @@
+---
+import { site } from '../data/site';
+const endpoint = import.meta.env.PUBLIC_CONTACT_ENDPOINT || '/api/contact';
+---
+
+<section id="contact" class="section shell" aria-labelledby="contact-heading">
+  <div class="section-top">
+    <h2 id="contact-heading">Let’s talk.</h2>
+    <p>
+      Have a project in mind or a software engineering role to discuss? I’d like to hear about it.
+    </p>
+  </div>
+  <div class="contact-layout">
+    <div class="contact-details">
+      <h3>Get in touch directly.</h3>
+      <a class="contact-email" href={`mailto:${site.email}`}>
+        {site.email}
+      </a>
+      <p>
+        I’m based in Jaipur, India. Send me a little about your project, the team, and what you need
+        help building.
+      </p>
+      <div class="footer-links">
+        <a href={site.github}>GitHub ↗</a>
+        <a href={site.linkedin}>LinkedIn ↗</a>
+      </div>
+      <p class="availability">
+        <span class="live-dot" aria-hidden="true"></span>Engineering roles & freelance projects
+      </p>
+    </div>
+    <form
+      id="contact-form"
+      class="contact-form"
+      aria-labelledby="form-heading"
+      data-endpoint={endpoint}
+      data-email={site.email}
+    >
+      <h3 id="form-heading">Send me a message.</h3>
+      <p class="form-help" id="form-help">
+        Tell me what you’re working on. All visible fields are required.
+      </p>
+      <div class="form-row">
+        <div class="field">
+          <label for="name">Your name</label>
+          <input id="name" name="name" autocomplete="name" required maxlength="80" />
+        </div>
+        <div class="field">
+          <label for="email">Your email</label>
+          <input
+            id="email"
+            name="email"
+            type="email"
+            autocomplete="email"
+            required
+            maxlength="120"
+          />
+        </div>
+      </div>
+      <div class="field">
+        <label for="topic">What’s this about?</label>
+        <select id="topic" name="topic" required>
+          <option value="">Choose a topic</option>
+          <option>Software engineering role</option>
+          <option>Compliance SaaS project</option>
+          <option>PHP / CodeIgniter product</option>
+          <option>Data or workflow automation</option>
+          <option>Another engineering problem</option>
+        </select>
+      </div>
+      <div class="field">
+        <label for="message">What are you working on?</label>
+        <textarea
+          id="message"
+          name="message"
+          required
+          minlength="10"
+          maxlength="1800"
+          placeholder="The project, the scope, and your timeline."
+          aria-describedby="message-help"
+        ></textarea>
+        <small id="message-help">
+          10–1,800 characters. Please leave out passwords and confidential customer data.
+        </small>
+      </div>
+      <div class="sr-only" aria-hidden="true">
+        <label for="website">Leave this field empty</label>
+        <input id="website" name="website" type="text" autocomplete="off" tabindex="-1" />
+      </div>
+      <button class="button" type="submit" id="submit-contact" disabled>
+        Send message <span aria-hidden="true">↗</span>
+      </button>
+      <p class="form-status" id="form-status" role="status" aria-live="polite" tabindex="-1"></p>
+      <small>
+        Your details are used to respond to this inquiry. Automated submissions are filtered.
+      </small>
+      <noscript>
+        <p class="form-help">
+          Use the direct email link to get in touch. Sending through this form requires JavaScript.
+        </p>
+      </noscript>
+    </form>
+  </div>
+</section>
+
+<script>
+  import '../scripts/contact';
+</script>
+
+<style>
+  .contact-layout {
+    padding-bottom: 0;
+  }
+  .contact-details h3 {
+    font-size: 1.3rem;
+    letter-spacing: -0.025em;
+    margin-bottom: 17px;
+  }
+  .contact-form h3 {
+    font-size: 1.5rem;
+    margin-bottom: 12px;
+    letter-spacing: -0.035em;
+  }
+</style>

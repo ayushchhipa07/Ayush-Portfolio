@@ -1,0 +1,220 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Projects from '../components/Projects.astro';
+import ContactSection from '../components/ContactSection.astro';
+import { site, projects } from '../data/site';
+
+const schema = projects.map((project) => ({
+  '@context': 'https://schema.org',
+  '@type': 'SoftwareApplication',
+  '@id': new URL(`/#${project.id}`, Astro.site).href,
+  name: project.name,
+  url: project.live,
+  description: project.description,
+  applicationCategory: 'BusinessApplication',
+  operatingSystem: 'Web',
+  featureList: project.features,
+}));
+---
+
+<Layout
+  title="Ayush Chhipa | Software Engineer & Full-Stack Developer"
+  description="Ayush Chhipa is a Software Engineer in Jaipur building full-stack web applications. Explore NiyamHub, ComplyRelax, technical skills, and freelance services."
+  schema={schema}
+>
+  <section id="home" class="hero shell" aria-labelledby="hero-heading">
+    <div class="hero-copy">
+      <p class="hero-location">Jaipur, India · Full-stack development</p>
+      <h1 id="hero-heading">
+        Ayush Chhipa.
+        <br />
+        <em>Software Engineer.</em>
+      </h1>
+      <p>
+        I build web applications that make everyday work easier. From React interfaces to PHP and
+        Node.js backends, I turn product ideas into working software.
+      </p>
+      <div class="hero-links">
+        <a class="button" href="#projects">
+          View my projects <span aria-hidden="true">↓</span>
+        </a>
+        <a class="text-link" href="#contact">
+          Let’s talk <span aria-hidden="true">↗</span>
+        </a>
+      </div>
+    </div>
+    <aside class="hero-context" aria-label="Current work">
+      <p class="context-label">What I’m working on</p>
+      <div class="context-item">
+        <span class="context-type">At Businessnow Private Limited</span>
+        <a href="#complyrelax">
+          ComplyRelax <span aria-hidden="true">↗</span>
+        </a>
+        <p>Building and improving compliance workflows for CA and CS professionals.</p>
+      </div>
+      <div class="context-item">
+        <span class="context-type">At Businessnow Private Limited</span>
+        <a href="#niyamhub">
+          NiyamHub <span aria-hidden="true">↗</span>
+        </a>
+        <p>A compliance platform with AI assistance, payments, and four languages.</p>
+      </div>
+      <a class="context-profile" href={site.github}>
+        Find me on GitHub <span aria-hidden="true">↗</span>
+      </a>
+    </aside>
+  </section>
+
+  <section id="projects" class="section shell projects-section" aria-labelledby="projects-heading">
+    <div class="section-top">
+      <div>
+        <h2 id="projects-heading">Featured projects.</h2>
+        <p>Products I’ve built and contributed to, with the features and tools behind them.</p>
+      </div>
+      <a class="text-link" href="#contact">
+        Start a project <span aria-hidden="true">↗</span>
+      </a>
+    </div>
+    <Projects />
+  </section>
+
+  <section id="about" class="section shell section-divider" aria-labelledby="about-heading">
+    <div class="section-top">
+      <h2 id="about-heading">A little about me.</h2>
+    </div>
+    <div class="about-layout">
+      <div class="prose">
+        <p>
+          I’m Ayush, a full-stack developer at Businessnow Private Limited in Jaipur. I work on
+          ComplyRelax and NiyamHub as part of my role, connecting frontend interfaces, backend
+          services, and the data that keeps a product running.
+        </p>
+        <p>
+          I enjoy taking a feature from the first idea through to a usable release. My work includes
+          compliance workflows, government API integrations, multilingual interfaces, and internal
+          automation.
+        </p>
+        <p>
+          Outside product work, I study data structures, system design, AI, and DevOps through a
+          learning platform I built for myself. I also built GameZone, a four-game Android app with
+          offline leaderboards and two-player pass-and-play.
+        </p>
+        <div class="hero-links">
+          {site.resume ? (
+            <a class="button" href={site.resume} download>
+              Download resume <span aria-hidden="true">↓</span>
+            </a>
+          ) : (
+            <a
+              class="button"
+              href={`mailto:${site.email}?subject=Software%20Engineer%20resume%20request`}
+            >
+              Request my resume <span aria-hidden="true">↗</span>
+            </a>
+          )}
+          <a class="text-link" href={site.linkedin}>
+            LinkedIn <span aria-hidden="true">↗</span>
+          </a>
+        </div>
+      </div>
+      <dl class="background-list">
+        <div>
+          <dt>Current role</dt>
+          <dd>
+            Full-stack developer<span>Businessnow Private Limited</span>
+          </dd>
+        </div>
+        <div>
+          <dt>Education</dt>
+          <dd>
+            Bachelor of Computer Applications<span>Stani Memorial P.G. College</span>
+          </dd>
+        </div>
+        <div>
+          <dt>Certification</dt>
+          <dd>
+            <a class="text-link" href={site.certificate}>
+              HackerRank certified <span aria-hidden="true">↗</span>
+            </a>
+          </dd>
+        </div>
+      </dl>
+    </div>
+  </section>
+
+  <section id="skills" class="section shell section-divider" aria-labelledby="skills-heading">
+    <div class="section-top">
+      <div>
+        <h2 id="skills-heading">My working stack.</h2>
+        <p>The tools I use to build, connect, and maintain a product.</p>
+      </div>
+    </div>
+    <div class="skill-grid">
+      <article>
+        <h3>Frontend</h3>
+        <p>Responsive interfaces, multilingual applications, and clear user flows.</p>
+        <ul class="skill-tags">
+          <li>React.js</li>
+          <li>JavaScript</li>
+          <li>Tailwind CSS</li>
+          <li>HTML & CSS</li>
+        </ul>
+      </article>
+      <article>
+        <h3>Backend & data</h3>
+        <p>Application logic, authentication, databases, and API integrations.</p>
+        <ul class="skill-tags">
+          <li>PHP</li>
+          <li>CodeIgniter</li>
+          <li>Node.js</li>
+          <li>Express.js</li>
+          <li>MySQL</li>
+          <li>REST APIs</li>
+        </ul>
+      </article>
+      <article>
+        <h3>Tools & automation</h3>
+        <p>Source control, structured data processing, and browser workflows.</p>
+        <ul class="skill-tags">
+          <li>Git</li>
+          <li>GitHub</li>
+          <li>Python</li>
+          <li>Playwright</li>
+        </ul>
+      </article>
+    </div>
+  </section>
+
+  <section id="services" class="section shell section-divider" aria-labelledby="services-heading">
+    <div class="section-top">
+      <div>
+        <h2 id="services-heading">What I can help with.</h2>
+        <p>Have a product to build or an existing application to improve? Let’s work on it.</p>
+      </div>
+    </div>
+    <div class="services-grid">
+      <article>
+        <h3>Full-stack development</h3>
+        <p>
+          Web applications and SaaS products, from the interface and database to authentication and
+          payments.
+        </p>
+      </article>
+      <article>
+        <h3>Product improvements</h3>
+        <p>
+          New features, bug fixes, and workflow improvements for existing React, PHP, and
+          CodeIgniter applications.
+        </p>
+      </article>
+      <article>
+        <h3>APIs & automation</h3>
+        <p>
+          Connect external services, organize application data, and automate repetitive work for
+          your team.
+        </p>
+      </article>
+    </div>
+  </section>
+  <ContactSection />
+</Layout>

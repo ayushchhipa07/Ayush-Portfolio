@@ -1,0 +1,206 @@
+---
+import '../styles/global.css';
+import { site } from '../data/site';
+interface Props {
+  title: string;
+  description: string;
+  social?: string;
+  schema?: object | object[];
+  noindex?: boolean;
+}
+const { title, description, social = 'home', schema, noindex = false } = Astro.props;
+const canonical = new URL(Astro.url.pathname, Astro.site);
+const origin = Astro.site!.toString().replace(/\/$/, '');
+const home = Astro.url.pathname === '/';
+const sectionLink = (id: string) => `${home ? '' : '/'}#${id}`;
+const person = {
+  '@context': 'https://schema.org',
+  '@type': 'Person',
+  '@id': `${origin}/#person`,
+  name: site.name,
+  jobTitle: 'Software Engineer',
+  url: origin,
+  description:
+    'Full-stack developer at Businessnow Private Limited, building compliance software in Jaipur, India.',
+  worksFor: { '@type': 'Organization', name: 'Businessnow Private Limited' },
+  address: {
+    '@type': 'PostalAddress',
+    addressLocality: 'Jaipur',
+    addressRegion: 'Rajasthan',
+    addressCountry: 'IN',
+  },
+  sameAs: [site.github, site.linkedin],
+  knowsAbout: [
+    'PHP',
+    'CodeIgniter',
+    'MySQL',
+    'React',
+    'Node.js',
+    'Tailwind CSS',
+    'SaaS compliance systems',
+  ],
+};
+const schemas = [person, ...(schema ? (Array.isArray(schema) ? schema : [schema]) : [])];
+---
+
+<!doctype html>
+<html lang="en-IN" data-theme="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <meta
+      name="robots"
+      content={noindex ? 'noindex, follow' : 'index, follow, max-image-preview:large'}
+    />
+    <link rel="canonical" href={canonical} />
+    <meta name="theme-color" content="#12232f" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" type="image/png" href="/icon-192.png" sizes="192x192" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" sizes="180x180" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Ayush Chhipa · Software Engineer" />
+    <meta property="og:locale" content="en_IN" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={`${origin}/social/${social}.png`} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content={`${title} — engineering work by Ayush Chhipa`} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={`${origin}/social/${social}.png`} />
+    {schemas.map((item) => (
+      <script
+        is:inline
+        type="application/ld+json"
+        set:html={JSON.stringify(item).replace(/</g, '\\u003c')}
+      ></script>
+    ))}
+    <script is:inline>
+      try {
+        const saved = localStorage.getItem('ayush-theme');
+        if (saved === 'light' || saved === 'dark') document.documentElement.dataset.theme = saved;
+      } catch {}
+    </script>
+  </head>
+  <body>
+    <a class="skip-link" href="#main">
+      Skip to content
+    </a>
+    <header class="site-header shell">
+      <a class="brand" href={sectionLink('home')}>
+        <svg width="32" height="36" viewBox="0 0 32 36" fill="none" aria-hidden="true">
+          <path d="M3 29 15 5h3l12 24M8 21h17" stroke="currentColor" stroke-width="3" />
+          <path d="M22 32h8" stroke="var(--gold)" stroke-width="3" />
+        </svg>
+        <span>
+          Ayush Chhipa<span class="brand-sub">Software Engineer</span>
+        </span>
+      </a>
+      <nav aria-label="Main navigation">
+        <a href={sectionLink('projects')}>Projects</a>
+        <a href={sectionLink('about')}>About</a>
+        <a href={sectionLink('skills')}>Skills</a>
+        <a href={sectionLink('services')}>Services</a>
+        <a href={sectionLink('contact')}>Contact</a>
+      </nav>
+      <button
+        class="theme-toggle"
+        id="theme-toggle"
+        type="button"
+        aria-label="Switch to light theme"
+        hidden
+      >
+        <svg
+          class="sun"
+          width="20"
+          height="20"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="1.5"
+          aria-hidden="true"
+        >
+          <circle cx="12" cy="12" r="4" />
+          <path d="M12 2v2m0 16v2M2 12h2m16 0h2M5 5l1.5 1.5m11 11L19 19M5 19l1.5-1.5m11-11L19 5" />
+        </svg>
+        <svg
+          class="moon"
+          width="20"
+          height="20"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="1.5"
+          aria-hidden="true"
+        >
+          <path d="M20 15A8 8 0 0 1 9 4a8 8 0 1 0 11 11Z" />
+        </svg>
+      </button>
+    </header>
+    <main id="main" tabindex="-1">
+      <slot />
+    </main>
+    <footer class="site-footer shell">
+      <div>
+        <a class="footer-name" href={sectionLink('home')}>
+          Ayush Chhipa<span class="gold">.</span>
+        </a>
+        <p>Software Engineer · Jaipur, India</p>
+      </div>
+      <div class="footer-links">
+        <a href={site.github}>GitHub ↗</a>
+        <a href={site.linkedin}>LinkedIn ↗</a>
+        <a href={`mailto:${site.email}`}>Email ↗</a>
+      </div>
+      <p class="copyright">© {new Date().getFullYear()} Ayush Chhipa</p>
+    </footer>
+    <script>
+      const button = document.querySelector<HTMLButtonElement>('#theme-toggle');
+      function syncTheme() {
+        if (!button) return;
+        const light = document.documentElement.dataset.theme === 'light';
+        button.setAttribute('aria-label', `Switch to ${light ? 'dark' : 'light'} theme`);
+        document
+          .querySelector('meta[name="theme-color"]')
+          ?.setAttribute('content', light ? '#f3f6f5' : '#12232f');
+      }
+      if (button) {
+        button.hidden = false;
+        syncTheme();
+        button.addEventListener('click', () => {
+          const theme = document.documentElement.dataset.theme === 'light' ? 'dark' : 'light';
+          document.documentElement.dataset.theme = theme;
+          try {
+            localStorage.setItem('ayush-theme', theme);
+          } catch {}
+          syncTheme();
+        });
+      }
+      const navigation = [...document.querySelectorAll<HTMLAnchorElement>('.site-header nav a')];
+      const sections = navigation
+        .map((link) => document.getElementById(link.hash.slice(1)))
+        .filter((section): section is HTMLElement => !!section);
+      if (sections.length && 'IntersectionObserver' in window) {
+        const observer = new IntersectionObserver(
+          (entries) => {
+            for (const entry of entries) {
+              if (!entry.isIntersecting) continue;
+              for (const link of navigation) {
+                if (link.hash === `#${entry.target.id}`)
+                  link.setAttribute('aria-current', 'location');
+                else link.removeAttribute('aria-current');
+              }
+            }
+          },
+          { rootMargin: '-15% 0px -65% 0px' },
+        );
+        sections.forEach((section) => observer.observe(section));
+      }
+    </script>
+  </body>
+</html>

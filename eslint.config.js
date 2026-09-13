@@ -1,32 +1,15 @@
-import js from '@eslint/js'
-import globals from 'globals'
-import reactHooks from 'eslint-plugin-react-hooks'
-import reactRefresh from 'eslint-plugin-react-refresh'
-import { defineConfig, globalIgnores } from 'eslint/config'
-
-export default defineConfig([
-  globalIgnores(['dist']),
+import js from '@eslint/js';
+import globals from 'globals';
+export default [
+  { ignores: ['dist/**', 'node_modules/**', '.astro/**', 'artifacts/**'] },
   {
-    files: ['**/*.{js,jsx}'],
-    extends: [
-      js.configs.recommended,
-      reactHooks.configs['recommended-latest'],
-      reactRefresh.configs.vite,
-    ],
+    files: ['**/*.{js,mjs}'],
+    ...js.configs.recommended,
     languageOptions: {
-      ecmaVersion: 2020,
-      globals: {
-        ...globals.browser,
-        ...globals.node,
-      },
-      parserOptions: {
-        ecmaVersion: 'latest',
-        ecmaFeatures: { jsx: true },
-        sourceType: 'module',
-      },
+      ecmaVersion: 'latest',
+      sourceType: 'module',
+      globals: { ...globals.node, ...globals.browser },
     },
-    rules: {
-      'no-unused-vars': ['error', { varsIgnorePattern: '^([A-Z_]|motion$)' }],
-    },
+    rules: { 'no-unused-vars': ['error', { argsIgnorePattern: '^_' }] },
   },
-])
+];
