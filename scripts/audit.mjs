@@ -89,9 +89,18 @@ try {
       const person = schemas.find((schema) => schema['@type'] === 'Person');
       assert(person, `Missing Person schema on ${path}`);
       assert.equal(person.name, 'Ayush Chhipa');
+      assert.equal(person.alternateName, 'Ayushchhipa');
       assert.equal(person.jobTitle, 'Software Engineer');
       assert.equal(person.sameAs.length, 2);
       person.sameAs.forEach((url) => assert.equal(new URL(url).protocol, 'https:'));
+      const profile = schemas.find((schema) => schema['@type'] === 'ProfilePage');
+      assert(profile, `Missing ProfilePage schema on ${path}`);
+      assert.equal(profile.mainEntity['@id'], person['@id']);
+      assert.match(
+        profile.dateModified,
+        /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}[+-]\d{2}:\d{2}$/,
+        'ProfilePage dateModified must be a full ISO 8601 date-time with timezone',
+      );
     }
     for (const id of sectionIds)
       assert.equal(

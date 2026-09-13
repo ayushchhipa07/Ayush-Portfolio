@@ -1,5 +1,7 @@
 export const site = {
   name: 'Ayush Chhipa',
+  alternateName: 'Ayushchhipa',
+  lastModified: '2026-09-13T00:00:00+05:30',
   email: 'ayushchhipa7@gmail.com',
   github: 'https://github.com/ayushchhipa07',
   linkedin: 'https://www.linkedin.com/in/ayush-chhipa/',
