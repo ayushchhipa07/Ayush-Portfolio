@@ -20,7 +20,7 @@ const person = {
   '@id': `${origin}/#person`,
   name: site.name,
   alternateName: site.alternateName,
-  jobTitle: 'Software Engineer',
+  jobTitle: site.title,
   url: origin,
   mainEntityOfPage: { '@id': `${origin}/#webpage` },
   image: {
@@ -30,7 +30,7 @@ const person = {
     height: 630,
   },
   description:
-    'Full-stack developer at Businessnow Private Limited, building compliance software in Jaipur, India.',
+    'Software Developer at Businessnow Private Limited in Jaipur, building web applications and learning AI through DocuGuard AI, a document intelligence and RAG project.',
   worksFor: { '@type': 'Organization', name: 'Businessnow Private Limited' },
   address: {
     '@type': 'PostalAddress',
@@ -47,6 +47,11 @@ const person = {
     'Node.js',
     'Tailwind CSS',
     'SaaS compliance systems',
+    'Generative AI',
+    'RAG',
+    'Embeddings',
+    'Qdrant',
+    'Document intelligence',
   ],
 };
 const website = {
@@ -54,7 +59,7 @@ const website = {
   '@type': 'WebSite',
   '@id': `${origin}/#website`,
   name: `${site.name} Portfolio`,
-  alternateName: [site.alternateName, 'Ayush Chhipa Software Engineer'],
+  alternateName: [site.alternateName, `${site.name} ${site.title}`],
   url: origin,
   inLanguage: 'en-IN',
   publisher: { '@id': `${origin}/#person` },
@@ -102,7 +107,7 @@ const schemas = [
     <link rel="icon" type="image/png" href="/icon-192.png" sizes="192x192" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" sizes="180x180" />
     <meta property="og:type" content="website" />
-    <meta property="og:site_name" content="Ayush Chhipa · Software Engineer" />
+    <meta property="og:site_name" content={`${site.name} · ${site.title}`} />
     <meta property="og:locale" content="en_IN" />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
@@ -110,7 +115,7 @@ const schemas = [
     <meta property="og:image" content={socialImage} />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
-    <meta property="og:image:alt" content={`${title} — engineering work by Ayush Chhipa`} />
+    <meta property="og:image:alt" content={`${title} — software development by Ayush Chhipa`} />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
@@ -140,7 +145,7 @@ const schemas = [
           <path d="M22 32h8" stroke="var(--gold)" stroke-width="3" />
         </svg>
         <span>
-          Ayush Chhipa<span class="brand-sub">Software Engineer</span>
+          Ayush Chhipa<span class="brand-sub">{site.title}</span>
         </span>
       </a>
       <nav aria-label="Main navigation">
@@ -192,7 +197,7 @@ const schemas = [
         <a class="footer-name" href={sectionLink('home')}>
           Ayush Chhipa<span class="gold">.</span>
         </a>
-        <p>Software Engineer · Jaipur, India</p>
+        <p>{site.title} · Jaipur, India</p>
       </div>
       <div class="footer-links">
         <a href={site.github}>GitHub ↗</a>

@@ -6,12 +6,12 @@ import { existsSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import { resolve } from 'node:path';
 import { redirects } from '../redirects.mjs';
+import { contactTopics } from '../contact-topics.mjs';
 
 const topics = new Set([
+  ...contactTopics,
+  // Accept submissions from tabs opened before the profile update.
   'Software engineering role',
-  'Compliance SaaS project',
-  'PHP / CodeIgniter product',
-  'Data or workflow automation',
   'Another engineering problem',
 ]);
 const idPattern = /^[\da-f]{8}-[\da-f]{4}-4[\da-f]{3}-[89ab][\da-f]{3}-[\da-f]{12}$/i;

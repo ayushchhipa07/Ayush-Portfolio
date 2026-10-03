@@ -1,6 +1,6 @@
 # Ayush Chhipa’s portfolio
 
-A one-page Astro portfolio for software engineering roles and freelance work. Ayush’s latest request replaces the earlier multipage case-study layout with a straightforward introduction, project showcase, background, skills, services, and contact form. The navy/teal/gold identity and persisted dark/light themes remain.
+A one-page Astro portfolio for Software Developer roles and freelance work, including an active AI learning and project-building journey. The introduction, project showcase, background, skills, services, and contact form retain the navy/teal/gold identity and persisted dark/light themes.
 
 The page is generated as complete HTML. Browser scripts handle theme switching and contact submission; the portfolio does not depend on client-side rendering. The SQL queue animation, concurrency experiment, case-study walkthroughs, proof strip, and FAQ have been removed.
 
@@ -27,24 +27,26 @@ All main navigation stays on `/`:
 
 | Section      | Anchor      | Content                                                                 |
 | ------------ | ----------- | ----------------------------------------------------------------------- |
-| Introduction | `#home`     | Ayush’s Software Engineer headline and current work                     |
-| Projects     | `#projects` | NiyamHub, then ComplyRelax, with logos, features, stack, and live links |
+| Introduction | `#home`     | Ayush’s Software Developer headline and current web/AI work              |
+| Projects     | `#projects` | DocuGuard AI (GitHub), ComplyRelax and NiyamHub (live websites)             |
 | About        | `#about`    | Background, education, certification, and resume link                   |
-| Skills       | `#skills`   | Frontend, backend/data, and tools/automation                            |
-| Services     | `#services` | Full-stack development, product improvements, and integrations          |
+| Skills       | `#skills`   | Frontend, backend, databases, AI/GenAI, retrieval, and tools/automation    |
+| Services     | `#services` | Full-stack development, product improvements, integrations, AI prototypes |
 | Contact      | `#contact`  | Direct contact links and working message form                           |
 
 NiyamHub and ComplyRelax are both Businessnow Private Limited projects; Ayush contributes to their development as part of his role. Neither is presented as his personal product. They have `#niyamhub` and `#complyrelax` anchors and are product showcases, not separate case-study pages. This ownership correction supersedes the earlier descriptions in historical reports under `docs/reference/`.
 
 `redirects.mjs` is shared by Astro and the Node server. Old `/work/`, `/about/`, `/contact/`, `/work/niyamhub/`, and `/work/complyrelax-queue/` bookmarks lead to the matching homepage section. The Node server returns HTTP 301; Astro generates meta-refresh fallback pages for static hosting. The removed `/work/xbrl-parser/` route and unknown routes return 404.
 
-The sitemap contains the single canonical homepage. Metadata includes a title, description, canonical URL, Open Graph/Twitter image, Person schema, and SoftwareApplication entries for the two projects. `/robots.txt`, `/llms.txt`, `/humans.txt`, and `/.well-known/security.txt` are generated with the configured identity and origin. There is no FAQPage schema because there is no FAQ section.
+DocuGuard AI is an ongoing personal document intelligence and RAG project, dated “Aug. 2026 – Present” and marked “Working / Ongoing.” Its `#docuguard-ai` card links only to the supplied GitHub repository. AI service copy describes scoped prototypes and integrations; the About section makes the learning journey and long-term AI Engineer direction explicit.
+
+The sitemap contains the single canonical homepage. Metadata includes a title, description, canonical URL, Open Graph/Twitter image, Person schema, and SoftwareApplication entries for all three projects. `/robots.txt`, `/llms.txt`, `/humans.txt`, and `/.well-known/security.txt` are generated with the configured identity and origin. There is no FAQPage schema because there is no FAQ section.
 
 Shared identity and project content live in `src/data/site.ts`; the page is `src/pages/index.astro`. Project and contact components are in `src/components/`. `src/layouts/Layout.astro` owns shared navigation and metadata; `src/styles/global.css` owns theme and layout rules. Local Space Grotesk and IBM Plex Mono fonts use `font-display: swap`. Product logos use responsive WebP assets with explicit dimensions.
 
 ## Contact delivery
 
-`src/components/ContactSection.astro` places the existing working form on the homepage. It keeps the same fields, topic values, honeypot, validation, endpoint, and `src/scripts/contact.ts` behavior. No new live email was sent as part of this one-page change.
+`src/components/ContactSection.astro` places the existing form on the homepage. `contact-topics.mjs` shares the dropdown choices with the API allowlist, including AI / RAG / GenAI Project, AI-powered Application, and Other. The API also accepts the previous topic names for already-open tabs. Fields, honeypot, validation, endpoint, and `src/scripts/contact.ts` behavior remain intact. No new live email was sent as part of this update.
 
 The API checks inputs, payload size, browser origins, and per-IP/global rate limits. Success is reported only after SMTP accepts the configured recipient. Errors and the 25-second timeout retain entered values. Unchanged retries reuse a request ID; the server deduplicates in-flight and successful requests for 15 minutes. These limits and deduplication records are per process, reset on restart, and are not shared across server instances.
 
@@ -74,6 +76,6 @@ Deploy the complete site as a Node web service: install both dependency sets, bu
 
 A static-only host needs a separately deployed contact API, a matching `PUBLIC_CONTACT_ENDPOINT` at build time, and the correct `CLIENT_ORIGIN` on that API. Configure permanent redirects from `redirects.mjs` where supported; the generated meta-refresh pages are fallbacks. Unknown URLs must return the real `404.html` with HTTP 404, rather than a catch-all homepage response.
 
-Add the approved Software Engineer PDF under `public/` and set `PUBLIC_RESUME_PATH`; until then, the resume button uses a direct email request. Historical reports and the previous resume remain under `docs/reference/`, outside public output. The release check records prerequisites and does not authorize deployment, verify domain ownership, or submit sitemaps.
+The Download resume button serves the latest user-supplied Word document at `public/Ayush-Chhipa-Resume.docx`, unchanged from the 3 October 2026 attachment. Visitors can download it directly. To use a future PDF or DOCX, add it under `public/` and set `PUBLIC_RESUME_PATH`. Historical reports and previous resumes remain outside public output. The release check records prerequisites and does not authorize deployment, verify domain ownership, or submit sitemaps.
 
 Recheck NiyamHub HTTPS and profile links before launch, then complete public schema validation and Google/Bing sitemap submissions after an approved deployment. See the launch checklist for the remaining owner decisions.

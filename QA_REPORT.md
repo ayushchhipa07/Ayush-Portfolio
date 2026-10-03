@@ -1,59 +1,68 @@
-# One-page portfolio audit
+# Software Developer portfolio review
 
-Completed on 13 September 2026 against the finished build at [http://127.0.0.1:5000](http://127.0.0.1:5000). This report supersedes the earlier multipage report, preserved in `docs/reference/QA_REPORT.two-study.md`.
+Reviewed on 2 October 2026 against the production build at [http://127.0.0.1:4322](http://127.0.0.1:4322). This report describes the current local revision and supersedes the September one-page audit results.
 
-## Requested changes
+## Content and implementation
 
-- One homepage with Projects, About, Skills, Services, and Contact navigation.
-- NiyamHub and ComplyRelax shown as product showcases with their original logos, descriptions, technology stacks, features, and direct live website links.
-- Removed the SQL/queue animation, concurrency experiment, ticket graphics, case-study pages, proof strip, and FAQ.
-- Preserved the navy/teal/gold colors, Space Grotesk typography, personal logo, persisted dark/light toggle, and working contact service.
-- Replaced the social preview with the current Software Engineer introduction.
-- Existing work/about/contact bookmarks redirect to the appropriate section. The Node service sends HTTP 301; Astro generates static redirect fallbacks. Unknown and removed XBRL URLs return HTTP 404.
+- Software Developer is used in the hero, header, footer, About section, résumé-request subject, metadata, Person schema, social preview image, humans.txt, and llms.txt. AI Engineer appears as a long-term learning goal.
+- DocuGuard AI is the first project, with “Aug. 2026 – Present,” “Working / Ongoing,” the supplied document intelligence/RAG features, and only the supplied GitHub repository link. Project cards and structured data consume the same project configuration.
+- About describes learning AI from fundamentals toward advanced concepts through hands-on project work. Skills include the supported web and AI stack; services describe scoped AI integrations and prototypes. Docker, AWS/S3, and agent/tool-calling expertise were not added without evidence of current use.
+- NiyamHub and ComplyRelax retain Businessnow attribution and their existing product links and logos.
+- Contact topics are shared between the form and API through `contact-topics.mjs`. Existing relevant topics remain, with the Software development role label and the requested AI / RAG / GenAI Project, AI-powered Application, and Other choices. Previous topic names remain accepted by the API for already-open tabs.
+- The existing colors, fonts, navigation, and theme behavior remain. Project cards stay in one row at every width, ordered DocuGuard AI, ComplyRelax, then NiyamHub. All three fit from 640px upward; smaller phones scroll horizontally through the same row. Compact logo tiles and stacked tablet headers preserve room for titles.
+- No dependencies were added. No deployment, Git push, or real email submission occurred.
 
-## Featured-project card refinement
+## Verification
 
-The oversized logo banners are replaced by contained header tiles: 128 × 84 pixels on large screens and 100 × 68 pixels on mobile. Features remain visible, and the technology list opens through a native keyboard-accessible disclosure. Live website actions show their destination domain. Cards stack at tablet and mobile widths to keep titles readable.
+- Production build and Astro checks passed: 12 files, zero errors, warnings, or hints.
+- ESLint, formatting checks for changed frontend/audit files, and `git diff --check` passed.
+- All 44 backend tests passed, including each visible topic reaching the email subject and body, validation, spam protection, origins, rate limits, deduplication, failure recovery, and missing SMTP configuration.
+- Browser audit passed in dark and light themes at 320, 360, 768, 1024, and 1440 pixels: 10 viewport/theme combinations and 10 axe accessibility scans, with zero violations.
+- Expanded technology stacks were checked with keyboard interaction at every audited size. Additional title/logo bounds checks at 560, 850, and 900 pixels found no overlap after the fix.
+- Zero unexpected console errors, console warnings, JavaScript errors, page/heading overflow, broken images, or broken internal links.
+- All six section anchors and three project anchors remain below the sticky header on mobile and desktop. Theme persistence, blocked localStorage, skip navigation, reduced motion, and no-JavaScript readability passed.
+- Homepage metadata, three project schema entries, crawler files, sitemap, five legacy redirects, and custom HTTP 404 passed. No obsolete Software Engineer profile text remains in rendered HTML.
+- Contact tests passed required fields, invalid email, short messages, concurrent duplicate attempts, failed delivery, malformed responses, rate limiting, the 25-second timeout, retained fields/request ID, successful retries, and clearing after success.
+- All seven dropdown choices passed browser-to-API tests with a fake mail transport; selected values appeared unchanged in the resulting mail subject and body. No actual SMTP delivery was attempted.
+- Visually inspected desktop/mobile layouts, tablet skills, contact layout, project cards, and the regenerated social preview.
 
-The targeted refinement check passed all eight theme/viewport combinations, including keyboard expansion of both technology lists, expanded-state axe scans, image bounds, and heading/page overflow. No accessibility findings or console errors/warnings were reported. Evidence: [project refinement report](artifacts/project-refinement/report.json). The broader one-page checks below were completed before this card-only refinement; Lighthouse was rerun against the refined build.
+Evidence: [browser audit](artifacts/audit/report.json), [contact states and topic integration](artifacts/audit/contact-states.json), [additional layout checks](artifacts/review/layout.json), and screenshots in `artifacts/audit/` and `artifacts/review/`. Artifacts are local and ignored by Git.
 
-## Ownership copy correction
+## Lighthouse
 
-Ayush confirmed that NiyamHub, like ComplyRelax, is a Businessnow Private Limited project. Hero labels, project descriptions, About copy, generated project schema, llms.txt, and current documentation now reflect that attribution. Build/type checks and the served HTML/schema/text checks passed after this copy-only correction. The Lighthouse results below were measured on the preceding card-refinement build.
+Lighthouse 13.4.1, installed Chrome, simulated mobile conditions, production build served locally. These measurements precede the subsequent three-column project-row adjustment; Lighthouse was not repeated for that layout-only follow-up.
 
-## Final Lighthouse
+| Performance | Accessibility | Best Practices | SEO |
+| ----------: | ------------: | -------------: | --: |
+| 100 | 100 | 100 | 100 |
 
-Lighthouse 13.4.1, Chrome, simulated mobile conditions, production build served locally.
+LCP: 1.36 seconds. CLS: 0.0385. Total Blocking Time: 0 ms. These are local lab results, not production field measurements.
 
-| URL      | Performance | Accessibility | Best Practices | SEO |
-| -------- | ----------: | ------------: | -------------: | --: |
-| Home `/` |         100 |           100 |            100 | 100 |
+Evidence: [scores](artifacts/lighthouse/scores.json) and [HTML report](artifacts/lighthouse/home.html).
 
-LCP: **1.29 seconds**. CLS: **0.0228**. Total Blocking Time: **11.5 ms**. These are local lab measurements; field INP and production Core Web Vitals were not measured.
+## Project-row follow-up
 
-Evidence: [scores.json](artifacts/lighthouse/scores.json) and [HTML report](artifacts/lighthouse/home.html).
+The single-row layout was checked in dark/light themes at 320, 360, 639, 640, 653, 700, 768, 1023, 1024, and 1440px. Checks cover project order, all three cards sharing one row, horizontal scrolling on phones, no page or heading overflow, no title/logo overlap, and working technology disclosures. Evidence: [layout report](artifacts/project-row/report.json) and screenshots in `artifacts/project-row/`. The broader content/contact audit above was performed before this follow-up.
 
-## Browser and functional checks
+## External links and remaining limitations
 
-- **8 responsive/theme combinations passed:** dark and light at 360, 768, 1024, and 1440 pixels.
-- **8 axe scans passed**, with zero accessibility violations in the audited states.
-- Zero unexpected console errors, console warnings, page errors, horizontal overflow, or broken internal links.
-- All six section anchors and both project anchors remain visible below the sticky header at mobile and desktop widths.
-- Theme persistence, blocked storage, keyboard skip link, focus visibility, and reduced-motion scrolling checked.
-- Complete homepage content and project descriptions remain readable with JavaScript disabled. Direct email stays available.
-- Homepage metadata, Person/project schema parity, one-entry sitemap, crawler rules, llms.txt, images, favicon, five legacy redirects, and 404 behavior checked.
-- Build, Astro type checks, ESLint, and whitespace checks passed.
-- **37 backend tests passed** using a fake mail transport.
-- Mocked contact checks passed for required fields, invalid input, spam trap, duplicate submission, failed delivery, malformed response, rate limiting, timeout, retained fields/request ID, and successful retry.
+The subsequent DocuGuard AI disclosure update passed build/type checks, ESLint, and eight targeted browser checks (dark/light at 360, 653, 768, and 1440px). The card initially shows a short summary and two highlights; native Show more / Show less reveals the full description and features. Verified keyboard activation, restored collapsed height, single-row layout, no page overflow, no JavaScript errors, and operation without JavaScript. The collapsed desktop layout was visually reviewed. Evidence: [disclosure report](artifacts/project-disclosure/report.json). The broader audit and Lighthouse measurements above precede this disclosure update.
 
-No additional real email was sent in this revision. The earlier authorized test established SMTP recipient acceptance; its evidence remains at [live-delivery.json](artifacts/audit/live-delivery.json). Inbox placement was not inspected. Intentional mocked delivery failures are recorded separately from unexpected console errors.
+Checked on 2 October 2026 with certificate verification enabled:
 
-Evidence: [browser audit](artifacts/audit/report.json), [contact states](artifacts/audit/contact-states.json), and screenshots under `artifacts/audit/`.
+| Destination | Result |
+| ----------- | ------ |
+| DocuGuard AI GitHub repository | HTTP 200 |
+| Ayush's GitHub profile | HTTP 200 |
+| ComplyRelax | HTTP 200 |
+| HackerRank certificate | HTTP 200 |
+| NiyamHub, root and www | `CERT_HAS_EXPIRED`; requires certificate renewal on NiyamHub hosting |
+| LinkedIn profile | HTTP 999; automated requests blocked, manual verification remains |
 
-## Publication status
+The existing NiyamHub URL is preserved; no unverified alternate destination or insecure HTTP replacement was introduced. Its certificate cannot be repaired within this portfolio repository.
 
-This revision is local. No deployment, push, or sitemap submission occurred. External product/profile checks from the earlier revision are not new validations: NiyamHub's expired HTTPS certificate still needs a fresh check/repair, and LinkedIn was blocked to automated requests.
+No local `.env` or `server/.env` is present. Live contact delivery requires server-side SMTP credentials; the current tests use a fake transport and do not establish inbox delivery. The direct email link remains available. On 3 October 2026, the newly supplied Word résumé was added unchanged at `public/Ayush-Chhipa-Resume.docx` and connected to the existing Download resume button, replacing the request-by-email fallback.
 
-Before publication, confirm the domain/profile information, approved Software Engineer resume, product assets and public facts, and remaining ComplyRelax/Businessnow descriptions. Public schema validation and Google/Bing sitemap submissions require the final deployed origin and authenticated ownership access. See [LAUNCH_CHECKLIST.md](LAUNCH_CHECKLIST.md).
+The updated frontend is available at port 4321; port 4322 serves the production build and contact API. See [LAUNCH_CHECKLIST.md](LAUNCH_CHECKLIST.md) for deployment configuration and remaining publication checks.
 
-Audit artifacts are local and ignored by Git. The current one-page report and scores supersede historical multipage artifacts.
+Résumé follow-up (3 October 2026): build and Astro checks passed. A real browser click on Download resume downloaded `Ayush-Chhipa-Resume.docx` (17,391 bytes) with the correct Word MIME type. The downloaded bytes exactly matched the supplied file. No résumé content was edited.

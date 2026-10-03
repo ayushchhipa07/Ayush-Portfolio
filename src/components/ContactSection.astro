@@ -1,5 +1,6 @@
 ---
 import { site } from '../data/site';
+import { contactTopics } from '../../contact-topics.mjs';
 const endpoint = import.meta.env.PUBLIC_CONTACT_ENDPOINT || '/api/contact';
 ---
 
@@ -7,7 +8,8 @@ const endpoint = import.meta.env.PUBLIC_CONTACT_ENDPOINT || '/api/contact';
   <div class="section-top">
     <h2 id="contact-heading">Let’s talk.</h2>
     <p>
-      Have a project in mind or a software engineering role to discuss? I’d like to hear about it.
+      Have a web or AI project in mind, or a software development role to discuss? I’d like to hear
+      about it.
     </p>
   </div>
   <div class="contact-layout">
@@ -25,7 +27,8 @@ const endpoint = import.meta.env.PUBLIC_CONTACT_ENDPOINT || '/api/contact';
         <a href={site.linkedin}>LinkedIn ↗</a>
       </div>
       <p class="availability">
-        <span class="live-dot" aria-hidden="true"></span>Engineering roles & freelance projects
+        <span class="live-dot" aria-hidden="true"></span>Software development roles & freelance
+        projects
       </p>
     </div>
     <form
@@ -60,11 +63,9 @@ const endpoint = import.meta.env.PUBLIC_CONTACT_ENDPOINT || '/api/contact';
         <label for="topic">What’s this about?</label>
         <select id="topic" name="topic" required>
           <option value="">Choose a topic</option>
-          <option>Software engineering role</option>
-          <option>Compliance SaaS project</option>
-          <option>PHP / CodeIgniter product</option>
-          <option>Data or workflow automation</option>
-          <option>Another engineering problem</option>
+          {contactTopics.map((topic) => (
+            <option value={topic}>{topic}</option>
+          ))}
         </select>
       </div>
       <div class="field">

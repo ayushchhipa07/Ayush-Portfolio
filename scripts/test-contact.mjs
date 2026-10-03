@@ -1,9 +1,13 @@
 import { chromium } from '@playwright/test';
 import assert from 'node:assert/strict';
 import { mkdir, writeFile } from 'node:fs/promises';
+import { once } from 'node:events';
+import { createApp } from '../server/app.js';
+import { contactTopics } from '../contact-topics.mjs';
 const origin = process.env.AUDIT_URL || 'http://127.0.0.1:4322';
 const browser = await chromium.launch({ channel: 'chrome', headless: true });
 const results = [];
+let testServer;
 try {
   const context = await browser.newContext();
   const page = await context.newPage();
@@ -64,6 +68,50 @@ try {
     1,
     'A retry of unchanged content must reuse its idempotency key.',
   );
+  // Forward browser submissions to a real local API with a fake mail transport.
+  // This checks the rendered options, client payload, server allowlist, and email topic together.
+  const mails = [];
+  const recipient = 'owner@example.test';
+  testServer = createApp({
+    env: { CLIENT_ORIGIN: origin, CONTACT_RECIPIENT: recipient },
+    rateLimit: 20,
+    transport: {
+      async sendMail(mail) {
+        mails.push(mail);
+        return { accepted: [recipient] };
+      },
+    },
+  }).listen(0, '127.0.0.1');
+  await once(testServer, 'listening');
+  await page.unroute('**/api/contact');
+  await page.route('**/api/contact', async (route) => {
+    const response = await context.request.post(
+      `http://127.0.0.1:${testServer.address().port}/api/contact`,
+      { data: route.request().postDataJSON(), headers: { Origin: origin } },
+    );
+    await route.fulfill({ response });
+  });
+  assert.deepEqual(await page.locator('#topic option').allTextContents(), [
+    'Choose a topic',
+    ...contactTopics,
+  ]);
+  for (const topic of contactTopics) {
+    await page.getByLabel('Your name').fill('QA Visitor');
+    await page.getByLabel('Your email', { exact: true }).fill('qa@example.org');
+    await page.getByLabel('What’s this about?').selectOption(topic);
+    await page
+      .getByLabel('What are you working on?')
+      .fill('A local test of the selected contact topic.');
+    await page.getByRole('button', { name: 'Send message' }).click();
+    await page.waitForFunction(() =>
+      document.querySelector('#form-status').textContent.includes('was sent'),
+    );
+    assert.equal(mails.at(-1).subject, `${topic} — QA Visitor`);
+    assert(mails.at(-1).text.includes(`Topic: ${topic}\n`));
+    assert.equal(await page.locator('#topic').inputValue(), '');
+    results.push({ topic, passed: true, delivery: 'local API with fake mail transport' });
+  }
+  assert.equal(mails.length, contactTopics.length);
   assert.equal(errors.length, 0);
   await mkdir('artifacts/audit', { recursive: true });
   await writeFile(
@@ -75,8 +123,12 @@ try {
     ),
   );
   console.log(
-    'PASS: malformed responses, rate limits, 25-second timeout, successful retry, and stable request ID. No email sent.',
+    'PASS: malformed responses, rate limits, 25-second timeout, successful retry, stable request ID, and all topic values delivered through the local API to a fake transport. No email sent.',
   );
 } finally {
+  if (testServer)
+    await new Promise((resolve, reject) =>
+      testServer.close((error) => (error ? reject(error) : resolve())),
+    );
   await browser.close();
 }

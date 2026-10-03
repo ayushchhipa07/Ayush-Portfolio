@@ -2,70 +2,116 @@
 import { projects } from '../data/site';
 ---
 
-<div class="project-grid">
-  {projects.map((project) => (
-    <article class="project" id={project.id} aria-labelledby={`${project.id}-heading`}>
-      <div class="project-body">
-        <div class="project-header">
-          <div class="project-title">
-            <h3 id={`${project.id}-heading`}>{project.name}</h3>
-            <p class="project-role">{project.role}</p>
+<div class="project-grid" role="region" aria-label="Featured project cards" tabindex="0">
+  {projects.map((project) => {
+    const url = project.github || project.live!;
+    const linkLabel = project.github ? 'View on GitHub' : 'View live website';
+    return (
+      <article class="project" id={project.id} aria-labelledby={`${project.id}-heading`}>
+        <div class="project-body">
+          <div class="project-header">
+            <div class="project-title">
+              <h3 id={`${project.id}-heading`}>{project.name}</h3>
+              <p class="project-role">{project.role}</p>
+            </div>
+            <div class="project-logo">
+              {project.image ? (
+                <img
+                  src={project.imageSmall}
+                  srcset={`${project.imageSmall} 468w, ${project.image} 936w`}
+                  sizes="(max-width: 639px) 56px, 64px"
+                  width={project.imageWidth}
+                  height={project.imageHeight}
+                  loading="lazy"
+                  decoding="async"
+                  alt={project.imageAlt}
+                />
+              ) : (
+                <svg width="42" height="48" viewBox="0 0 42 48" fill="none" aria-hidden="true">
+                  <path d="M9 3h16l10 10v32H9V3Z" stroke="#176c63" stroke-width="2" />
+                  <path
+                    d="M25 3v11h10M16 23h12M16 30h12M16 37h7"
+                    stroke="#176c63"
+                    stroke-width="2"
+                  />
+                </svg>
+              )}
+            </div>
           </div>
-          <div class="project-logo">
-            <img
-              src={project.imageSmall}
-              srcset={`${project.imageSmall} 468w, ${project.image} 936w`}
-              sizes="(max-width: 850px) 80px, (max-width: 1000px) 84px, 108px"
-              width={project.imageWidth}
-              height={project.imageHeight}
-              loading="lazy"
-              decoding="async"
-              alt={project.imageAlt}
-            />
-          </div>
-        </div>
-        <p class="project-subtitle">{project.subtitle}</p>
-        <p class="project-description">{project.description}</p>
-        <ul class="project-features" aria-label={`${project.name} features`}>
-          {project.features.map((feature) => (
-            <li>
-              <span aria-hidden="true">✓</span>
-              {feature}
-            </li>
-          ))}
-        </ul>
-        <details class="project-tech">
-          <summary>
-            Technology stack <span aria-hidden="true">+</span>
-          </summary>
-          <ul class="project-stack" aria-label={`${project.name} technology stack`}>
-            {project.stack.map((technology) => (
-              <li>{technology}</li>
+          <p class="project-subtitle">{project.subtitle}</p>
+          {project.timeline && (
+            <p class="project-meta">
+              <span>{project.timeline}</span>
+              <span class="project-status">{project.status}</span>
+            </p>
+          )}
+          <p class="project-description">{project.preview?.description || project.description}</p>
+          <ul class="project-features" aria-label={`${project.name} features`}>
+            {(project.preview?.features || project.features).map((feature) => (
+              <li>
+                <span aria-hidden="true">✓</span>
+                {feature}
+              </li>
             ))}
           </ul>
-        </details>
-      </div>
-      <div class="project-footer">
-        <a
-          class="button project-live"
-          href={project.live}
-          target="_blank"
-          rel="noopener noreferrer"
-          aria-label={`View live website: ${project.name} (opens in a new tab)`}
-        >
-          View live website <span aria-hidden="true">↗</span>
-        </a>
-        <span class="project-domain">{new URL(project.live).hostname}</span>
-      </div>
-    </article>
-  ))}
+          {project.preview && (
+            <details class="project-more project-disclosure">
+              <summary>
+                <span class="show-more">Show more</span>
+                <span class="show-less">Show less</span>
+                <span class="disclosure-icon" aria-hidden="true">
+                  +
+                </span>
+              </summary>
+              <div class="project-expanded">
+                <p class="project-description">{project.description}</p>
+                <ul class="project-features" aria-label={`${project.name} detailed features`}>
+                  {project.features.map((feature) => (
+                    <li>
+                      <span aria-hidden="true">✓</span>
+                      {feature}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </details>
+          )}
+          <details class="project-tech project-disclosure">
+            <summary>
+              Technology stack{' '}
+              <span class="disclosure-icon" aria-hidden="true">
+                +
+              </span>
+            </summary>
+            <ul class="project-stack" aria-label={`${project.name} technology stack`}>
+              {project.stack.map((technology) => (
+                <li>{technology}</li>
+              ))}
+            </ul>
+          </details>
+        </div>
+        <div class="project-footer">
+          <a
+            class="button project-live"
+            href={url}
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label={`${linkLabel}: ${project.name} (opens in a new tab)`}
+          >
+            {linkLabel} <span aria-hidden="true">↗</span>
+          </a>
+          <span class="project-domain">{new URL(url).hostname}</span>
+        </div>
+      </article>
+    );
+  })}
 </div>
 
 <style>
   .project-grid {
     display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 28px;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 24px;
   }
 
   .project {
@@ -81,7 +127,7 @@ import { projects } from '../data/site';
     display: flex;
     align-items: center;
     justify-content: space-between;
-    gap: 20px;
+    gap: 14px;
     width: 100%;
     margin-bottom: 24px;
   }
@@ -93,8 +139,8 @@ import { projects } from '../data/site';
   .project-logo {
     display: grid;
     place-items: center;
-    width: 128px;
-    height: 84px;
+    width: 84px;
+    height: 64px;
     flex-shrink: 0;
     padding: 10px;
     background: #f7f7f7;
@@ -113,7 +159,7 @@ import { projects } from '../data/site';
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    padding: 28px;
+    padding: 24px;
     padding-bottom: 0;
   }
 
@@ -124,7 +170,7 @@ import { projects } from '../data/site';
   }
 
   h3 {
-    font-size: 1.85rem;
+    font-size: 1.6rem;
   }
 
   .project-subtitle {
@@ -141,12 +187,25 @@ import { projects } from '../data/site';
     margin-bottom: 22px;
   }
 
-  .project-tech {
+  .project-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px 16px;
+    margin: 0 0 16px;
+    color: var(--muted);
+    font-size: 0.78rem;
+  }
+
+  .project-status {
+    color: var(--gold);
+  }
+
+  .project-disclosure {
     width: 100%;
     border-top: 1px solid var(--line);
   }
 
-  .project-tech summary {
+  .project-disclosure summary {
     cursor: pointer;
     display: flex;
     align-items: center;
@@ -158,17 +217,30 @@ import { projects } from '../data/site';
     list-style: none;
   }
 
-  .project-tech summary::-webkit-details-marker {
+  .project-disclosure summary::-webkit-details-marker {
     display: none;
   }
 
-  .project-tech summary > span {
+  .project-disclosure .disclosure-icon {
     font-size: 1.2rem;
     color: var(--teal);
   }
 
-  .project-tech[open] summary > span {
+  .project-disclosure[open] .disclosure-icon {
     transform: rotate(45deg);
+  }
+
+  .project-more .show-less,
+  .project-more[open] .show-more {
+    display: none;
+  }
+
+  .project-more[open] .show-less {
+    display: inline;
+  }
+
+  .project-expanded {
+    padding-top: 8px;
   }
 
   .project-stack {
@@ -219,7 +291,7 @@ import { projects } from '../data/site';
     justify-content: space-between;
     gap: 12px;
     margin-top: auto;
-    padding: 20px 28px 28px;
+    padding: 20px 24px 24px;
   }
 
   .project-domain {
@@ -227,37 +299,53 @@ import { projects } from '../data/site';
     font-size: 0.75rem;
   }
 
-  @media (max-width: 1000px) {
+  @media (max-width: 1023px) {
     .project-grid {
-      gap: 22px;
+      gap: 12px;
     }
 
     .project-body {
-      padding: 23px 23px 0;
+      padding: 18px 16px 0;
     }
 
     .project-header {
+      flex-direction: column;
+      align-items: flex-start;
       gap: 14px;
     }
 
-    .project-logo {
-      width: 104px;
-      height: 72px;
-    }
-
     h3 {
-      font-size: 1.6rem;
+      font-size: 1.4rem;
     }
 
     .project-footer {
-      padding: 18px 23px 23px;
+      padding: 18px 16px;
+    }
+
+    .project-live {
+      width: 100%;
+      padding-inline: 10px;
+      gap: 8px;
     }
   }
 
-  @media (max-width: 850px) {
+  @media (max-width: 639px) {
     .project-grid {
-      grid-template-columns: 1fr;
-      gap: 22px;
+      grid-template-columns: repeat(3, minmax(280px, 1fr));
+      gap: 16px;
+      overflow-x: auto;
+      scroll-snap-type: x proximity;
+      padding-bottom: 12px;
+      scrollbar-color: var(--teal) var(--surface);
+    }
+
+    .project {
+      scroll-snap-align: start;
+    }
+
+    .project-header {
+      flex-direction: row;
+      align-items: center;
     }
 
     .project-body {
@@ -265,8 +353,9 @@ import { projects } from '../data/site';
     }
 
     .project-logo {
-      width: 100px;
-      height: 68px;
+      width: 72px;
+      height: 60px;
+      padding: 8px;
     }
 
     .project-role {
@@ -275,6 +364,18 @@ import { projects } from '../data/site';
 
     .project-footer {
       padding: 18px 20px 24px;
+    }
+  }
+
+  @media (max-width: 360px) {
+    .project-header {
+      gap: 12px;
+    }
+
+    .project-logo {
+      width: 72px;
+      height: 60px;
+      padding: 8px;
     }
   }
 </style>

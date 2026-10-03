@@ -6,6 +6,7 @@ import { tmpdir } from 'node:os';
 import { basename, dirname, join, resolve } from 'node:path';
 import test from 'node:test';
 import { createApp } from './app.js';
+import { contactTopics } from '../contact-topics.mjs';
 
 const origin = 'https://portfolio.example.test';
 const recipient = 'owner@example.test';
@@ -94,6 +95,18 @@ function assertFailure(result, status) {
   assert(result.data.message.length > 0);
 }
 
+for (const topic of contactTopics) {
+  test(`contact topic reaches the mail subject and body: ${topic}`, async (t) => {
+    const f = await fixture(t);
+    const result = await f.post(validContact({ topic }));
+    assert.equal(result.status, 200);
+    assert.equal(result.data.success, true);
+    assert.equal(f.mails.length, 1);
+    assert.equal(f.mails[0].subject, `${topic} — Test Visitor`);
+    assert(f.mails[0].text.includes(`Topic: ${topic}\n`));
+  });
+}
+
 test('valid contact sends a plain-text message to the configured owner and preserves paragraphs', async (t) => {
   const f = await fixture(t);
   const body = validContact({
@@ -123,7 +136,7 @@ test('valid contact sends a plain-text message to the configured owner and prese
   assert.equal(f.errors.length, 0);
 });
 
-test('all visible inquiry topics are accepted', async (t) => {
+test('previous inquiry topics remain accepted for already-open browser tabs', async (t) => {
   const f = await fixture(t);
   for (const topic of [
     'Software engineering role',

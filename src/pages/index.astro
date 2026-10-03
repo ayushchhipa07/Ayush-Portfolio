@@ -9,7 +9,7 @@ const schema = projects.map((project) => ({
   '@type': 'SoftwareApplication',
   '@id': new URL(`/#${project.id}`, Astro.site).href,
   name: project.name,
-  url: project.live,
+  url: project.github || project.live,
   description: project.description,
   applicationCategory: 'BusinessApplication',
   operatingSystem: 'Web',
@@ -18,8 +18,8 @@ const schema = projects.map((project) => ({
 ---
 
 <Layout
-  title="Ayush Chhipa (Ayushchhipa) | Software Engineer & Full-Stack Developer"
-  description="Ayush Chhipa, also known online as Ayushchhipa, is a Software Engineer in Jaipur building full-stack web applications. Explore NiyamHub, ComplyRelax, technical skills, and freelance services."
+  title={`Ayush Chhipa (Ayushchhipa) | ${site.title} & Full-Stack Developer`}
+  description="Ayush Chhipa (Ayushchhipa) is a Software Developer in Jaipur building web applications and AI-powered products. Explore DocuGuard AI, NiyamHub, and ComplyRelax."
   schema={schema}
 >
   <section id="home" class="hero shell" aria-labelledby="hero-heading">
@@ -28,11 +28,11 @@ const schema = projects.map((project) => ({
       <h1 id="hero-heading">
         Ayush Chhipa.
         <br />
-        <em>Software Engineer.</em>
+        <em>{site.title}.</em>
       </h1>
       <p>
-        I build web applications that make everyday work easier. From React interfaces to PHP and
-        Node.js backends, I turn product ideas into working software.
+        Building web applications and AI-powered products with React, Node.js, and modern AI
+        technologies.
       </p>
       <div class="hero-links">
         <a class="button" href="#projects">
@@ -45,6 +45,13 @@ const schema = projects.map((project) => ({
     </div>
     <aside class="hero-context" aria-label="Current work">
       <p class="context-label">What I’m working on</p>
+      <div class="context-item">
+        <span class="context-type">Personal project · Working / Ongoing</span>
+        <a href="#docuguard-ai">
+          DocuGuard AI <span aria-hidden="true">↗</span>
+        </a>
+        <p>Learning AI through document intelligence and grounded, RAG-powered answers.</p>
+      </div>
       <div class="context-item">
         <span class="context-type">At Businessnow Private Limited</span>
         <a href="#complyrelax">
@@ -85,9 +92,9 @@ const schema = projects.map((project) => ({
     <div class="about-layout">
       <div class="prose">
         <p>
-          I’m Ayush, a full-stack developer at Businessnow Private Limited in Jaipur. I work on
-          ComplyRelax and NiyamHub as part of my role, connecting frontend interfaces, backend
-          services, and the data that keeps a product running.
+          I’m Ayush, a Software Developer focused on full-stack development at Businessnow Private
+          Limited in Jaipur. I work on ComplyRelax and NiyamHub as part of my role, connecting
+          frontend interfaces, backend services, and the data that keeps a product running.
         </p>
         <p>
           I enjoy taking a feature from the first idea through to a usable release. My work includes
@@ -95,9 +102,16 @@ const schema = projects.map((project) => ({
           automation.
         </p>
         <p>
-          Outside product work, I study data structures, system design, AI, and DevOps through a
-          learning platform I built for myself. I also built GameZone, a four-game Android app with
-          offline leaderboards and two-player pass-and-play.
+          I’m actively learning Artificial Intelligence, progressing from fundamentals toward
+          advanced concepts through hands-on work on DocuGuard AI. My current focus includes
+          Generative AI, RAG, embeddings, vector databases, document intelligence, and AI-powered
+          applications. My long-term goal is to become an AI Engineer specializing in GenAI and RAG
+          development.
+        </p>
+        <p>
+          Alongside this, I study data structures, system design, and DevOps through a learning
+          platform I built for myself. I also built GameZone, a four-game Android app with offline
+          leaderboards and two-player pass-and-play.
         </p>
         <div class="hero-links">
           {site.resume ? (
@@ -107,7 +121,7 @@ const schema = projects.map((project) => ({
           ) : (
             <a
               class="button"
-              href={`mailto:${site.email}?subject=Software%20Engineer%20resume%20request`}
+              href={`mailto:${site.email}?subject=${encodeURIComponent(`${site.title} resume request`)}`}
             >
               Request my resume <span aria-hidden="true">↗</span>
             </a>
@@ -121,7 +135,7 @@ const schema = projects.map((project) => ({
         <div>
           <dt>Current role</dt>
           <dd>
-            Full-stack developer<span>Businessnow Private Limited</span>
+            Software Developer · Full-stack<span>Businessnow Private Limited</span>
           </dd>
         </div>
         <div>
@@ -146,7 +160,10 @@ const schema = projects.map((project) => ({
     <div class="section-top">
       <div>
         <h2 id="skills-heading">My working stack.</h2>
-        <p>The tools I use to build, connect, and maintain a product.</p>
+        <p>
+          My development toolkit, alongside the AI concepts I’m learning and applying in DocuGuard
+          AI.
+        </p>
       </div>
     </div>
     <div class="skill-grid">
@@ -158,18 +175,49 @@ const schema = projects.map((project) => ({
           <li>JavaScript</li>
           <li>Tailwind CSS</li>
           <li>HTML & CSS</li>
+          <li>Vite</li>
         </ul>
       </article>
       <article>
-        <h3>Backend & data</h3>
+        <h3>Backend</h3>
         <p>Application logic, authentication, databases, and API integrations.</p>
         <ul class="skill-tags">
           <li>PHP</li>
           <li>CodeIgniter</li>
           <li>Node.js</li>
           <li>Express.js</li>
-          <li>MySQL</li>
           <li>REST APIs</li>
+        </ul>
+      </article>
+      <article>
+        <h3>Databases</h3>
+        <p>Relational data for web products and vector storage in my current AI project.</p>
+        <ul class="skill-tags">
+          <li>MySQL</li>
+          <li>SQL</li>
+          <li>Vector Databases</li>
+          <li>Qdrant</li>
+        </ul>
+      </article>
+      <article>
+        <h3>AI & GenAI</h3>
+        <p>Actively learning the fundamentals and building practical, grounded AI applications.</p>
+        <ul class="skill-tags">
+          <li>Artificial Intelligence</li>
+          <li>Generative AI</li>
+          <li>LLMs</li>
+          <li>RAG</li>
+          <li>Embeddings</li>
+        </ul>
+      </article>
+      <article>
+        <h3>Retrieval & document AI</h3>
+        <p>Applied in DocuGuard AI, with source validation and reproducible RAG evaluation.</p>
+        <ul class="skill-tags">
+          <li>Semantic Search</li>
+          <li>Hybrid Retrieval</li>
+          <li>Reranking</li>
+          <li>Document Intelligence</li>
         </ul>
       </article>
       <article>
@@ -210,8 +258,29 @@ const schema = projects.map((project) => ({
       <article>
         <h3>APIs & automation</h3>
         <p>
-          Connect external services, organize application data, and automate repetitive work for
-          your team.
+          Develop backend APIs, connect external services, organize application data, and automate
+          repetitive work for your team.
+        </p>
+      </article>
+      <article>
+        <h3>AI-powered applications</h3>
+        <p>
+          Prototype web applications with AI-assisted workflows, combining full-stack development
+          with the techniques I’m applying in DocuGuard AI.
+        </p>
+      </article>
+      <article>
+        <h3>GenAI & LLM integrations</h3>
+        <p>
+          Explore scoped GenAI integrations with streaming responses, efficient context handling,
+          and clear behavior when an answer is unsupported.
+        </p>
+      </article>
+      <article>
+        <h3>RAG & document AI</h3>
+        <p>
+          Build and evaluate prototypes for document Q&A and semantic search, with retrieved
+          evidence, source checks, and measurable retrieval quality.
         </p>
       </article>
     </div>

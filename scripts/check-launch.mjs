@@ -14,17 +14,24 @@ try {
 } catch {
   problems.push('PUBLIC_SITE_URL must be the confirmed HTTPS domain.');
 }
-const resume = process.env.PUBLIC_RESUME_PATH || '';
+const resume = process.env.PUBLIC_RESUME_PATH || '/Ayush-Chhipa-Resume.docx';
 const resumePath = resolve('public', `.${resume}`);
 if (
   !resume.startsWith('/') ||
-  !resume.endsWith('.pdf') ||
+  !/\.(pdf|docx)$/i.test(resume) ||
   !resumePath.startsWith(resolve('public') + sep) ||
   !existsSync(resumePath)
 )
-  problems.push('Add the approved Software Engineer resume PDF and set PUBLIC_RESUME_PATH.');
-else if (!readFileSync(resumePath).subarray(0, 5).equals(Buffer.from('%PDF-')))
-  problems.push('The resume must be a valid PDF file.');
+  problems.push('Add the approved resume PDF or DOCX under public/ and configure its path.');
+else {
+  const bytes = readFileSync(resumePath);
+  const valid = /\.pdf$/i.test(resume)
+    ? bytes.subarray(0, 5).equals(Buffer.from('%PDF-'))
+    : bytes.subarray(0, 4).equals(Buffer.from([0x50, 0x4b, 0x03, 0x04])) &&
+      bytes.includes(Buffer.from('[Content_Types].xml')) &&
+      bytes.includes(Buffer.from('word/document.xml'));
+  if (!valid) problems.push('The resume must be a valid PDF or DOCX file.');
+}
 if (!process.env.EMAIL_USER || !process.env.EMAIL_PASS)
   problems.push('Configure EMAIL_USER and EMAIL_PASS for real contact delivery.');
 if (problems.length) {

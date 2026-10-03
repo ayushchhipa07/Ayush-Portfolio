@@ -48,6 +48,7 @@ try {
     const response = await page.goto(origin + path, { waitUntil: 'networkidle' });
     assert.equal(response.status(), 200, `Unexpected status on ${path}`);
     const rawHTML = await response.text();
+    assert(!/software engineer/i.test(rawHTML), 'Outdated profile title in rendered content');
     assert(rawHTML.includes('<h1'), `Missing static heading on ${path}`);
     assert(!rawHTML.includes('/work/xbrl-parser'), `Stale XBRL link on ${path}`);
     assert(!rawHTML.includes('/social/xbrl-parser'), `Stale XBRL social asset on ${path}`);
@@ -90,7 +91,7 @@ try {
       assert(person, `Missing Person schema on ${path}`);
       assert.equal(person.name, 'Ayush Chhipa');
       assert.equal(person.alternateName, 'Ayushchhipa');
-      assert.equal(person.jobTitle, 'Software Engineer');
+      assert.equal(person.jobTitle, 'Software Developer');
       assert.equal(person.sameAs.length, 2);
       person.sameAs.forEach((url) => assert.equal(new URL(url).protocol, 'https:'));
       const profile = schemas.find((schema) => schema['@type'] === 'ProfilePage');
@@ -109,11 +110,22 @@ try {
         `Missing/duplicate ${id} section`,
       );
     const projectArticles = page.locator('#projects article');
-    assert.equal(await projectArticles.count(), 2, 'Exactly two project showcases are required');
+    assert.equal(await projectArticles.count(), 3, 'Exactly three project showcases are required');
     assert.deepEqual(await projectArticles.evaluateAll((nodes) => nodes.map((node) => node.id)), [
-      'niyamhub',
+      'docuguard-ai',
       'complyrelax',
+      'niyamhub',
     ]);
+    const docuguard = page.locator('#docuguard-ai');
+    assert((await docuguard.innerText()).includes('Aug. 2026 – Present'));
+    assert((await docuguard.innerText()).includes('Working / Ongoing'));
+    assert.equal(await docuguard.locator('a').count(), 1);
+    assert.equal(
+      await docuguard
+        .getByRole('link', { name: 'View on GitHub:', exact: false })
+        .getAttribute('href'),
+      'https://github.com/ayushchhipa07/DocuGuard-AI',
+    );
     for (const id of ['niyamhub', 'complyrelax']) {
       assert(
         (await page.locator(`#${id} a[href^="https://"]`).count()) > 0,
@@ -123,9 +135,10 @@ try {
     const work = schemas.filter((schema) =>
       ['CreativeWork', 'SoftwareApplication'].includes(schema['@type']),
     );
-    assert.equal(work.length, 2, 'Expected structured data for both visible projects');
+    assert.equal(work.length, 3, 'Expected structured data for all three visible projects');
     assert.deepEqual(work.map((project) => new URL(project['@id']).hash).sort(), [
       '#complyrelax',
+      '#docuguard-ai',
       '#niyamhub',
     ]);
     for (const project of work) {
@@ -134,7 +147,8 @@ try {
       assert.equal(new URL(project.url).protocol, 'https:');
       assert(project.description && project.name && project.applicationCategory);
       const article = page.locator(new URL(project['@id']).hash);
-      assert((await article.innerText()).includes(project.description));
+      // Full project descriptions may be inside a native, user-expandable disclosure.
+      assert((await article.textContent()).includes(project.description));
       assert.equal(await article.locator(`a[href="${project.url}"]`).count(), 1);
     }
     const faqSchema = schemas.find((schema) => schema['@type'] === 'FAQPage');
@@ -167,6 +181,11 @@ try {
       );
     }
     assert.equal(await page.locator('img:not([alt])').count(), 0, `Image missing alt on ${path}`);
+    for (const img of await page.locator('img').all()) {
+      await img.scrollIntoViewIfNeeded();
+      await img.evaluate((image) => image.decode());
+      assert(await img.evaluate((image) => image.naturalWidth > 0), 'Broken image');
+    }
     const mainText = await page.locator('main').innerText();
     pageText.set(path, normalize(mainText));
     assert(
@@ -212,12 +231,28 @@ try {
         document.documentElement.dataset.theme = theme;
         localStorage.setItem('ayush-theme', theme);
       }, theme);
-      for (const width of [360, 768, 1024, 1440]) {
+      for (const width of [320, 360, 768, 1024, 1440]) {
         await page.setViewportSize({ width, height: 1000 });
+        // Expanded stacks must remain readable and accessible at every reviewed width.
+        for (const details of await page.locator('.project-tech').all()) {
+          if (!(await details.evaluate((element) => element.open))) {
+            await details.locator('summary').focus();
+            await page.keyboard.press('Enter');
+          }
+          assert(await details.evaluate((element) => element.open));
+        }
         const overflow = await page.evaluate(
           () => document.documentElement.scrollWidth > innerWidth,
         );
         assert(!overflow, `Overflow at ${path} ${theme} ${width}`);
+        const clippedHeadings = await page
+          .locator('h1,h2,h3')
+          .evaluateAll((nodes) =>
+            nodes
+              .filter((node) => node.scrollWidth > node.clientWidth + 1)
+              .map((node) => node.textContent.trim()),
+          );
+        assert.deepEqual(clippedHeadings, [], `Heading overflow at ${theme} ${width}`);
         const result = { theme, width, overflow };
         if (path === '/' || width === 360 || width === 1440) {
           const axe = await new AxeBuilder({ page })
@@ -229,6 +264,10 @@ try {
             nodes: v.nodes.map((n) => ({ target: n.target, summary: n.failureSummary })),
           }));
         }
+        for (const details of await page.locator('.project-tech').all()) {
+          await details.locator('summary').click();
+        }
+        await page.evaluate(() => window.scrollTo({ top: 0, behavior: 'instant' }));
         await page.screenshot({
           path: `artifacts/audit/${path === '/' ? 'home' : path.replaceAll('/', '-')}-${theme}-${width}.png`,
           fullPage: true,
@@ -243,7 +282,7 @@ try {
       }
     }
     report.pages.push(entry);
-    console.log(`Checked ${path} in both themes at four widths.`);
+    console.log(`Checked ${path} in both themes at five widths.`);
   }
   for (const link of [
     ...links,
@@ -282,7 +321,9 @@ try {
   );
   const llms = await (await context.request.get(origin + '/llms.txt')).text();
   assert(!llms.includes('/work/xbrl-parser'));
-  for (const id of ['niyamhub', 'complyrelax']) assert(llms.includes(`#${id}`));
+  for (const id of ['docuguard-ai', 'niyamhub', 'complyrelax']) assert(llms.includes(`#${id}`));
+  assert(llms.includes('Aug. 2026 – Present'));
+  assert(!llms.includes('undefined'));
   for (const [route, destination] of Object.entries(legacyRoutes)) {
     const response = await context.request.get(origin + route, { maxRedirects: 0 });
     assert.equal(response.status(), 301, `Missing permanent redirect for ${route}`);
@@ -352,7 +393,7 @@ try {
   );
   for (const width of [360, 1440]) {
     await page.setViewportSize({ width, height: 1000 });
-    for (const id of [...sectionIds, 'niyamhub', 'complyrelax']) {
+    for (const id of [...sectionIds, 'docuguard-ai', 'niyamhub', 'complyrelax']) {
       await page.locator(`a[href="#${id}"], a[href="/#${id}"]`).first().click();
       await page.waitForFunction((id) => {
         const header = document.querySelector('.site-header').getBoundingClientRect();
@@ -363,7 +404,7 @@ try {
     }
   }
   report.interactions.push(
-    'All six sections and both project anchors remain visible below the sticky header at 360px and 1440px.',
+    'All six sections and all three project anchors remain visible below the sticky header at 360px and 1440px.',
   );
   // This isolated context never reaches the delivery service. Actual SMTP
   // acceptance and server spam controls have their own integration checks.
@@ -505,7 +546,7 @@ try {
         `Heading missing without JavaScript on ${path}: ${heading.text}`,
       );
     }
-    for (const id of ['niyamhub', 'complyrelax']) {
+    for (const id of ['docuguard-ai', 'niyamhub', 'complyrelax']) {
       const projectText = normalize(await crawler.locator(`#${id}`).innerText());
       assert(
         projectText.length > 150 && pageText.get(path).includes(projectText),
@@ -517,7 +558,7 @@ try {
   assert.equal(await crawler.locator('#submit-contact').isDisabled(), true);
   assert(await crawler.locator('#contact a[href^="mailto:"]').isVisible());
   report.interactions.push(
-    'All portfolio sections and both projects are readable with JavaScript disabled; direct email remains available and form submission is disabled.',
+    'All portfolio sections and all three projects are readable with JavaScript disabled; direct email remains available and form submission is disabled.',
   );
   await noJS.close();
   const blockedStorage = await browser.newContext();
@@ -566,7 +607,7 @@ try {
   assert.equal(report.brokenLinks.length, 0);
   report.status = 'passed';
   console.log(
-    'PASS: 8 viewport/theme checks, automated accessibility including experimental rules, zero unexpected console errors/warnings, anchor navigation, legacy redirects, metadata, schema/content parity, crawler readability, and contact interactions.',
+    'PASS: 10 viewport/theme checks, automated accessibility including experimental rules, zero unexpected console errors/warnings, anchor navigation, legacy redirects, metadata, schema/content parity, crawler readability, and contact interactions.',
   );
 } catch (error) {
   report.status = 'failed';

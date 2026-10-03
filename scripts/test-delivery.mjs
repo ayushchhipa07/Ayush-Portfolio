@@ -18,7 +18,7 @@ try {
   await page.goto(origin + '/#contact');
   await page.getByLabel('Your name').fill('Portfolio delivery test');
   await page.getByLabel('Your email', { exact: true }).fill('ayushchhipa7@gmail.com');
-  await page.getByLabel('What’s this about?').selectOption('Another engineering problem');
+  await page.getByLabel('What’s this about?').selectOption('Other');
   await page
     .getByLabel('What are you working on?')
     .fill(

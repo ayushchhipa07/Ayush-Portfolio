@@ -125,10 +125,10 @@ try {
         </div>
         <main>
           <h1>Ayush Chhipa<span class="dot">.</span></h1>
-          <p class="role">Software Engineer</p>
+          <p class="role">Software Developer</p>
         </main>
         <div class="bottom">
-          <span>Full-stack development · Web applications &amp; SaaS</span>
+          <span>Full-stack development · Web &amp; AI-powered applications</span>
           <span class="arrow" aria-hidden="true">↗</span>
         </div>
       </body>
